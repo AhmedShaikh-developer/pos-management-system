@@ -1,7 +1,7 @@
 <footer class="main-footer">
 
-	<strong>&copy; 2022 - Point of Sale System in PHP</strong>
+	<strong>&copy; 2025 - Ahmed Shaikh</strong>
 	
-	All rights reserved
+	All Rights Reserved
 
 </footer>

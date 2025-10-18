@@ -71,13 +71,13 @@ $block1 = <<<EOF
 				Date: $saledate
 
 				<br><br>
-				POS System
+				Ahmed Shaikh POS System
 
 				<br>
-				Address: 86 Bel Meadow Drive
+				Address:
 
 				<br>
-				Contact: 300 786 52 49
+				Contact: 03163966419
 
 				<br>
 				Invoice: $valueSale
