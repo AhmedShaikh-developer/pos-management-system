@@ -745,7 +745,7 @@ $(".tables").on("click", ".btnPrintBill", function(){
 
 	var saleCode = $(this).attr("saleCode");
 
-	window.open("extensions/tcpdf/pdf/bill.php?code="+saleCode, "_blank");
+	window.open("extensions/POS/pdf/bill.php?code="+saleCode, "_blank");
 
 })
 

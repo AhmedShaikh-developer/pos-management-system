@@ -17,7 +17,6 @@
 				$data = $_POST['newCategory'];
 
 				$answer = CategoriesModel::mdlAddCategory($table, $data);
-				// var_dump($answer);
 
 				if($answer == 'ok'){
 
@@ -92,7 +91,6 @@
 							   "id"=>$_POST["idCategory"]);
 
 				$answer = CategoriesModel::mdlEditCategory($table, $data);
-				// var_dump($answer);
 
 				if($answer == "ok"){
 
@@ -152,7 +150,6 @@
 			$data = $_GET["idCategory"];
 
 			$answer = CategoriesModel::mdlDeleteCategory($table, $data);
-			// var_dump($answer);
 
 			if($answer == "ok"){
 

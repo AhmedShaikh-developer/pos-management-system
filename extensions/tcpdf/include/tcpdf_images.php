@@ -1,55 +1,55 @@
 <?php
 //============================================================+
-// File name   : tcpdf_images.php
+// File name   : POS_images.php
 // Version     : 1.0.005
 // Begin       : 2002-08-03
 // Last Update : 2014-11-15
-// Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
+// Author      : Ahmed Shaikh - 
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
-// Copyright (C) 2002-2014 Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2002-2014 Ahmed Shaikh - 
 //
-// This file is part of TCPDF software library.
+// This file is part of POS software library.
 //
-// TCPDF is free software: you can redistribute it and/or modify it
+// POS is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
 // License, or (at your option) any later version.
 //
-// TCPDF is distributed in the hope that it will be useful, but
+// POS is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the License
-// along with TCPDF. If not, see
-// <http://www.tecnick.com/pagefiles/tcpdf/LICENSE.TXT>.
+// along with POS. If not, see
+// <http:///pagefiles/POS/LICENSE.TXT>.
 //
 // See LICENSE.TXT file for more information.
 // -------------------------------------------------------------------
 //
 // Description :
-//   Static image methods used by the TCPDF class.
+//   Static image methods used by the POS class.
 //
 //============================================================+
 
 /**
  * @file
- * This is a PHP class that contains static image methods for the TCPDF class.<br>
- * @package com.tecnick.tcpdf
- * @author Nicola Asuni
+ * This is a PHP class that contains static image methods for the POS class.<br>
+ * @package pos.system
+ * @author Ahmed Shaikh
  * @version 1.0.005
  */
 
 /**
- * @class TCPDF_IMAGES
- * Static image methods used by the TCPDF class.
- * @package com.tecnick.tcpdf
+ * @class POS_IMAGES
+ * Static image methods used by the POS class.
+ * @package pos.system
  * @brief PHP class for generating PDF documents without requiring external extensions.
  * @version 1.0.005
- * @author Nicola Asuni - info@tecnick.com
+ * @author Ahmed Shaikh - 
  */
-class TCPDF_IMAGES {
+class POS_IMAGES {
 
 	/**
 	 * Array of hinheritable SVG properties.
@@ -78,7 +78,7 @@ class TCPDF_IMAGES {
 		}
 		if (empty($type)) {
 			$fileinfo = pathinfo($imgfile);
-			if (isset($fileinfo['extension']) AND (!TCPDF_STATIC::empty_string($fileinfo['extension']))) {
+			if (isset($fileinfo['extension']) AND (!POS_STATIC::empty_string($fileinfo['extension']))) {
 				$type = strtolower(trim($fileinfo['extension']));
 			}
 		}
@@ -204,7 +204,7 @@ class TCPDF_IMAGES {
 		$offset = 0;
 		while (($pos = strpos($data, "ICC_PROFILE\0", $offset)) !== false) {
 			// get ICC sequence length
-			$length = (TCPDF_STATIC::_getUSHORT($data, ($pos - 2)) - 16);
+			$length = (POS_STATIC::_getUSHORT($data, ($pos - 2)) - 16);
 			// marker sequence number
 			$msn = max(1, ord($data[($pos + 12)]));
 			// number of markers (total of APP2 used)
@@ -251,8 +251,8 @@ class TCPDF_IMAGES {
 			//Incorrect PNG file
 			return false;
 		}
-		$w = TCPDF_STATIC::_freadint($f);
-		$h = TCPDF_STATIC::_freadint($f);
+		$w = POS_STATIC::_freadint($f);
+		$h = POS_STATIC::_freadint($f);
 		$bpc = ord(fread($f, 1));
 		$ct = ord(fread($f, 1));
 		if ($ct == 0) {
@@ -290,15 +290,15 @@ class TCPDF_IMAGES {
 		$data = '';
 		$icc = false;
 		do {
-			$n = TCPDF_STATIC::_freadint($f);
+			$n = POS_STATIC::_freadint($f);
 			$type = fread($f, 4);
 			if ($type == 'PLTE') {
 				// read palette
-				$pal = TCPDF_STATIC::rfread($f, $n);
+				$pal = POS_STATIC::rfread($f, $n);
 				fread($f, 4);
 			} elseif ($type == 'tRNS') {
 				// read transparency info
-				$t = TCPDF_STATIC::rfread($f, $n);
+				$t = POS_STATIC::rfread($f, $n);
 				if ($ct == 0) { // DeviceGray
 					$trns = array(ord($t[1]));
 				} elseif ($ct == 2) { // DeviceRGB
@@ -314,7 +314,7 @@ class TCPDF_IMAGES {
 				fread($f, 4);
 			} elseif ($type == 'IDAT') {
 				// read image data block
-				$data .= TCPDF_STATIC::rfread($f, $n);
+				$data .= POS_STATIC::rfread($f, $n);
 				fread($f, 4);
 			} elseif ($type == 'iCCP') {
 				// skip profile name
@@ -329,14 +329,14 @@ class TCPDF_IMAGES {
 					return false;
 				}
 				// read ICC Color Profile
-				$icc = TCPDF_STATIC::rfread($f, ($n - $len - 2));
+				$icc = POS_STATIC::rfread($f, ($n - $len - 2));
 				// decompress profile
 				$icc = gzuncompress($icc);
 				fread($f, 4);
 			} elseif ($type == 'IEND') {
 				break;
 			} else {
-				TCPDF_STATIC::rfread($f, $n + 4);
+				POS_STATIC::rfread($f, $n + 4);
 			}
 		} while ($n);
 		if (($colspace == 'Indexed') AND (empty($pal))) {
@@ -348,7 +348,7 @@ class TCPDF_IMAGES {
 		return array('w' => $w, 'h' => $h, 'ch' => $channels, 'icc' => $icc, 'cs' => $colspace, 'bpc' => $bpc, 'f' => 'FlateDecode', 'parms' => $parms, 'pal' => $pal, 'trns' => $trns, 'data' => $data);
 	}
 
-} // END OF TCPDF_IMAGES CLASS
+} // END OF POS_IMAGES CLASS
 
 //============================================================+
 // END OF FILE

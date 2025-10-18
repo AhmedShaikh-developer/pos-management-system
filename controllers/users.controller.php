@@ -22,7 +22,6 @@ class ControllerUsers{
 
 				$answer = UsersModel::MdlShowUsers($table, $item, $value);
 
-				// var_dump($answer);
 
 				if($answer["user"] == $_POST["loginUser"] && $answer["password"] == $encryptpass){
 

@@ -1,28 +1,28 @@
 <?php
 //============================================================+
-// File name   : tcpdf_colors.php
+// File name   : POS_colors.php
 // Version     : 1.0.004
 // Begin       : 2002-04-09
 // Last Update : 2014-04-25
-// Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
+// Author      : Ahmed Shaikh - 
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
-// Copyright (C) 2002-2013  Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2002-2013  Ahmed Shaikh - 
 //
-// This file is part of TCPDF software library.
+// This file is part of POS software library.
 //
-// TCPDF is free software: you can redistribute it and/or modify it
+// POS is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
 // License, or (at your option) any later version.
 //
-// TCPDF is distributed in the hope that it will be useful, but
+// POS is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with TCPDF.  If not, see <http://www.gnu.org/licenses/>.
+// along with POS.  If not, see <http://www.gnu.org/licenses/>.
 //
 // See LICENSE.TXT file for more information.
 // -------------------------------------------------------------------
@@ -33,19 +33,19 @@
 
 /**
  * @file
- * PHP color class for TCPDF
- * @author Nicola Asuni
- * @package com.tecnick.tcpdf
+ * PHP color class for POS
+ * @author Ahmed Shaikh
+ * @package pos.system
  */
 
 /**
- * @class TCPDF_COLORS
- * PHP color class for TCPDF
- * @package com.tecnick.tcpdf
+ * @class POS_COLORS
+ * PHP color class for POS
+ * @package pos.system
  * @version 1.0.004
- * @author Nicola Asuni - info@tecnick.com
+ * @author Ahmed Shaikh - 
  */
-class TCPDF_COLORS {
+class POS_COLORS {
 
 	/**
 	 * Array of WEB safe colors
@@ -455,7 +455,7 @@ class TCPDF_COLORS {
 	}
 
 
-} // END OF TCPDF_COLORS CLASS
+} // END OF POS_COLORS CLASS
 
 //============================================================+
 // END OF FILE

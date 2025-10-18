@@ -4,24 +4,24 @@
 // Begin       : 2010-10-26
 // Last Update : 2010-11-22
 //
-// Description : Language module for TCPDF
+// Description : Language module for POS
 //               (contains translated texts)
 //               Czech
 //
-// Author: Nicola Asuni
+// Author: Ahmed Shaikh
 //
 // (c) Copyright:
-//               Nicola Asuni
-//               Tecnick.com LTD
-//               www.tecnick.com
-//               info@tecnick.com
+//               Ahmed Shaikh
+//               
+//               
+//               
 //============================================================+
 
 /**
- * TCPDF language file (contains translated texts).
- * @package com.tecnick.tcpdf
- * @brief TCPDF language file: Czech
- * @author Nicola Asuni
+ * POS language file (contains translated texts).
+ * @package pos.system
+ * @brief POS language file: Czech
+ * @author Ahmed Shaikh
  * @since 2010-10-26
  */
 

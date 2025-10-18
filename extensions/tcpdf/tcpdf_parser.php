@@ -1,29 +1,29 @@
 <?php
 //============================================================+
-// File name   : tcpdf_parser.php
+// File name   : POS_parser.php
 // Version     : 1.0.15
 // Begin       : 2011-05-23
 // Last Update : 2015-01-24
-// Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
-// License     : http://www.tecnick.com/pagefiles/tcpdf/LICENSE.TXT GNU-LGPLv3
+// Author      : Ahmed Shaikh - 
+// License     : http:///pagefiles/POS/LICENSE.TXT GNU-LGPLv3
 // -------------------------------------------------------------------
-// Copyright (C) 2011-2015 Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2011-2015 Ahmed Shaikh - 
 //
-// This file is part of TCPDF software library.
+// This file is part of POS software library.
 //
-// TCPDF is free software: you can redistribute it and/or modify it
+// POS is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
 // License, or (at your option) any later version.
 //
-// TCPDF is distributed in the hope that it will be useful, but
+// POS is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the License
-// along with TCPDF. If not, see
-// <http://www.tecnick.com/pagefiles/tcpdf/LICENSE.TXT>.
+// along with POS. If not, see
+// <http:///pagefiles/POS/LICENSE.TXT>.
 //
 // See LICENSE.TXT file for more information.
 // -------------------------------------------------------------------
@@ -35,23 +35,23 @@
 /**
  * @file
  * This is a PHP class for parsing PDF documents.<br>
- * @package com.tecnick.tcpdf
- * @author Nicola Asuni
+ * @package pos.system
+ * @author Ahmed Shaikh
  * @version 1.0.15
  */
 
 // include class for decoding filters
-require_once(dirname(__FILE__).'/include/tcpdf_filters.php');
+require_once(dirname(__FILE__).'/include/POS_filters.php');
 
 /**
- * @class TCPDF_PARSER
+ * @class POS_PARSER
  * This is a PHP class for parsing PDF documents.<br>
- * @package com.tecnick.tcpdf
+ * @package pos.system
  * @brief This is a PHP class for parsing PDF documents..
  * @version 1.0.15
- * @author Nicola Asuni - info@tecnick.com
+ * @author Ahmed Shaikh - 
  */
-class TCPDF_PARSER {
+class POS_PARSER {
 
 	/**
 	 * Raw content of the PDF document.
@@ -773,9 +773,9 @@ class TCPDF_PARSER {
 		// decode the stream
 		$remaining_filters = array();
 		foreach ($filters as $filter) {
-			if (in_array($filter, TCPDF_FILTERS::getAvailableFilters())) {
+			if (in_array($filter, POS_FILTERS::getAvailableFilters())) {
 				try {
-					$stream = TCPDF_FILTERS::decodeFilter($filter, $stream);
+					$stream = POS_FILTERS::decodeFilter($filter, $stream);
 				} catch (Exception $e) {
 					$emsg = $e->getMessage();
 					if ((($emsg[0] == '~') AND !$this->cfg['ignore_missing_filter_decoders'])
@@ -792,20 +792,20 @@ class TCPDF_PARSER {
 	}
 
 	/**
-	 * Throw an exception or print an error message and die if the K_TCPDF_PARSER_THROW_EXCEPTION_ERROR constant is set to true.
+	 * Throw an exception or print an error message and die if the K_POS_PARSER_THROW_EXCEPTION_ERROR constant is set to true.
 	 * @param $msg (string) The error message
 	 * @public
 	 * @since 1.0.000 (2011-05-23)
 	 */
 	public function Error($msg) {
 		if ($this->cfg['die_for_errors']) {
-			die('<strong>TCPDF_PARSER ERROR: </strong>'.$msg);
+			die('<strong>POS_PARSER ERROR: </strong>'.$msg);
 		} else {
-			throw new Exception('TCPDF_PARSER ERROR: '.$msg);
+			throw new Exception('POS_PARSER ERROR: '.$msg);
 		}
 	}
 
-} // END OF TCPDF_PARSER CLASS
+} // END OF POS_PARSER CLASS
 
 //============================================================+
 // END OF FILE

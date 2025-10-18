@@ -1,34 +1,34 @@
 <?php
 //============================================================+
-// File name   : tcpdf_import.php
+// File name   : POS_import.php
 // Version     : 1.0.001
 // Begin       : 2011-05-23
 // Last Update : 2013-09-17
-// Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
+// Author      : Ahmed Shaikh - 
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
-// Copyright (C) 2011-2013 Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2011-2013 Ahmed Shaikh - 
 //
-// This file is part of TCPDF software library.
+// This file is part of POS software library.
 //
-// TCPDF is free software: you can redistribute it and/or modify it
+// POS is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
 // License, or (at your option) any later version.
 //
-// TCPDF is distributed in the hope that it will be useful, but
+// POS is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the License
-// along with TCPDF. If not, see
-// <http://www.tecnick.com/pagefiles/tcpdf/LICENSE.TXT>.
+// along with POS. If not, see
+// <http:///pagefiles/POS/LICENSE.TXT>.
 //
 // See LICENSE.TXT file for more information.
 // -------------------------------------------------------------------
 //
-// Description : This is a PHP class extension of the TCPDF library to
+// Description : This is a PHP class extension of the POS library to
 //               import existing PDF documents.
 //
 //============================================================+
@@ -36,27 +36,27 @@
 /**
  * @file
  * !!! THIS CLASS IS UNDER DEVELOPMENT !!!
- * This is a PHP class extension of the TCPDF (http://www.tcpdf.org) library to import existing PDF documents.<br>
- * @package com.tecnick.tcpdf
- * @author Nicola Asuni
+ * This is a PHP class extension of the POS (http://www.POS.org) library to import existing PDF documents.<br>
+ * @package pos.system
+ * @author Ahmed Shaikh
  * @version 1.0.001
  */
 
-// include the TCPDF class
-require_once(dirname(__FILE__).'/tcpdf.php');
+// include the POS class
+require_once(dirname(__FILE__).'/POS.php');
 // include PDF parser class
-require_once(dirname(__FILE__).'/tcpdf_parser.php');
+require_once(dirname(__FILE__).'/POS_parser.php');
 
 /**
- * @class TCPDF_IMPORT
+ * @class POS_IMPORT
  * !!! THIS CLASS IS UNDER DEVELOPMENT !!!
- * PHP class extension of the TCPDF (http://www.tcpdf.org) library to import existing PDF documents.<br>
- * @package com.tecnick.tcpdf
- * @brief PHP class extension of the TCPDF library to import existing PDF documents.
+ * PHP class extension of the POS (http://www.POS.org) library to import existing PDF documents.<br>
+ * @package pos.system
+ * @brief PHP class extension of the POS library to import existing PDF documents.
  * @version 1.0.001
- * @author Nicola Asuni - info@tecnick.com
+ * @author Ahmed Shaikh - 
  */
-class TCPDF_IMPORT extends TCPDF {
+class POS_IMPORT extends POS {
 
 	/**
 	 * Import an existing PDF document
@@ -79,7 +79,7 @@ class TCPDF_IMPORT extends TCPDF {
 		);
 		try {
 			// parse PDF data
-			$pdf = new TCPDF_PARSER($rawdata, $cfg);
+			$pdf = new POS_PARSER($rawdata, $cfg);
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}

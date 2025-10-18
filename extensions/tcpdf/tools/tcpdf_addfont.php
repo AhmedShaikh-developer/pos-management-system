@@ -1,43 +1,43 @@
 #!/usr/bin/php -q
 <?php
 //============================================================+
-// File name   : tcpdf_addfont.php
+// File name   : POS_addfont.php
 // Version     : 1.0.002
 // Begin       : 2013-05-13
 // Last Update : 2013-08-05
-// Authors     : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
+// Authors     : Ahmed Shaikh - 
 //               Remi Collet
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
-// Copyright (C) 2011-2013 Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2011-2013 Ahmed Shaikh - 
 //
-// This file is part of TCPDF software library.
+// This file is part of POS software library.
 //
-// TCPDF is free software: you can redistribute it and/or modify it
+// POS is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
 // License, or (at your option) any later version.
 //
-// TCPDF is distributed in the hope that it will be useful, but
+// POS is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the License
-// along with TCPDF. If not, see
-// <http://www.tecnick.com/pagefiles/tcpdf/LICENSE.TXT>.
+// along with POS. If not, see
+// <http:///pagefiles/POS/LICENSE.TXT>.
 //
 // See LICENSE.TXT file for more information.
 // -------------------------------------------------------------------
 //
-// Description : This is a command line script to generate TCPDF fonts.
+// Description : This is a command line script to generate POS fonts.
 //
 //============================================================+
 
 /**
  * @file
- * This is a command line script to generate TCPDF fonts.<br>
- * @package com.tecnick.tcpdf
+ * This is a command line script to generate POS fonts.<br>
+ * @package pos.system
  * @version 1.0.000
  */
 
@@ -46,10 +46,10 @@ if (php_sapi_name() != 'cli') {
   exit(1);
 }
 
-$tcpdf_include_dirs = array(realpath(dirname(__FILE__).'/../tcpdf.php'), '/usr/share/php/tcpdf/tcpdf.php', '/usr/share/tcpdf/tcpdf.php', '/usr/share/php-tcpdf/tcpdf.php', '/var/www/tcpdf/tcpdf.php', '/var/www/html/tcpdf/tcpdf.php', '/usr/local/apache2/htdocs/tcpdf/tcpdf.php');
-foreach ($tcpdf_include_dirs as $tcpdf_include_path) {
-	if (@file_exists($tcpdf_include_path)) {
-		require_once($tcpdf_include_path);
+$POS_include_dirs = array(realpath(dirname(__FILE__).'/../POS.php'), '/usr/share/php/POS/POS.php', '/usr/share/POS/POS.php', '/usr/share/php-POS/POS.php', '/var/www/POS/POS.php', '/var/www/html/POS/POS.php', '/usr/local/apache2/htdocs/POS/POS.php');
+foreach ($POS_include_dirs as $POS_include_path) {
+	if (@file_exists($POS_include_path)) {
+		require_once($POS_include_path);
 		break;
 	}
 }
@@ -59,9 +59,9 @@ foreach ($tcpdf_include_dirs as $tcpdf_include_path) {
  */
 function showHelp() {
 	$help = <<<EOD
-tcpdf_addfont - command line tool to convert fonts for the TCPDF library.
+POS_addfont - command line tool to convert fonts for the POS library.
 
-Usage: tcpdf_addfont.php [ options ] -i fontfile[,fontfile]...
+Usage: POS_addfont.php [ options ] -i fontfile[,fontfile]...
 
 Options:
 
@@ -238,7 +238,7 @@ if (!is_dir($options['outpath']) OR !is_writable($options['outpath'])) {
 	exit(3);
 }
 
-echo "\n>>> Converting fonts for TCPDF:\n";
+echo "\n>>> Converting fonts for POS:\n";
 
 echo '*** Output dir set to '.$options['outpath']."\n";
 
@@ -247,7 +247,7 @@ $errors = false;
 
 foreach ($options['fonts'] as $font) {
 	$fontfile = realpath($font);
-	$fontname = TCPDF_FONTS::addTTFfont($fontfile, $options['type'], $options['enc'], $options['flags'], $options['outpath'], $options['platid'], $options['encid'], $options['addcbbox'], $options['link']);
+	$fontname = POS_FONTS::addTTFfont($fontfile, $options['type'], $options['enc'], $options['flags'], $options['outpath'], $options['platid'], $options['encid'], $options['addcbbox'], $options['link']);
 	if ($fontname === false) {
 		$errors = true;
 		echo "--- ERROR: can't add ".$font."\n";

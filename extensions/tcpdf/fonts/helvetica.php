@@ -1,5 +1,5 @@
 <?php
-// TCPDF FONT FILE DESCRIPTION
+// POS FONT FILE DESCRIPTION
 $type='core';
 $name='Helvetica';
 $up=-100;

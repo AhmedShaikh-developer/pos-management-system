@@ -1,5 +1,5 @@
 <?php
-// TCPDF FONT FILE DESCRIPTION
+// POS FONT FILE DESCRIPTION
 $type='cidfont0';
 $name='cid0kr';
 $up=-100;

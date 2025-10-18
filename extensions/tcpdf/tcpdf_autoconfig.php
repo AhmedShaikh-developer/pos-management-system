@@ -1,42 +1,42 @@
 <?php
 //============================================================+
-// File name   : tcpdf_autoconfig.php
+// File name   : POS_autoconfig.php
 // Version     : 1.1.1
 // Begin       : 2013-05-16
 // Last Update : 2014-12-18
-// Authors     : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
+// Authors     : Ahmed Shaikh - 
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
-// Copyright (C) 2011-2014 Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2011-2014 Ahmed Shaikh - 
 //
-// This file is part of TCPDF software library.
+// This file is part of POS software library.
 //
-// TCPDF is free software: you can redistribute it and/or modify it
+// POS is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
 // License, or (at your option) any later version.
 //
-// TCPDF is distributed in the hope that it will be useful, but
+// POS is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the License
-// along with TCPDF. If not, see
-// <http://www.tecnick.com/pagefiles/tcpdf/LICENSE.TXT>.
+// along with POS. If not, see
+// <http:///pagefiles/POS/LICENSE.TXT>.
 //
 // See LICENSE.TXT file for more information.
 // -------------------------------------------------------------------
 //
-// Description : Try to automatically configure some TCPDF
+// Description : Try to automatically configure some POS
 //               constants if not defined.
 //
 //============================================================+
 
 /**
  * @file
- * Try to automatically configure some TCPDF constants if not defined.
- * @package com.tecnick.tcpdf
+ * Try to automatically configure some POS constants if not defined.
+ * @package pos.system
  * @version 1.1.1
  */
 
@@ -56,13 +56,13 @@ if (substr($_SERVER['DOCUMENT_ROOT'], -1) != '/') {
 	$_SERVER['DOCUMENT_ROOT'] .= '/';
 }
 
-// Load main configuration file only if the K_TCPDF_EXTERNAL_CONFIG constant is set to false.
-if (!defined('K_TCPDF_EXTERNAL_CONFIG') OR !K_TCPDF_EXTERNAL_CONFIG) {
+// Load main configuration file only if the K_POS_EXTERNAL_CONFIG constant is set to false.
+if (!defined('K_POS_EXTERNAL_CONFIG') OR !K_POS_EXTERNAL_CONFIG) {
 	// define a list of default config files in order of priority
-	$tcpdf_config_files = array(dirname(__FILE__).'/config/tcpdf_config.php', '/etc/php-tcpdf/tcpdf_config.php', '/etc/tcpdf/tcpdf_config.php', '/etc/tcpdf_config.php');
-	foreach ($tcpdf_config_files as $tcpdf_config) {
-		if (@file_exists($tcpdf_config) AND is_readable($tcpdf_config)) {
-			require_once($tcpdf_config);
+	$POS_config_files = array(dirname(__FILE__).'/config/POS_config.php', '/etc/php-POS/POS_config.php', '/etc/POS/POS_config.php', '/etc/POS_config.php');
+	foreach ($POS_config_files as $POS_config) {
+		if (@file_exists($POS_config) AND is_readable($POS_config)) {
+			require_once($POS_config);
 			break;
 		}
 	}
@@ -91,25 +91,25 @@ if (!defined('K_PATH_URL')) {
 }
 
 if (!defined('K_PATH_IMAGES')) {
-	$tcpdf_images_dirs = array(K_PATH_MAIN.'examples/images/', K_PATH_MAIN.'images/', '/usr/share/doc/php-tcpdf/examples/images/', '/usr/share/doc/tcpdf/examples/images/', '/usr/share/doc/php/tcpdf/examples/images/', '/var/www/tcpdf/images/', '/var/www/html/tcpdf/images/', '/usr/local/apache2/htdocs/tcpdf/images/', K_PATH_MAIN);
-	foreach ($tcpdf_images_dirs as $tcpdf_images_path) {
-		if (@file_exists($tcpdf_images_path)) {
-			define ('K_PATH_IMAGES', $tcpdf_images_path);
+	$POS_images_dirs = array(K_PATH_MAIN.'examples/images/', K_PATH_MAIN.'images/', '/usr/share/doc/php-POS/examples/images/', '/usr/share/doc/POS/examples/images/', '/usr/share/doc/php/POS/examples/images/', '/var/www/POS/images/', '/var/www/html/POS/images/', '/usr/local/apache2/htdocs/POS/images/', K_PATH_MAIN);
+	foreach ($POS_images_dirs as $POS_images_path) {
+		if (@file_exists($POS_images_path)) {
+			define ('K_PATH_IMAGES', $POS_images_path);
 			break;
 		}
 	}
 }
 
 if (!defined('PDF_HEADER_LOGO')) {
-	$tcpdf_header_logo = '';
-	if (@file_exists(K_PATH_IMAGES.'tcpdf_logo.jpg')) {
-		$tcpdf_header_logo = 'tcpdf_logo.jpg';
+	$POS_header_logo = '';
+	if (@file_exists(K_PATH_IMAGES.'POS_logo.jpg')) {
+		$POS_header_logo = 'POS_logo.jpg';
 	}
-	define ('PDF_HEADER_LOGO', $tcpdf_header_logo);
+	define ('PDF_HEADER_LOGO', $POS_header_logo);
 }
 
 if (!defined('PDF_HEADER_LOGO_WIDTH')) {
-	if (!empty($tcpdf_header_logo)) {
+	if (!empty($POS_header_logo)) {
 		define ('PDF_HEADER_LOGO_WIDTH', 30);
 	} else {
 		define ('PDF_HEADER_LOGO_WIDTH', 0);
@@ -137,19 +137,19 @@ if (!defined('PDF_PAGE_ORIENTATION')) {
 }
 
 if (!defined('PDF_CREATOR')) {
-	define ('PDF_CREATOR', 'TCPDF');
+	define ('PDF_CREATOR', 'POS');
 }
 
 if (!defined('PDF_AUTHOR')) {
-	define ('PDF_AUTHOR', 'TCPDF');
+	define ('PDF_AUTHOR', 'POS');
 }
 
 if (!defined('PDF_HEADER_TITLE')) {
-	define ('PDF_HEADER_TITLE', 'TCPDF Example');
+	define ('PDF_HEADER_TITLE', 'POS Example');
 }
 
 if (!defined('PDF_HEADER_STRING')) {
-	define ('PDF_HEADER_STRING', "by Nicola Asuni - Tecnick.com\nwww.tcpdf.org");
+	define ('PDF_HEADER_STRING', "by Ahmed Shaikh\nwww.POS.org");
 }
 
 if (!defined('PDF_UNIT')) {
@@ -224,12 +224,12 @@ if (!defined('K_THAI_TOPCHARS')) {
 	define('K_THAI_TOPCHARS', true);
 }
 
-if (!defined('K_TCPDF_CALLS_IN_HTML')) {
-	define('K_TCPDF_CALLS_IN_HTML', false);
+if (!defined('K_POS_CALLS_IN_HTML')) {
+	define('K_POS_CALLS_IN_HTML', false);
 }
 
-if (!defined('K_TCPDF_THROW_EXCEPTION_ERROR')) {
-	define('K_TCPDF_THROW_EXCEPTION_ERROR', false);
+if (!defined('K_POS_THROW_EXCEPTION_ERROR')) {
+	define('K_POS_THROW_EXCEPTION_ERROR', false);
 }
 
 if (!defined('K_TIMEZONE')) {

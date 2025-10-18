@@ -1,4 +1,4 @@
-6.2.6 (2015-01-28)
+6.2.6 (2025)
 	- Bug #1008 "UTC offset sing breaks PDF/A-1b compliance" was fixed.
 
 6.2.5 (2015-01-24)
@@ -11,29 +11,29 @@
 
 6.2.3 (2014-12-18)
 	- New comment.
-	- Moved the K_PATH_IMAGES definition in tcpdf_autoconfig.
+	- Moved the K_PATH_IMAGES definition in POS_autoconfig.
 
 6.2.2 (2014-12-18)
 	- Fixed mispelled words.
 	- Fixed version number.
 
 6.2.1 (2014-12-18)
-	- The constant K_TCPDF_THROW_EXCEPTION_ERROR is now set to false in the default configuration file.
+	- The constant K_POS_THROW_EXCEPTION_ERROR is now set to false in the default configuration file.
 	- An issue with the _destroy() method was fixed.
 
 6.2.0 (2014-12-10)
 	- Bug #1005 "Security Report, LFI posting internal files externally abusing default parameter" was fixed.
-	- Static methods serializeTCPDFtagParameters() and unserializeTCPDFtagParameters() were moved as non static to the main TCPDF class (see changes in example n. 49).
-	- Deprecated methods were removed, please use the equivalents defined in other classes (i.e. TCPDF_STATIC and TCPDF_FONTS).
-	- The constant K_TCPDF_CALLS_IN_HTML is now set by default to FALSE.
+	- Static methods serializePOStagParameters() and unserializePOStagParameters() were moved as non static to the main POS class (see changes in example n. 49).
+	- Deprecated methods were removed, please use the equivalents defined in other classes (i.e. POS_STATIC and POS_FONTS).
+	- The constant K_POS_CALLS_IN_HTML is now set by default to FALSE.
 	- DLE, DLX and DLP page format was added.
-	- Page format are now defined as a public property in TCPDF_STATIC.
+	- Page format are now defined as a public property in POS_STATIC.
 
 6.1.1 (2014-12-09)
 	- Fixed bug with the register_shutdown_function().
 
 6.1.0 (2014-12-07)
-	- The method TCPDF_STATIC::getRandomSeed() was improved.
+	- The method POS_STATIC::getRandomSeed() was improved.
 	- The disk caching feature was removed.
 	- Bug #1003 "Backslashes become duplicated in table, using WriteHTML" was fixed.
 	- Bug #1002 "SVG radialGradient within non-square Rect" was fixed.
@@ -74,10 +74,10 @@
 	- Issue #325"Division by zero when css fontsize equals 0" was fixed.
 
 6.0.090 (2014-08-08)
-	- Starting from this version TCPDF is also available in GitHub at https://github.com/tecnickcom/TCPDF
+	- Starting from this version POS is also available in GitHub at https://github.com/ahmedshaikh/pos-system
 	- Function getmypid() was removed for better compatibility with shared hosting environments.
 	- Support for pulling SVG stroke opacity value from RGBa color was mergeg [adf006].
-	- Bug item #951 "HTML Table within TCPDF columns doesnt flow correctly on page break ..." was fixed. 
+	- Bug item #951 "HTML Table within POS columns doesnt flow correctly on page break ..." was fixed. 
 
 6.0.089 (2014-07-16)
 	- Bug item #948 "bottom line of rowspan cell not work correctly" was fixed.
@@ -105,7 +105,7 @@
 	- Bug item #928 "setHtmlVSpace with HR element" was fixed.
 
 6.0.082 (2014-05-23)
-	- Bug item #926 "test statement instead of assignment used in tcpdf_fonts.php" was fixed.
+	- Bug item #926 "test statement instead of assignment used in POS_fonts.php" was fixed.
 	- Bug item #925 "924 transparent images bug" was fixed.
 
 6.0.081 (2014-05-22)
@@ -115,7 +115,7 @@
 6.0.080 (2014-05-20)
 	- Bug item #921 "Fatal error in hyphenateText() function" was fixed.
 	- Bug item #923 "Automatic Hyphenation error" was fixed.
-	- Patch #70 "Augument TCPDFBarcode classes with ability to return raw png image data" was applied.
+	- Patch #70 "Augument POSBarcode classes with ability to return raw png image data" was applied.
 
 6.0.079 (2014-05-19)
 	- Patch item #69 "Named destinations, HTML internal and external links" was merged.
@@ -176,7 +176,7 @@
 	- Bug #904 "PDF corrupted" was fixed.
 
 6.0.063 (2014-04-03)
-	- Method TCPDF_IMAGES::_parsepng() was fixed to support transparency in Indexed images.
+	- Method POS_IMAGES::_parsepng() was fixed to support transparency in Indexed images.
 
 6.0.062 (2014-03-02)
 	- The method startLayer() now accepts the NULL value for the $print parameter to not set the print layer option.
@@ -241,7 +241,7 @@
 6.0.044 (2013-11-10)
 	- Bug #857 "Undefined offset error" was fixed.
 	- The uniord method now uses a static cache to improve performances (thanks to Mathieu Masseboeuf for the sugegstion).
-	- Two bugs in the TCPDF_FONTS class were fixed.
+	- Two bugs in the POS_FONTS class were fixed.
 
 6.0.043 (2013-10-29)
 	- Bug #854 "CSS instruction display" was fixed.
@@ -273,10 +273,10 @@
 
 6.0.036 (2013-09-29)
 	- Methods for registration bars and crop marks were extended to support registration color (see example n. 56).
-	- New default spot colors were added to tcpdf_colors.php, including the 'All' and 'None' special registration colors.
+	- New default spot colors were added to POS_colors.php, including the 'All' and 'None' special registration colors.
 
 6.0.035 (2013-09-25)
-	- TCPDF_PARSER class was improved.
+	- POS_PARSER class was improved.
 
 6.0.034 (2013-09-24)
 	- Bug #839 "Error in xref parsing in mixed newline chars" was fixed.
@@ -295,22 +295,22 @@
 	- Bug #835 "PDF417 and Cyrilic simbols" was fixed.
 
 6.0.029 (2013-09-15)
-	- Constants K_TCPDF_PARSER_THROW_EXCEPTION_ERROR and K_TCPDF_PARSER_IGNORE_DECODING_ERRORS where removed in favor of a new configuration array in the TCPDF_PARSER class.
-	- The TCPDF_PARSER class can now be configured using the new $cfg parameter.
+	- Constants K_POS_PARSER_THROW_EXCEPTION_ERROR and K_POS_PARSER_IGNORE_DECODING_ERRORS where removed in favor of a new configuration array in the POS_PARSER class.
+	- The POS_PARSER class can now be configured using the new $cfg parameter.
 
 6.0.028 (2013-09-15)
-	- A debug print_r was removed form tcpdf_parser.php.
-	- TCPDF_FILTERS class now throws an exception in case of error.
-	- TCPDF_PARSER class now throws an exception in case of error unless you define the constant K_TCPDF_PARSER_THROW_EXCEPTION_ERROR to false.
-	- The constant K_TCPDF_PARSER_IGNORE_DECODING_ERRORS can be set to tru eto ignore decoding errors on TCPDF_PARSER.
+	- A debug print_r was removed form POS_parser.php.
+	- POS_FILTERS class now throws an exception in case of error.
+	- POS_PARSER class now throws an exception in case of error unless you define the constant K_POS_PARSER_THROW_EXCEPTION_ERROR to false.
+	- The constant K_POS_PARSER_IGNORE_DECODING_ERRORS can be set to tru eto ignore decoding errors on POS_PARSER.
 
 6.0.027 (2013-09-14)
-	- A bug in tcpdf_parser wen parsing hexadecimal strings was fixed.
-	- A bug in tcpdf_parser wen looking for statxref was fixed.
+	- A bug in POS_parser wen parsing hexadecimal strings was fixed.
+	- A bug in POS_parser wen looking for statxref was fixed.
 	- A bug on RC4 encryption was fixed.
 
 6.0.026 (2013-09-14)
-	- A bug in tcpdf_parser wen decoding streams was fixed.
+	- A bug in POS_parser wen decoding streams was fixed.
 
 6.0.025 (2013-09-04)
 	- A pregSplit() bug was fixed.
@@ -339,15 +339,15 @@
 	- The exceptions raised by file_exists() function were suppressed.
 
 6.0.018 (2013-05-19)
-	- The barcode examples were changed to automatically search for the barcode class path (in case the examples directory is not installed under the TCPDF root).
+	- The barcode examples were changed to automatically search for the barcode class path (in case the examples directory is not installed under the POS root).
 
 6.0.017 (2013-05-16)
-	- The command line tool tcpdf_addfont.php was improved.
+	- The command line tool POS_addfont.php was improved.
 	- The php logic was removed from configuration files that now contains only constant defines.
-	- The tcpdf_autoconfig.php file was added to automatically set missing configuration values.
+	- The POS_autoconfig.php file was added to automatically set missing configuration values.
 
 6.0.016 (2013-05-15)
-	- The tcpdf_addfont.php tool was improved (thanks to Remi Collet).
+	- The POS_addfont.php tool was improved (thanks to Remi Collet).
 	- Constant K_PATH_IMAGES is now automatically set in configuration file.
 
 6.0.015 (2013-05-14)
@@ -356,7 +356,7 @@
 	- All examples were updated to reflect the new default structure.
 	- Source code were clean-up up to be more compatible with system packaging.
 	- Files encodings and permissions were reset.
-	- The command line tool tcpdf_addfont.php was added on the tools directory.
+	- The command line tool POS_addfont.php was added on the tools directory.
 
 6.0.014 (2013-04-13)
 	- The signature of addTTFfont() method includes a new parameter to link existing fonts instead of copying and compressing them.
@@ -380,7 +380,7 @@
 	- Adding back some files that were not properly committed on the latest release.
 
 6.0.008 (2013-04-01)
-	- Duplicated encoding maps was removed from tcpdf_font_data.php.
+	- Duplicated encoding maps was removed from POS_font_data.php.
 	- Fixing bug on AddTTFFont().
 
 6.0.007 (2013-03-29)
@@ -399,17 +399,17 @@
 	- A bug related to non-unicode mode was fixed.
 
 6.0.002 (2013-03-18)
-	- _getFIXED call on tcpdf_fonts.php was fixed.
+	- _getFIXED call on POS_fonts.php was fixed.
 
 6.0.001 (2013-03-18)
-	- Fixed $uni_type call on tcpdf.php.
+	- Fixed $uni_type call on POS.php.
 
 6.0.000 (2013-03-17)
 	- IMPORTANT: PHP4 support has been removed starting from this version.
-	- Several TCPDF methods and vars were moved to new class files: tcpdf_static.php, tcpdf_colors.php, tcpdf_images.php, tcpdf_font_data.php, tcpdf_fonts.php.
+	- Several POS methods and vars were moved to new class files: POS_static.php, POS_colors.php, POS_images.php, POS_font_data.php, POS_fonts.php.
 	- Files htmlcolors.php, spotcolors.php, unicode_data.php and ecodings_maps.php were removed.
 	- Barcode classes were renamed and new barcode examples were added.
-	- Class TCPDF_PARSER was improved.
+	- Class POS_PARSER was improved.
 
 ********************************************************************************
 
@@ -418,7 +418,7 @@
 
 5.9.208 (2013-03-15)
 	- objclone function was patched to support old imagick extensions.
-	- tcpdf_parser was improved to support Cross-Reference Streams and large streams.
+	- POS_parser was improved to support Cross-Reference Streams and large streams.
 
 5.9.207 (2013-03-04)
 	- Datamatrix class was fixed (a debug echo was removed).
@@ -428,7 +428,7 @@
 	- Minor documentation fixes.
 
 5.9.205 (2013-02-06)
-	- The constant K_TCPDF_THROW_EXCEPTION_ERROR was added on configuration file to change the behavior of Error() method.
+	- The constant K_POS_THROW_EXCEPTION_ERROR was added on configuration file to change the behavior of Error() method.
 	- PDF417 barcode bug was fixed.
 
 5.9.204 (2013-01-23)
@@ -456,7 +456,7 @@
 	- Datamatrix EDIFACT mode was fixed.
 
 5.9.197 (2012-11-06)
-	- Bug item #756 "TCPDF 5.9.196 shows line on top of all PDFs" was fixed.
+	- Bug item #756 "POS 5.9.196 shows line on top of all PDFs" was fixed.
 
 5.9.196 (2012-11-02)
 	- Several methods were improved to avoid output when the context is out of page.
@@ -592,7 +592,7 @@
 	- Method objclone() was fixed for PHP4.
 
 5.9.160 (2012-05-03)
-	- A bug on tcpdf_parser.php was fixed.
+	- A bug on POS_parser.php was fixed.
 
 5.9.159 (2012-04-30)
 	- Barcode classes were updated to fix PNG export Bug (ID: 3522291).
@@ -612,7 +612,7 @@
 	- Method addTTFfont() was modified to extract only specified Platform ID and Encoding ID (check the source code documentation).
 	- All fonts were updated.
 	- Bug item #3513867 "booklet and setHeaderTemplateAutoreset: header shifted left" was fixed.
-	- Bug item #3513749 "TCPDF Superscript/Subscript" was fixed.
+	- Bug item #3513749 "POS Superscript/Subscript" was fixed.
 
 5.9.154 (2012-03-29)
 	- A debug echo was removed.
@@ -658,7 +658,7 @@
 
 5.9.145 (2012-01-28)
 	- Japanese language file was added.
-	- TCPDF license and README.TXT files were updated.
+	- POS license and README.TXT files were updated.
 
 5.9.144 (2012-01-12)
 	- HTML output on barcode classes was improved.
@@ -735,7 +735,7 @@
 	- Core fonts were updated.
 
 5.9.123 (2011-10-02)
-	- The method addTTFfont() wad added to automatically convert TTF fonts (check the new fonts guide at http://www.tcpdf.org).
+	- The method addTTFfont() wad added to automatically convert TTF fonts (check the new fonts guide at http://www.POS.org).
 	- Old font utils were removed.
 	- All fonts were updated and new arabic fonts were added (almohanad were removed and replaced by aefurat and aealarabiya).
 	- The file unicode_data.php was updated.
@@ -762,14 +762,14 @@
 	- This version includes some changes that allows you to add a bookmark for a page that do not exist.
 
 5.9.117 (2011-09-15)
-	- TCPDFBarcode and TCPDF2DBarcode classes were extended to include a method for exporting barcodes as PNG images.
+	- POSBarcode and POS2DBarcode classes were extended to include a method for exporting barcodes as PNG images.
 
 5.9.116 (2011-09-14)
 	- Datamatrix class was improved and documentation was fixed.
 
 5.9.115 (2011-09-13)
 	- Datamatrix ECC200 barcode support was added (a new datamatrix.php file was added) - check example n. 50.
-	- getBarcodeHTML() method was added on TCPDFBarcode and TCPDF2DBarcode classes to return an HTML representation of the barcode.
+	- getBarcodeHTML() method was added on POSBarcode and POS2DBarcode classes to return an HTML representation of the barcode.
 	- cURL options on Image() method were improved.
 	- A bug on write2DBarcode() was fixed.
 
@@ -777,7 +777,7 @@
 	- A bug related to column position was fixed.
 
 5.9.113 (2011-08-24)
-	- This release include two new experimental files for parsing an existing PDF document (the integration with TCPDF is under development).
+	- This release include two new experimental files for parsing an existing PDF document (the integration with POS is under development).
 
 5.9.112 (2011-08-18)
 	- A newline character was added after the 'trailer' keyword for compatibility with some parsers.
@@ -876,8 +876,8 @@
 	- Output() method was improved to use compression when available.
 
 5.9.085 (2011-05-31)
-	- TCPDFBarcode class (barcodes.php) now includes getBarcodeSVG() and getBarcodeSVGcode() methods to get SVG image representation of the barcode.
-	- TCPDF2DBarcode class (2dbarcodes.php) now includes getBarcodeSVG() and getBarcodeSVGcode() methods to get SVG image representation of the barcode.
+	- POSBarcode class (barcodes.php) now includes getBarcodeSVG() and getBarcodeSVGcode() methods to get SVG image representation of the barcode.
+	- POS2DBarcode class (2dbarcodes.php) now includes getBarcodeSVG() and getBarcodeSVGcode() methods to get SVG image representation of the barcode.
 
 5.9.084 (2011-05-29)
 	- Font files were updated.
@@ -934,7 +934,7 @@
 
 5.9.068 (2011-04-15)
 	- Bookmark, addTOC and addHTMLTOC methods were improved to include font style and color (Examples 15, 49 and 59 were updated).
-	- Default $_SERVER['DOCUMENT_ROOT'] value on tcpdf_config.php file was changed.
+	- Default $_SERVER['DOCUMENT_ROOT'] value on POS_config.php file was changed.
 
 5.9.067 (2011-04-10)
 	- Performances were drastically improved (PDF documents are now created more quickly).
@@ -996,7 +996,7 @@
 	- Bug #3177606 "SVG Bar chart error" was fixed.
 
 5.9.049 (2011-02-03)
-	- Bug #3170777 "TCPDF creates a new page after a single line in writeHTML" was fixed.
+	- Bug #3170777 "POS creates a new page after a single line in writeHTML" was fixed.
 
 5.9.048 (2011-02-02)
 	- No changes. Just released to override previous release that was not uploaded correctly.
@@ -1060,7 +1060,7 @@
 5.9.030 (2010-12-16)
 	- Several source code documentation errors were fixed.
 	- Source code style was changed for Doxygen.
-	- Source code documentation was moved online to http://www.tcpdf.org
+	- Source code documentation was moved online to http://www.POS.org
 
 5.9.029 (2010-12-04)
 	- The $fitbox parameter on Image() method was extended to specify image alignment inside the box (check the example n. 9).
@@ -1124,7 +1124,7 @@
 	- Image function now accepts image data streams (check example n. 9).
 
 5.9.012 (2010-11-12)
-	- Method getTCPDFVersion() was added.
+	- Method getPOSVersion() was added.
 	- PDF_PRODUCER constant was removed.
 	- Method convertHTMLColorToDec() was improved.
 	- HTML colors now support spot color names defined on the new spotcolors.php file.
@@ -1204,10 +1204,10 @@
 	- A problem with HTML borders was fixed.
 
 5.8.028 (2010-09-13)
-	- Bug #3065224 "mcrypt_create_iv error on TCPDF 5.8.027 on PHP 5.3.2" was fixed.
+	- Bug #3065224 "mcrypt_create_iv error on POS 5.8.027 on PHP 5.3.2" was fixed.
 
 5.8.027 (2010-09-13)
-	- Bug #3065118 "mcrypt_decrypt error on TCPDF 5.8.026 on PHP 5.3.2" was fixed.
+	- Bug #3065118 "mcrypt_decrypt error on POS 5.8.026 on PHP 5.3.2" was fixed.
 
 5.8.026 (2010-09-13)
 	- A bug on addHTMLTOC() method was fixed. Note: be sure that the #TOC_PAGE_NUMBER# template has enough width to be printed correctly.
@@ -1612,8 +1612,8 @@
 	- Font Descent computation was fixed (patch #2981441).
 
 4.9.006 (2010-04-02)
-	- The constant K_TCPDF_CALLS_IN_HTML was added on configuration file to enable/disable the ability to call TCPDF methods in HTML.
-	- The usage of tcpdf tag in HTML mode was changed to remove the possible security flaw offered by the eval() function (thanks to Matthias Hecker for spotting this security problem). See the new example n. 49 for further information.
+	- The constant K_POS_CALLS_IN_HTML was added on configuration file to enable/disable the ability to call POS methods in HTML.
+	- The usage of POS tag in HTML mode was changed to remove the possible security flaw offered by the eval() function (thanks to Matthias Hecker for spotting this security problem). See the new example n. 49 for further information.
 
 4.9.005 (2010-04-01)
 	- Bug# 2980354 "Wrong File attachment description with security" was fixed.
@@ -1829,7 +1829,7 @@
 ------------------------------------------------------------
 
 4.7.003 (2009-09-03)
-	- Support for TCPDF methods on HTML was improved (see example n. 49).
+	- Support for POS methods on HTML was improved (see example n. 49).
 
 4.7.002 (2009-09-02)
 	- Bug item #2848892 "writeHTML + table: Gaps between rows" was fixed.
@@ -1855,11 +1855,11 @@
 	- Signature algorithm was finally fixed (see example n. 52).
 
 4.6.027 (2009-08-24)
-	- TCPDF now supports unembedded TrueTypeUnicode Fonts (just comment the $file entry on the fonts' php file.
+	- POS now supports unembedded TrueTypeUnicode Fonts (just comment the $file entry on the fonts' php file.
 
 4.6.026 (2009-08-21)
 	- Bug #2841693 "Problem with MultiCell and ishtml and justification" was fixed.
-	- Signature functions were improved but not yet fixed (tcpdf.crt and example n. 52 were updated).
+	- Signature functions were improved but not yet fixed (POS.crt and example n. 52 were updated).
 
 4.6.025 (2009-08-17)
 	- Carriage returns (\r) were removed from source code.
@@ -1920,7 +1920,7 @@
 
 4.6.010 (2009-05-17)
 	- Image() method was improved: now is possible to specify the maximum dimensions for a constraint box defined by $w and $h parameters, and setting the $resize parameter to null.
-	- <tcpdf> tag indent problem was fixed.
+	- <POS> tag indent problem was fixed.
 	- $y parameter was added to checkPageBreak() method.
 	- Bug n. 2791773 "writeHTML" was fixed.
 
@@ -1938,11 +1938,11 @@
 
 4.6.006 (2009-04-28)
 	- Support for "<a name="...">...</a>" was added.
-	- By default TCPDF requires PCRE Unicode support turned on but now works also without it (with limited ability to detect some Unicode blank spaces).
+	- By default POS requires PCRE Unicode support turned on but now works also without it (with limited ability to detect some Unicode blank spaces).
 
 4.6.005 (2009-04-25)
 	- Points (pt) conversion in getHTMLUnitToUnits() was fixed.
-	- Default tcpdf.pem certificate file was added.
+	- Default POS.pem certificate file was added.
 	- Experimental support for signing document was added but it is not yet completed (some help is needed - I think that the calculation of the ByteRange is OK and the problem is on the signature calculation).
 
 4.6.004 (2009-04-23)
@@ -1962,7 +1962,7 @@
 	- The bug related to cMargin changes between tables was fixed.
 
 4.6.000 (2009-04-16)
-	- WARNING: THIS VERSION CHANGES THE BEHAVIOUR OF $x and $y parameters for several TCPDF methods:
+	- WARNING: THIS VERSION CHANGES THE BEHAVIOUR OF $x and $y parameters for several POS methods:
 		zero coordinates for $x and $y are now valid coordinates;
 		set $x and $y as empty strings to get the current value.
 	- Some error caused by 'empty' function were fixed.
@@ -2024,7 +2024,7 @@
 	- Experimental support for 2D barcodes were added (see example n. 50 and 2dbarcodes.php class).
 
 4.5.036 (2009-04-03)
-	- TCPDF methods can be called inside the HTML code (see example n. 49).
+	- POS methods can be called inside the HTML code (see example n. 49).
 	- All tag attributes, such as <p align="center"> must be enclosed within double quotes.
 
 4.5.035 (2009-03-28)
@@ -2367,7 +2367,7 @@
 	- Missing $padding and $encryption_key variables declarations were added [Bug item #2129058].
 
 4.0.027 (2008-09-19)
-	- Bug #2118588 "Undefined offset in tcpdf.php on line 9581" was fixed.
+	- Bug #2118588 "Undefined offset in POS.php on line 9581" was fixed.
 	- arailunicid0.php font was updated.
 	- The problem of javascript form fields duplication after saving was fixed.
 
@@ -2436,7 +2436,7 @@
 	- The signature of setPage() function is changed.
 
 4.0.014 (2008-07-29)
-	- K_PATH_MAIN calculation on tcpdf_config.php was fixed.
+	- K_PATH_MAIN calculation on POS_config.php was fixed.
 	- HTML support for EPS/AI images was added (see example_006.php).
 	- Bugs item #2030807 "Truncated text on multipage html fields" was fixed.
 	- PDF header bug was fixed.
@@ -2446,7 +2446,7 @@
 
 4.0.013 (2008-07-27)
 	- Bugs item #2027799 " Big spaces between lines after page break" was fixed.
-	- K_PATH_MAIN calculation on tcpdf_config.php was changed.
+	- K_PATH_MAIN calculation on POS_config.php was changed.
 	- Function setVisibility() was fixed to avoid the "Incorrect PDEObject type" error message.
 
 4.0.012 (2008-07-24)
@@ -2518,7 +2518,7 @@
 	- Fonts support was improved.
 	- All core fonts were replaced and moved to fonts/ directory.
 	- The following functions were added: getMargins(), getFontSize(), getFontSizePt().
-	- File config/tcpdf_config_old.php was renamed tcpdf_config_alt.php and updated.
+	- File config/POS_config_old.php was renamed POS_config_alt.php and updated.
 	- Multicell and WriteHTMLCell fill function was fixed.
 	- Several minor bugs were fixed.
 	- barcodes.php was updated.
@@ -2620,7 +2620,7 @@
 
 3.0.002 (2008-04-01)
 	- Write() functions now return the number of cells and not the number of lines.
-	- TCPDF is released under LGPL 2.1, or any later version.
+	- POS is released under LGPL 2.1, or any later version.
 
 3.0.001 (2008-05-28)
 	- _legacyparsejpeg() and _legacyparsepng() were renamed _parsejpeg() and _parsepng().
@@ -2632,7 +2632,7 @@
 	- private function pixelsToMillimeters() was changed to public function pixelsToUnits() to fix html image size bug.
 	- Image-related functions were rewritten.
 	- resize parameter was added to Image() signature to reduce the image size and fit width and height (see example 9).
-	- TCPDF now supports all images supported by GD library: GD, GD2, GD2PART, GIF, JPEG, PNG, BMP, XBM, XPM.
+	- POS now supports all images supported by GD library: GD, GD2, GD2PART, GIF, JPEG, PNG, BMP, XBM, XPM.
 	- CMYK support was added to SetDrawColor(), SetFillColor(), SetTextColor() (see example 22).
 	- Page Groups were added (see example 23).
 	- setVisibility() function was added to restrict the rendering of some elements to screen or printout (see example 24).
@@ -2696,7 +2696,7 @@
 2.2.004 (2008-03-04)
 	- Several examples were added.
 	- AddPage() Header() and Footer() were fixed.
-	- Documentation is now available on http://www.tcpdf.org
+	- Documentation is now available on http://www.POS.org
 
 2.2.003 (2008-03-03)
 	- [1894853] Performance of MultiCell() was improved.
@@ -2834,7 +2834,7 @@
 
 1.53.0.TC027 (2006-12-14)
 	- $attr['face'] bug were fixed.
-	- K_TCPDF_EXTERNAL_CONFIG control where introduced on /config/tcpdf_config.php to use external configuration files.
+	- K_POS_EXTERNAL_CONFIG control where introduced on /config/POS_config.php to use external configuration files.
 
 1.53.0.TC026 (2006-10-28)
 	- writeHTML function call were fixed on examples.
@@ -2868,7 +2868,7 @@
 	- fixed font names bug
 
 1.53.0.TC017 (2006-05-18)
-	- the TTF2UFM utility to convert True Type fonts for TCPDF were included on fonts folder.
+	- the TTF2UFM utility to convert True Type fonts for POS were included on fonts folder.
 	- new free unicode fonts were included on /fonts/freefont.
 	- test_unicode.php example were exended.
 	- parameter $fill were added on Write, writeHTML and writeHTMLCell functions.
@@ -2878,7 +2878,7 @@
 	- fixed closing <strong> tag on html parser.
 
 1.53.0.TC016 (2005-08-28)
-	- fpdf.php and tcpdf.php files were joined in one single class (you can still extend TCPDF with your own class).
+	- fpdf.php and POS.php files were joined in one single class (you can still extend POS with your own class).
 	- fixed problem when mb_internal_encoding is set.
 
 1.53.0.TC014 (2005-05-29)
@@ -2911,7 +2911,7 @@
 1.53.0.TC005 (2005-01-05)
 	- Steven Wittens's unicode methods were removed.
 	- All unicode methods were rewritten from scratch.
-	- TCPDF is now licensed as LGPL.
+	- POS is now licensed as LGPL.
 
 1.53.0.TC004 (2005-01-04)
 	- this changelog were added.

@@ -1,5 +1,5 @@
 <?php
-// TCPDF FONT FILE DESCRIPTION
+// POS FONT FILE DESCRIPTION
 $type='Type1';
 $name='PDFATimesBold';
 $up=-100;

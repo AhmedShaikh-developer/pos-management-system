@@ -1,61 +1,61 @@
 <?php
 //============================================================+
-// File name   : tcpdf_static.php
+// File name   : POS_static.php
 // Version     : 1.1.2
 // Begin       : 2002-08-03
 // Last Update : 2015-01-24
-// Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
+// Author      : Ahmed Shaikh - 
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
-// Copyright (C) 2002-2015 Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2025 Ahmed Shaikh - 
 //
-// This file is part of TCPDF software library.
+// This file is part of POS software library.
 //
-// TCPDF is free software: you can redistribute it and/or modify it
+// POS is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
 // License, or (at your option) any later version.
 //
-// TCPDF is distributed in the hope that it will be useful, but
+// POS is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the License
-// along with TCPDF. If not, see
-// <http://www.tecnick.com/pagefiles/tcpdf/LICENSE.TXT>.
+// along with POS. If not, see
+// <http:///pagefiles/POS/LICENSE.TXT>.
 //
 // See LICENSE.TXT file for more information.
 // -------------------------------------------------------------------
 //
 // Description :
-//   Static methods used by the TCPDF class.
+//   Static methods used by the POS class.
 //
 //============================================================+
 
 /**
  * @file
- * This is a PHP class that contains static methods for the TCPDF class.<br>
- * @package com.tecnick.tcpdf
- * @author Nicola Asuni
+ * This is a PHP class that contains static methods for the POS class.<br>
+ * @package pos.system
+ * @author Ahmed Shaikh
  * @version 1.1.2
  */
 
 /**
- * @class TCPDF_STATIC
- * Static methods used by the TCPDF class.
- * @package com.tecnick.tcpdf
+ * @class POS_STATIC
+ * Static methods used by the POS class.
+ * @package pos.system
  * @brief PHP class for generating PDF documents without requiring external extensions.
  * @version 1.1.1
- * @author Nicola Asuni - info@tecnick.com
+ * @author Ahmed Shaikh - 
  */
-class TCPDF_STATIC {
+class POS_STATIC {
 
 	/**
-	 * Current TCPDF version.
+	 * Current POS version.
 	 * @private static
 	 */
-	private static $tcpdf_version = '6.2.6';
+	private static $POS_version = '6.2.6';
 
 	/**
 	 * String alias for total number of pages.
@@ -465,23 +465,23 @@ class TCPDF_STATIC {
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 	/**
-	 * Return the current TCPDF version.
-	 * @return TCPDF version string
+	 * Return the current POS version.
+	 * @return POS version string
 	 * @since 5.9.012 (2010-11-10)
 	 * @public static
 	 */
-	public static function getTCPDFVersion() {
-		return self::$tcpdf_version;
+	public static function getPOSVersion() {
+		return self::$POS_version;
 	}
 
 	/**
-	 * Return the current TCPDF producer.
-	 * @return TCPDF producer string
+	 * Return the current POS producer.
+	 * @return POS producer string
 	 * @since 6.0.000 (2013-03-16)
 	 * @public static
 	 */
-	public static function getTCPDFProducer() {
-		return "\x54\x43\x50\x44\x46\x20".self::getTCPDFVersion()."\x20\x28\x68\x74\x74\x70\x3a\x2f\x2f\x77\x77\x77\x2e\x74\x63\x70\x64\x66\x2e\x6f\x72\x67\x29";
+	public static function getPOSProducer() {
+		return "\x54\x43\x50\x44\x46\x20".self::getPOSVersion()."\x20\x28\x68\x74\x74\x70\x3a\x2f\x2f\x77\x77\x77\x2e\x74\x63\x70\x64\x66\x2e\x6f\x72\x67\x29";
 	}
 
 	/**
@@ -794,14 +794,14 @@ class TCPDF_STATIC {
 
 	/**
 	 * Returns a temporary filename for caching object on filesystem.
-	 * @param $type (string) Type of file (name of the subdir on the tcpdf cache folder).
-	 * @param $file_id (string) TCPDF file_id.
+	 * @param $type (string) Type of file (name of the subdir on the POS cache folder).
+	 * @param $file_id (string) POS file_id.
 	 * @return string filename.
 	 * @since 4.5.000 (2008-12-31)
 	 * @public static
 	 */
 	public static function getObjFilename($type='tmp', $file_id='') {
-		return tempnam(K_PATH_CACHE, '__tcpdf_'.$file_id.'_'.$type.'_'.md5(TCPDF_STATIC::getRandomSeed()).'_');
+		return tempnam(K_PATH_CACHE, '__POS_'.$file_id.'_'.$type.'_'.md5(POS_STATIC::getRandomSeed()).'_');
 	}
 
 	/**
@@ -909,7 +909,7 @@ class TCPDF_STATIC {
 	 * @param $str (string) string from where to extract value
 	 * @param $offset (int) point from where to read the data
 	 * @return int 32 bit value
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.2.000 (2010-06-02)
 	 * @public static
 	 */
@@ -923,7 +923,7 @@ class TCPDF_STATIC {
 	 * @param $str (string) string from where to extract value
 	 * @param $offset (int) point from where to read the data
 	 * @return int 16 bit value
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.2.000 (2010-06-02)
 	 * @public static
 	 */
@@ -937,7 +937,7 @@ class TCPDF_STATIC {
 	 * @param $str (string) String from where to extract value.
 	 * @param $offset (int) Point from where to read the data.
 	 * @return int 16 bit value
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.2.000 (2010-06-02)
 	 * @public static
 	 */
@@ -951,7 +951,7 @@ class TCPDF_STATIC {
 	 * @param $str (string) String from where to extract value.
 	 * @param $offset (int) Point from where to read the data.
 	 * @return int 16 bit value
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.9.123 (2011-09-30)
 	 * @public static
 	 */
@@ -968,7 +968,7 @@ class TCPDF_STATIC {
 	 * @param $str (string) string from where to extract value
 	 * @param $offset (int) point from where to read the data
 	 * @return int 16 bit value
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.9.123 (2011-09-30)
 	 * @public static
 	 */
@@ -982,7 +982,7 @@ class TCPDF_STATIC {
 	 * @param $str (string) string from where to extract value
 	 * @param $offset (int) point from where to read the data
 	 * @return int 16 bit value
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.9.123 (2011-09-30)
 	 * @public static
 	 */
@@ -1000,7 +1000,7 @@ class TCPDF_STATIC {
 	 * @param $str (string) String from where to extract value.
 	 * @param $offset (int) Point from where to read the data.
 	 * @return int 8 bit value
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.2.000 (2010-06-02)
 	 * @public static
 	 */
@@ -1014,7 +1014,7 @@ class TCPDF_STATIC {
 	 * @param $handle (resource)
 	 * @param $length (int)
 	 * @return Returns the read string or FALSE in case of error.
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 4.5.027 (2009-03-16)
 	 * @public static
 	 */
@@ -1045,7 +1045,7 @@ class TCPDF_STATIC {
 	 * Returns a string containing random data to be used as a seed for encryption methods.
 	 * @param $seed (string) starting seed value
 	 * @return string containing random data
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.9.006 (2010-10-19)
 	 * @public static
 	 */
@@ -1082,7 +1082,7 @@ class TCPDF_STATIC {
 	 * @param $key (string) encryption key
 	 * @param $text (String) input text to be encrypted
 	 * @return String encrypted text
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.0.005 (2010-05-11)
 	 * @public static
 	 */
@@ -1105,7 +1105,7 @@ class TCPDF_STATIC {
 	 * @param $last_enc_key_c (String) Reference to last RC4 computed key.
 	 * @return String encrypted text
 	 * @since 2.0.000 (2008-01-02)
-	 * @author Klemen Vodopivec, Nicola Asuni
+	 * @author Klemen Vodopivec, Ahmed Shaikh
 	 * @public static
 	 */
 	public static function _RC4($key, $text, &$last_enc_key, &$last_enc_key_c) {
@@ -1149,7 +1149,7 @@ class TCPDF_STATIC {
 	 * @param $permissions (Array) the set of permissions (specify the ones you want to block).
 	 * @param $mode (int) encryption strength: 0 = RC4 40 bit; 1 = RC4 128 bit; 2 = AES 128 bit; 3 = AES 256 bit.
 	 * @since 5.0.005 (2010-05-12)
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @public static
 	 */
 	public static function getUserPermissionCode($permissions, $mode=0) {
@@ -1186,7 +1186,7 @@ class TCPDF_STATIC {
 	 * @param $bs (string) byte-string to convert
 	 * @return String
 	 * @since 5.0.005 (2010-05-12)
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @public static
 	 */
 	public static function convertHexStringToString($bs) {
@@ -1208,7 +1208,7 @@ class TCPDF_STATIC {
 	 * @param $s (string) string to convert
 	 * @return byte string
 	 * @since 5.0.010 (2010-05-17)
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @public static
 	 */
 	public static function convertStringToHexString($s) {
@@ -1225,7 +1225,7 @@ class TCPDF_STATIC {
 	 * @param $protection (string) 32bit encryption permission value (P value)
 	 * @return String
 	 * @since 5.0.005 (2010-05-12)
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @public static
 	 */
 	public static function getEncPermissionsString($protection) {
@@ -1241,7 +1241,7 @@ class TCPDF_STATIC {
 	 * Encode a name object.
 	 * @param $name (string) Name object to encode.
 	 * @return (string) Encoded name object.
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.9.097 (2011-06-23)
 	 * @public static
 	 */
@@ -1265,7 +1265,7 @@ class TCPDF_STATIC {
 	 * @param $spot_colors (array) Reference to spot colors array.
 	 * @param $rtl (boolean) True if in Right-To-Left text direction mode, false otherwise.
 	 * @return array of annotation properties
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 4.8.000 (2009-09-06)
 	 * @public static
 	 */
@@ -1441,7 +1441,7 @@ class TCPDF_STATIC {
 			if (is_array($prop['fillColor'])) {
 				$opt['mk']['bg'] = $prop['fillColor'];
 			} else {
-				$opt['mk']['bg'] = TCPDF_COLORS::convertHTMLColorToDec($prop['fillColor'], $spot_colors);
+				$opt['mk']['bg'] = POS_COLORS::convertHTMLColorToDec($prop['fillColor'], $spot_colors);
 			}
 		}
 		// strokeColor: Specifies the stroke color for a field that is used to stroke the rectangle of the field with a line as large as the line width.
@@ -1449,7 +1449,7 @@ class TCPDF_STATIC {
 			if (is_array($prop['strokeColor'])) {
 				$opt['mk']['bc'] = $prop['strokeColor'];
 			} else {
-				$opt['mk']['bc'] = TCPDF_COLORS::convertHTMLColorToDec($prop['strokeColor'], $spot_colors);
+				$opt['mk']['bc'] = POS_COLORS::convertHTMLColorToDec($prop['strokeColor'], $spot_colors);
 			}
 		}
 		// rotation: The rotation of a widget in counterclockwise increments.
@@ -1655,7 +1655,7 @@ class TCPDF_STATIC {
 	 * Extracts the CSS properties from a CSS string.
 	 * @param $cssdata (string) string containing CSS definitions.
 	 * @return An array where the keys are the CSS selectors and the values are the CSS properties.
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.1.000 (2010-05-25)
 	 * @public static
 	 */
@@ -1750,7 +1750,7 @@ class TCPDF_STATIC {
 	 * @param $tidy_options (array) options for tidy_parse_string function
 	 * @param $tagvspaces (array) Array of vertical spaces for tags.
 	 * @return string XHTML code cleaned up
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.9.017 (2010-11-16)
 	 * @see setHtmlVSpace()
 	 * @public static
@@ -2134,7 +2134,7 @@ class TCPDF_STATIC {
 	 * Returns an array of hyphenation patterns.
 	 * @param $file (string) TEX file containing hypenation patterns. TEX pattrns can be downloaded from http://www.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/
 	 * @return array of hyphenation patterns
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 4.9.012 (2010-04-12)
 	 * @public static
 	 */
@@ -2153,7 +2153,7 @@ class TCPDF_STATIC {
 		// create new language array of patterns
 		$patterns = array();
 		foreach($patterns_array as $val) {
-			if (!TCPDF_STATIC::empty_string($val)) {
+			if (!POS_STATIC::empty_string($val)) {
 				$val = trim($val);
 				$val = str_replace('\'', '\\\'', $val);
 				$key = preg_replace('/[0-9]+/', '', $val);
@@ -2180,7 +2180,7 @@ class TCPDF_STATIC {
 	 *   <li>n: End the path object without filling or stroking it.</li>
 	 * </ul>
 	 * @param $default (string) default style
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.0.000 (2010-04-30)
 	 * @public static
 	 */
@@ -2259,7 +2259,7 @@ class TCPDF_STATIC {
 	 * @param $ta (array) first SVG tranformation matrix
 	 * @param $tb (array) second SVG tranformation matrix
 	 * @return transformation array
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.0.000 (2010-05-02)
 	 * @public static
 	 */
@@ -2278,7 +2278,7 @@ class TCPDF_STATIC {
 	 * Get the tranformation matrix from SVG transform attribute
 	 * @param $attribute (string) transformation
 	 * @return array of transformations
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.0.000 (2010-05-02)
 	 * @public static
 	 */
@@ -2375,7 +2375,7 @@ class TCPDF_STATIC {
 	 * @param $y1 (int) Y coordinate of first vector point
 	 * @param $x2 (int) X coordinate of second vector point
 	 * @param $y2 (int) Y coordinate of second vector point
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 5.0.000 (2010-05-04)
 	 * @public static
 	 */
@@ -2402,7 +2402,7 @@ class TCPDF_STATIC {
 	 * @param $limit (int) If specified, then only substrings up to limit are returned with the rest of the string being placed in the last substring. A limit of -1, 0 or NULL means "no limit" and, as is standard across PHP, you can use NULL to skip to the flags parameter.
 	 * @param $flags (int) The flags as specified on the preg_split PHP function.
 	 * @return Returns an array containing substrings of subject split along boundaries matched by pattern.modifier
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 6.0.023
 	 * @public static
 	 */
@@ -2445,7 +2445,7 @@ class TCPDF_STATIC {
 	 * The file can be also an URL.
 	 * @param $file (string) Name of the file or URL to read.
 	 * @return The function returns the read data or FALSE on failure. 
-	 * @author Nicola Asuni
+	 * @author Ahmed Shaikh
 	 * @since 6.0.025
 	 * @public static
 	 */
@@ -2510,7 +2510,7 @@ class TCPDF_STATIC {
 				curl_setopt($cs, CURLOPT_TIMEOUT, 30);
 				curl_setopt($cs, CURLOPT_SSL_VERIFYPEER, false);
 				curl_setopt($cs, CURLOPT_SSL_VERIFYHOST, false);
-				curl_setopt($cs, CURLOPT_USERAGENT, 'TCPDF');
+				curl_setopt($cs, CURLOPT_USERAGENT, 'POS');
 				$ret = curl_exec($cs);
 				curl_close($cs);
 			}
@@ -2521,7 +2521,7 @@ class TCPDF_STATIC {
 		return $ret;
 	}
 
-} // END OF TCPDF_STATIC CLASS
+} // END OF POS_STATIC CLASS
 
 //============================================================+
 // END OF FILE

@@ -4,24 +4,24 @@
 // Begin       : 2011-01-24
 // Last Update : 2011-01-24
 //
-// Description : Language module for TCPDF
+// Description : Language module for POS
 //               (contains translated texts)
 //               Japanese
 //
-// Author: Nicola Asuni - Translation by redcocker
+// Author: Ahmed Shaikh - Translation by redcocker
 //
 // (c) Copyright:
-//               Nicola Asuni
-//               Tecnick.com LTD
-//               www.tecnick.com
-//               info@tecnick.com
+//               Ahmed Shaikh
+//               
+//               
+//               
 //============================================================+
 
 /**
- * TCPDF language file (contains translated texts).
- * @package com.tecnick.tcpdf
- * @brief TCPDF language file: Japanese
- * @author Nicola Asuni - Translation by redcocker
+ * POS language file (contains translated texts).
+ * @package pos.system
+ * @brief POS language file: Japanese
+ * @author Ahmed Shaikh - Translation by redcocker
  * @since 2012-01-24
  */
 

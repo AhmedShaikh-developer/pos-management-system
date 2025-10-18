@@ -1,33 +1,33 @@
 <?php
 //============================================================+
-// File name   : tcpdf_barcodes_1d_include.php
+// File name   : POS_barcodes_1d_include.php
 // Begin       : 2013-05-19
 // Last Update : 2013-05-19
 //
-// Description : Search and include the TCPDF Barcode 1D class.
+// Description : Search and include the POS Barcode 1D class.
 //
-// Author: Nicola Asuni
+// Author: Ahmed Shaikh
 //
 // (c) Copyright:
-//               Nicola Asuni
-//               Tecnick.com LTD
-//               www.tecnick.com
-//               info@tecnick.com
+//               Ahmed Shaikh
+//               
+//               
+//               
 //============================================================+
 
 /**
- * Search and include the TCPDF Barcode 1D class.
- * @package com.tecnick.tcpdf
- * @abstract TCPDF - Include the main class.
- * @author Nicola Asuni
+ * Search and include the POS Barcode 1D class.
+ * @package pos.system
+ * @abstract POS - Include the main class.
+ * @author Ahmed Shaikh
  * @since 2013-05-19
  */
 
-// Include the TCPDF 1D barcode class (search the class on the following directories).
-$tcpdf_barcodes_1d_include_dirs = array(realpath('../../tcpdf_barcodes_1d.php'), '/usr/share/php/tcpdf/tcpdf_barcodes_1d.php', '/usr/share/tcpdf/tcpdf_barcodes_1d.php', '/usr/share/php-tcpdf/tcpdf_barcodes_1d.php', '/var/www/tcpdf/tcpdf_barcodes_1d.php', '/var/www/html/tcpdf/tcpdf_barcodes_1d.php', '/usr/local/apache2/htdocs/tcpdf/tcpdf_barcodes_1d.php');
-foreach ($tcpdf_barcodes_1d_include_dirs as $tcpdf_barcodes_1d_include_path) {
-	if (@file_exists($tcpdf_barcodes_1d_include_path)) {
-		require_once($tcpdf_barcodes_1d_include_path);
+// Include the POS 1D barcode class (search the class on the following directories).
+$POS_barcodes_1d_include_dirs = array(realpath('../../POS_barcodes_1d.php'), '/usr/share/php/POS/POS_barcodes_1d.php', '/usr/share/POS/POS_barcodes_1d.php', '/usr/share/php-POS/POS_barcodes_1d.php', '/var/www/POS/POS_barcodes_1d.php', '/var/www/html/POS/POS_barcodes_1d.php', '/usr/local/apache2/htdocs/POS/POS_barcodes_1d.php');
+foreach ($POS_barcodes_1d_include_dirs as $POS_barcodes_1d_include_path) {
+	if (@file_exists($POS_barcodes_1d_include_path)) {
+		require_once($POS_barcodes_1d_include_path);
 		break;
 	}
 }

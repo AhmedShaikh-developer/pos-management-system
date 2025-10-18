@@ -1,54 +1,54 @@
 <?php
 //============================================================+
-// File name   : tcpdf_config.php
+// File name   : POS_config.php
 // Begin       : 2004-06-11
 // Last Update : 2014-12-11
 //
-// Description : Configuration file for TCPDF.
-// Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
+// Description : Configuration file for POS.
+// Author      : Ahmed Shaikh - 
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
-// Copyright (C) 2004-2014  Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2004-2014  Ahmed Shaikh - 
 //
-// This file is part of TCPDF software library.
+// This file is part of POS software library.
 //
-// TCPDF is free software: you can redistribute it and/or modify it
+// POS is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
 // License, or (at your option) any later version.
 //
-// TCPDF is distributed in the hope that it will be useful, but
+// POS is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with TCPDF.  If not, see <http://www.gnu.org/licenses/>.
+// along with POS.  If not, see <http://www.gnu.org/licenses/>.
 //
 // See LICENSE.TXT file for more information.
 //============================================================+
 
 /**
- * Configuration file for TCPDF.
- * @author Nicola Asuni
- * @package com.tecnick.tcpdf
+ * Configuration file for POS.
+ * @author Ahmed Shaikh
+ * @package pos.system
  * @version 4.9.005
  * @since 2004-10-27
  */
 
 // IMPORTANT:
-// If you define the constant K_TCPDF_EXTERNAL_CONFIG, all the following settings will be ignored.
-// If you use the tcpdf_autoconfig.php, then you can overwrite some values here.
+// If you define the constant K_POS_EXTERNAL_CONFIG, all the following settings will be ignored.
+// If you use the POS_autoconfig.php, then you can overwrite some values here.
 
 
 /**
- * Installation path (/var/www/tcpdf/).
+ * Installation path (/var/www/POS/).
  * By default it is automatically calculated but you can also set it as a fixed string to improve performances.
  */
 //define ('K_PATH_MAIN', '');
 
 /**
- * URL path to tcpdf installation folder (http://localhost/tcpdf/).
+ * URL path to POS installation folder (http://localhost/POS/).
  * By default it is automatically set but you can also set it as a fixed string to improve performances.
  */
 //define ('K_PATH_URL', '');
@@ -99,22 +99,22 @@ define ('PDF_PAGE_ORIENTATION', 'P');
 /**
  * Document creator.
  */
-define ('PDF_CREATOR', 'TCPDF');
+define ('PDF_CREATOR', 'POS');
 
 /**
  * Document author.
  */
-define ('PDF_AUTHOR', 'TCPDF');
+define ('PDF_AUTHOR', 'POS');
 
 /**
  * Header title.
  */
-define ('PDF_HEADER_TITLE', 'TCPDF Example');
+define ('PDF_HEADER_TITLE', 'POS Example');
 
 /**
  * Header description string.
  */
-define ('PDF_HEADER_STRING', "by Nicola Asuni - Tecnick.com\nwww.tcpdf.org");
+define ('PDF_HEADER_STRING', "by Ahmed Shaikh\nwww.POS.org");
 
 /**
  * Document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch].
@@ -207,15 +207,15 @@ define('K_SMALL_RATIO', 2/3);
 define('K_THAI_TOPCHARS', true);
 
 /**
- * If true allows to call TCPDF methods using HTML syntax
+ * If true allows to call POS methods using HTML syntax
  * IMPORTANT: For security reason, disable this feature if you are printing user HTML content.
  */
-define('K_TCPDF_CALLS_IN_HTML', false);
+define('K_POS_CALLS_IN_HTML', false);
 
 /**
  * If true and PHP version is greater than 5, then the Error() method throw new exception instead of terminating the execution.
  */
-define('K_TCPDF_THROW_EXCEPTION_ERROR', false);
+define('K_POS_THROW_EXCEPTION_ERROR', false);
 
 /**
  * Default timezone for datetime functions
