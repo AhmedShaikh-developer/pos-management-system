@@ -185,7 +185,7 @@
 <script src="views/js/categories.js"></script>
 <script src="views/js/products.js"></script>
 <script src="views/js/customers.js"></script>
-<script src="views/js/sales.js"></script>
+<script src="views/js/sales.js?v=<?php echo time(); ?>"></script>
 <script src="views/js/vendors.js"></script>
 <script src="views/js/purchases.js"></script>
 <script src="views/js/reports.js"></script>

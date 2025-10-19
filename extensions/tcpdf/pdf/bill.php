@@ -54,160 +54,198 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 $pdf->setPrintHeader(false);
 $pdf->setPrintFooter(false);
 
-$pdf->AddPage('P', 'A7');
+$pdf->AddPage('P', 'A4');
 
 //---------------------------------------------------------
 
 $block1 = <<<EOF
 
-<table style="font-size:7px; text-align:center">
-
-	<tr>
-		
-		<td style="width:160px;">
-	
-			<div>
+			<table style="font-family: Arial, sans-serif; width:100%; margin-bottom: 15px;">
 			
-				Date: $saledate
+				<tr>
+				
+					<td style="background-color: #2c3e50; color: white; padding: 15px; width:100%; border-radius: 5px 5px 0 0;">
+						
+						<table style="width:100%;">
+							<tr>
+								<td style="font-size: 18px; font-weight: bold; vertical-align: middle;">
+									Ali's Furniture House
+								</td>
+								<td style="text-align: right; font-size: 24px; font-weight: bold; vertical-align: middle;">
+									SALES RECEIPT
+								</td>
+							</tr>
+						</table>
 
-				<br><br>
-				Ahmed Shaikh POS System
+					</td>
 
-				<br>
-				Address:
+				</tr>
 
-				<br>
-				Contact: 03163966419
-
-				<br>
-				Invoice: $valueSale
-
-				<br><br>					
-				Customer: $answerCustomer[name]
-
-				<br>
-				Seller: $answerSeller[name]
-
-				<br>
-
-			</div>
-
-		</td>
-
-	</tr>
-
-
-</table>
+			</table>
 
 EOF;
 
 $pdf->writeHTML($block1, false, false, false, false, '');
 
-// ---------------------------------------------------------
-
-
-foreach ($products as $key => $item) {
-
-$unitValue = number_format($item["price"], 2);
-
-$totalPrice = number_format($item["totalPrice"], 2);
-
 $block2 = <<<EOF
 
-<table style="font-size:7px;">
+			<table style="font-family: Arial, sans-serif; width:100%; margin-bottom: 15px;">
+				
+				<tr>
+				
+					<td style="border: 2px solid #34495e; background-color: #f8f9fa; padding: 15px; width:50%; vertical-align: top;">
 
-	<tr>
-	
-		<td style="width:160px; text-align:left">
-		$item[description] 
-		</td>
+						<div style="font-size: 12px; color: #2c3e50; line-height: 20px;">
+							
+							<div style="font-weight: bold; font-size: 14px; margin-bottom: 10px; color: #2c3e50;">CUSTOMER INFORMATION</div>
+							
+							<div style="margin-bottom: 5px;"><strong>Name:</strong> $answerCustomer[name]</div>
+							<div style="margin-bottom: 5px;"><strong>Seller:</strong> $answerSeller[name]</div>
 
-	</tr>
+						</div>
 
-	<tr>
-	
-		<td style="width:160px; text-align:right">
-		$ $unitValue Units * $item[quantity]  = $ $totalPrice
-		<br>
-		</td>
+					</td>
 
-	</tr>
+					<td style="border: 2px solid #34495e; background-color: #f8f9fa; padding: 15px; width:50%; vertical-align: top;">
 
-</table>
+						<div style="font-size: 12px; color: #2c3e50; line-height: 20px; text-align: right;">
+							
+							<div style="font-weight: bold; font-size: 14px; margin-bottom: 10px; color: #2c3e50;">SALES DETAILS</div>
+							
+							<div style="margin-bottom: 5px;"><strong>Invoice No:</strong> $valueSale</div>
+							<div style="margin-bottom: 5px;"><strong>Date:</strong> $saledate</div>
+
+						</div>
+
+					</td>
+
+				</tr>
+
+			</table>
 
 EOF;
 
 $pdf->writeHTML($block2, false, false, false, false, '');
 
-}
-
 // ---------------------------------------------------------
-$totalPriceAfterTax = $netPrice + $tax;
+
+
 $block3 = <<<EOF
 
-<table style="font-size:7px; text-align:right">
+			<table style="font-family: Arial, sans-serif; width:100%; margin-bottom: 0px; border-collapse: collapse;">
+				
+				<tr>
+				
+					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 12px; width:40%; text-align:left; font-weight: bold; font-size: 12px;">Product</td>
+					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 12px; width:15%; text-align:center; font-weight: bold; font-size: 12px;">Quantity</td>
+					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 12px; width:22.5%; text-align:right; font-weight: bold; font-size: 12px;">Unit Price</td>
+					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 12px; width:22.5%; text-align:right; font-weight: bold; font-size: 12px;">Subtotal</td>
 
-	<tr>
-	
-		<td style="width:80px;">
-			 NET: 
-		</td>
+				</tr>
 
-		<td style="width:80px;">
-			$ $netPrice
-		</td>
-
-	</tr>
-
-	<tr>
-	
-		<td style="width:80px;">
-			 TAX: 
-		</td>
-
-		<td style="width:80px;">
-			$ $tax
-		</td>
-
-	</tr>
-
-	<tr>
-	
-		<td style="width:160px;">
-			 --------------------------
-		</td>
-
-	</tr>
-
-	<tr>
-	
-		<td style="width:80px;">
-			 TOTAL: 
-		</td>
-
-		<td style="width:80px;">
-			$ $totalPrice
-		</td>
-
-	</tr>
-
-	<tr>
-	
-		<td style="width:160px;">
-			<br>
-			<br>
-			Thank you for your purchase!
-		</td>
-
-	</tr>
-
-</table>
-
-
+			</table>
 
 EOF;
 
 $pdf->writeHTML($block3, false, false, false, false, '');
+
+foreach ($products as $key => $item) {
+
+$unitValue = number_format($item["price"], 2);
+$totalPrice = number_format($item["totalPrice"], 2);
+$rowColor = ($key % 2 == 0) ? '#ffffff' : '#f8f9fa';
+
+$block4 = <<<EOF
+
+				<table style="font-family: Arial, sans-serif; width:100%; margin-bottom: 0px; border-collapse: collapse;">
+
+					<tr>
+						
+						<td style="border: 1px solid #bdc3c7; background-color: $rowColor; padding: 10px; width:40%; text-align:left; font-size: 11px; color: #2c3e50;">
+							$item[description]
+						</td>
+
+						<td style="border: 1px solid #bdc3c7; background-color: $rowColor; padding: 10px; width:15%; text-align:center; font-size: 11px; color: #2c3e50;">
+							$item[quantity]
+						</td>
+
+						<td style="border: 1px solid #bdc3c7; background-color: $rowColor; padding: 10px; width:22.5%; text-align:right; font-size: 11px; color: #2c3e50; font-weight: bold;">
+							$ $unitValue
+						</td>
+
+						<td style="border: 1px solid #bdc3c7; background-color: $rowColor; padding: 10px; width:22.5%; text-align:right; font-size: 11px; color: #2c3e50; font-weight: bold;">
+							$ $totalPrice
+						</td>
+
+					</tr>
+
+				</table>
+
+EOF;
+
+$pdf->writeHTML($block4, false, false, false, false, '');
+
+}
+
+// ---------------------------------------------------------
+$totalPriceAfterTax = $netPrice + $tax;
+$block5 = <<<EOF
+
+			<table style="font-family: Arial, sans-serif; width:100%; margin-top: 20px; margin-bottom: 20px;">
+
+				<tr>
+
+					<td style="background-color:white; width:55%; text-align:left; padding: 10px;"></td>
+
+					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">Net Total:</td>
+
+					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">$ $netPrice</td>
+
+				</tr>
+				
+				<tr>
+
+					<td style="background-color:white; width:55%; text-align:left; padding: 10px;"></td>
+
+					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">Tax:</td>
+
+					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">$ $tax</td>
+
+				</tr>
+
+				<tr>
+				
+					<td style="background-color:white; width:55%; text-align:left; padding: 10px;"></td>
+
+					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 15px; width:22.5%; text-align:right; font-size: 14px; font-weight: bold;">TOTAL:</td>
+
+					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 15px; width:22.5%; text-align:right; font-size: 14px; font-weight: bold;">$ $totalPrice</td>
+
+				</tr>
+
+			</table>
+
+EOF;
+
+$pdf->writeHTML($block5, false, false, false, false, '');
+
+$block6 = <<<EOF
+
+			<table style="font-family: Arial, sans-serif; width:100%; margin-top: 30px;">
+
+				<tr>
+				
+					<td style="background-color: #2c3e50; color: white; padding: 15px; text-align: center; font-size: 12px; font-style: italic;">
+						Thank you for your purchase!
+					</td>
+
+				</tr>
+
+			</table>
+
+EOF;
+
+$pdf->writeHTML($block6, false, false, false, false, '');
 
 
 // ---------------------------------------------------------

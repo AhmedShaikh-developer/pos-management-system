@@ -744,8 +744,11 @@ PRINT BILL
 $(".tables").on("click", ".btnPrintBill", function(){
 
 	var saleCode = $(this).attr("saleCode");
+	
+	console.log("Print button clicked, saleCode:", saleCode);
+	console.log("Opening URL:", "extensions/tcpdf/pdf/bill.php?code="+saleCode);
 
-	window.open("extensions/POS/pdf/bill.php?code="+saleCode, "_blank");
+	window.open("extensions/tcpdf/pdf/bill.php?code="+saleCode, "_blank");
 
 })
 
