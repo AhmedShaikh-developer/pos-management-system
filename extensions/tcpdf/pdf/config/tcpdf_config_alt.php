@@ -39,7 +39,7 @@
 /**
  * Define the following constant to ignore the default configuration file.
  */
-define ('K_POS_EXTERNAL_CONFIG', true);
+if (!defined('K_POS_EXTERNAL_CONFIG')) { define ('K_POS_EXTERNAL_CONFIG', true); }
 
 /**
  * Installation path (/var/www/POS/).
@@ -69,12 +69,12 @@ define ('K_PATH_IMAGES', dirname(__FILE__).'/../images/');
  * Deafult image logo used be the default Header() method.
  * Please set here your own logo or an empty string to disable it.
  */
-define ('PDF_HEADER_LOGO', 'POS_logo.jpg');
+if (!defined('PDF_HEADER_LOGO')) { define ('PDF_HEADER_LOGO', 'POS_logo.jpg'); }
 
 /**
  * Header logo image width in user units.
  */
-define ('PDF_HEADER_LOGO_WIDTH', 30);
+if (!defined('PDF_HEADER_LOGO_WIDTH')) { define ('PDF_HEADER_LOGO_WIDTH', 30); }
 
 /**
  * Cache directory for temporary files (full path).
@@ -84,102 +84,110 @@ define ('K_PATH_CACHE', sys_get_temp_dir().'/');
 /**
  * Generic name for a blank image.
  */
-define ('K_BLANK_IMAGE', '_blank.png');
+if (!defined('K_BLANK_IMAGE')) {
+	define ('K_BLANK_IMAGE', '_blank.png');
+}
 
 /**
  * Page format.
  */
-define ('PDF_PAGE_FORMAT', 'A4');
+if (!defined('PDF_PAGE_FORMAT')) {
+	define ('PDF_PAGE_FORMAT', 'A4');
+}
 
 /**
  * Page orientation (P=portrait, L=landscape).
  */
-define ('PDF_PAGE_ORIENTATION', 'P');
+if (!defined('PDF_PAGE_ORIENTATION')) {
+	define ('PDF_PAGE_ORIENTATION', 'P');
+}
 
 /**
  * Document creator.
  */
-define ('PDF_CREATOR', 'POS');
+if (!defined('PDF_CREATOR')) {
+	define ('PDF_CREATOR', 'POS');
+}
 
 /**
  * Document author.
  */
-define ('PDF_AUTHOR', 'POS');
+if (!defined('PDF_AUTHOR')) { define ('PDF_AUTHOR', 'POS'); }
 
 /**
  * Header title.
  */
-define ('PDF_HEADER_TITLE', 'POS Example');
+if (!defined('PDF_HEADER_TITLE')) { define ('PDF_HEADER_TITLE', 'POS Example'); }
 
 /**
  * Header description string.
  */
-define ('PDF_HEADER_STRING', "by Ahmed Shaikh\nwww.POS.org");
+if (!defined('PDF_HEADER_STRING')) { define ('PDF_HEADER_STRING', "by Ahmed Shaikh\nwww.POS.org"); }
 
 /**
  * Document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch].
  */
-define ('PDF_UNIT', 'mm');
+if (!defined('PDF_UNIT')) { define ('PDF_UNIT', 'mm'); }
 
 /**
  * Header margin.
  */
-define ('PDF_MARGIN_HEADER', 5);
+if (!defined('PDF_MARGIN_HEADER')) { define ('PDF_MARGIN_HEADER', 5); }
 
 /**
  * Footer margin.
  */
-define ('PDF_MARGIN_FOOTER', 10);
+if (!defined('PDF_MARGIN_FOOTER')) { define ('PDF_MARGIN_FOOTER', 10); }
 
 /**
  * Top margin.
  */
-define ('PDF_MARGIN_TOP', 27);
+if (!defined('PDF_MARGIN_TOP')) { define ('PDF_MARGIN_TOP', 27); }
 
 /**
  * Bottom margin.
  */
-define ('PDF_MARGIN_BOTTOM', 25);
+if (!defined('PDF_MARGIN_BOTTOM')) { define ('PDF_MARGIN_BOTTOM', 25); }
 
 /**
  * Left margin.
  */
-define ('PDF_MARGIN_LEFT', 15);
+if (!defined('PDF_MARGIN_LEFT')) { define ('PDF_MARGIN_LEFT', 15); }
 
 /**
  * Right margin.
  */
-define ('PDF_MARGIN_RIGHT', 15);
+if (!defined('PDF_MARGIN_RIGHT')) { define ('PDF_MARGIN_RIGHT', 15); }
 
 /**
  * Default main font name.
  */
-define ('PDF_FONT_NAME_MAIN', 'helvetica');
+if (!defined('PDF_FONT_NAME_MAIN')) { define ('PDF_FONT_NAME_MAIN', 'helvetica'); }
 
 /**
  * Default main font size.
  */
-define ('PDF_FONT_SIZE_MAIN', 10);
+if (!defined('PDF_FONT_SIZE_MAIN')) { define ('PDF_FONT_SIZE_MAIN', 10); }
 
 /**
  * Default data font name.
  */
-define ('PDF_FONT_NAME_DATA', 'helvetica');
+if (!defined('PDF_FONT_NAME_DATA')) { define ('PDF_FONT_NAME_DATA', 'helvetica'); }
 
 /**
  * Default data font size.
  */
-define ('PDF_FONT_SIZE_DATA', 8);
+if (!defined('PDF_FONT_SIZE_DATA')) { define ('PDF_FONT_SIZE_DATA', 8); }
 
 /**
  * Default monospaced font name.
  */
-define ('PDF_FONT_MONOSPACED', 'courier');
+if (!defined('PDF_FONT_MONOSPACED')) { define ('PDF_FONT_MONOSPACED', 'courier'); }
 
 /**
  * Ratio used to adjust the conversion of pixels to user units.
  */
-define ('PDF_IMAGE_SCALE_RATIO', 1.25);
+if (!defined('PDF_IMAGE_SCALE_RATIO')) { define ('PDF_IMAGE_SCALE_RATIO', 1.25); }
 
 /**
  * Magnification factor for titles.

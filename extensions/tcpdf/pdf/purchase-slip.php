@@ -45,18 +45,22 @@ class PrintPurchaseSlip{
 
 		$block1 = <<<EOF
 
-			<table style="font-size:10px; padding:5px 10px;">
+			<table style="font-family: Arial, sans-serif; width:100%; margin-bottom: 15px;">
 			
 				<tr>
 				
-					<td style="border: 1px solid #666; background-color:white; width:540px">
-
-						<div style="font-size:8.5px; text-align:right; line-height:15px;">
-							
-							<br>
-							PURCHASE SLIP
-
-						</div>
+					<td style="background-color: #2c3e50; color: white; padding: 15px; width:100%; border-radius: 5px 5px 0 0;">
+						
+						<table style="width:100%;">
+							<tr>
+								<td style="font-size: 18px; font-weight: bold; vertical-align: middle;">
+									Ali's Furniture House
+								</td>
+								<td style="text-align: right; font-size: 24px; font-weight: bold; vertical-align: middle;">
+									PURCHASE SLIP
+								</td>
+							</tr>
+						</table>
 
 					</td>
 
@@ -70,22 +74,32 @@ EOF;
 
 		$block2 = <<<EOF
 
-			<table style="font-size:10px; padding:5px 10px;">
+			<table style="font-family: Arial, sans-serif; width:100%; margin-bottom: 15px;">
 				
 				<tr>
 				
-					<td style="border: 1px solid #666; background-color:white; width:540px">
+					<td style="border: 2px solid #34495e; background-color: #f8f9fa; padding: 15px; width:50%; vertical-align: top;">
 
-						<div style="font-size:8.5px; text-align:left; line-height:15px;">
+						<div style="font-size: 12px; color: #2c3e50; line-height: 20px;">
 							
-							<br>
-							Vendor: $answerVendor[name]
+							<div style="font-weight: bold; font-size: 14px; margin-bottom: 10px; color: #2c3e50;">VENDOR INFORMATION</div>
+							
+							<div style="margin-bottom: 5px;"><strong>Name:</strong> $answerVendor[name]</div>
+							<div style="margin-bottom: 5px;"><strong>Phone:</strong> $answerVendor[phone]</div>
+							<div style="margin-bottom: 5px;"><strong>Address:</strong> $answerVendor[address]</div>
 
-							<br>
-							Phone: $answerVendor[phone]
+						</div>
 
-							<br>
-							Address: $answerVendor[address]
+					</td>
+
+					<td style="border: 2px solid #34495e; background-color: #f8f9fa; padding: 15px; width:50%; vertical-align: top;">
+
+						<div style="font-size: 12px; color: #2c3e50; line-height: 20px; text-align: right;">
+							
+							<div style="font-weight: bold; font-size: 14px; margin-bottom: 10px; color: #2c3e50;">PURCHASE DETAILS</div>
+							
+							<div style="margin-bottom: 5px;"><strong>Reference No:</strong> $answerPurchase[reference_no]</div>
+							<div style="margin-bottom: 5px;"><strong>Date:</strong> $answerPurchase[created_at]</div>
 
 						</div>
 
@@ -99,42 +113,17 @@ EOF;
 
 		$pdf->writeHTML($block2, false, false, false, false, '');
 
-		$block3 = <<<EOF
-
-			<table style="font-size:10px; padding:5px 10px;">
-				
-				<tr>
-				
-					<td style="border-bottom: 1px solid #666; background-color:white; width:270px">
-
-						Reference No: $answerPurchase[reference_no]
-
-					</td>
-
-					<td style="border-bottom: 1px solid #666; background-color:white; width:270px; text-align:right">
-					
-						Date: $answerPurchase[created_at]
-
-					</td>
-
-				</tr>
-
-			</table>
-
-EOF;
-
-		$pdf->writeHTML($block3, false, false, false, false, '');
 
 		$block4 = <<<EOF
 
-			<table style="font-size:10px; padding:5px 10px;">
+			<table style="font-family: Arial, sans-serif; width:100%; margin-bottom: 0px; border-collapse: collapse;">
 				
 				<tr>
 				
-					<td style="border: 1px solid #666; background-color:white; width:260px; text-align:center">Product</td>
-					<td style="border: 1px solid #666; background-color:white; width:80px; text-align:center">Quantity</td>
-					<td style="border: 1px solid #666; background-color:white; width:100px; text-align:center">Unit Price</td>
-					<td style="border: 1px solid #666; background-color:white; width:100px; text-align:center">Subtotal</td>
+					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 12px; width:40%; text-align:left; font-weight: bold; font-size: 12px;">Product</td>
+					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 12px; width:15%; text-align:center; font-weight: bold; font-size: 12px;">Quantity</td>
+					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 12px; width:22.5%; text-align:right; font-weight: bold; font-size: 12px;">Unit Price</td>
+					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 12px; width:22.5%; text-align:right; font-weight: bold; font-size: 12px;">Subtotal</td>
 
 				</tr>
 
@@ -152,33 +141,33 @@ EOF;
 
 			$answerProduct = ControllerProducts::ctrShowProducts($itemProduct, $valueProduct, $order);
 
+			$rowColor = ($key % 2 == 0) ? '#ffffff' : '#f8f9fa';
+
 			$block5 = <<<EOF
 
-				<table style="font-size:10px; padding:5px 10px;">
+				<table style="font-family: Arial, sans-serif; width:100%; margin-bottom: 0px; border-collapse: collapse;">
 
 					<tr>
 						
-						<td style="border: 1px solid #666; background-color:white; width:260px; text-align:center">
+						<td style="border: 1px solid #bdc3c7; background-color: $rowColor; padding: 10px; width:40%; text-align:left; font-size: 11px; color: #2c3e50;">
 							$answerProduct[description]
 						</td>
 
-						<td style="border: 1px solid #666; background-color:white; width:80px; text-align:center">
+						<td style="border: 1px solid #bdc3c7; background-color: $rowColor; padding: 10px; width:15%; text-align:center; font-size: 11px; color: #2c3e50;">
 							$item[quantity]
 						</td>
 
-						<td style="border: 1px solid #666; background-color:white; width:100px; text-align:center">$ 
-							$item[unit_price]
+						<td style="border: 1px solid #bdc3c7; background-color: $rowColor; padding: 10px; width:22.5%; text-align:right; font-size: 11px; color: #2c3e50; font-weight: bold;">
+							$ $item[unit_price]
 						</td>
 
-						<td style="border: 1px solid #666; background-color:white; width:100px; text-align:center">$ 
-							$item[subtotal]
+						<td style="border: 1px solid #bdc3c7; background-color: $rowColor; padding: 10px; width:22.5%; text-align:right; font-size: 11px; color: #2c3e50; font-weight: bold;">
+							$ $item[subtotal]
 						</td>
-
 
 					</tr>
 
 				</table>
-
 
 EOF;
 
@@ -191,55 +180,35 @@ EOF;
 
 		$block6 = <<<EOF
 
-			<table style="font-size:10px; padding:5px 10px;">
+			<table style="font-family: Arial, sans-serif; width:100%; margin-top: 20px; margin-bottom: 20px;">
 
 				<tr>
 
-					<td style="color:#333; background-color:white; width:340px; text-align:center"></td>
+					<td style="background-color:white; width:55%; text-align:left; padding: 10px;"></td>
 
-					<td style="border-bottom: 1px solid #666; background-color:white; width:100px; text-align:right">Net Total:</td>
+					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">Net Total:</td>
 
-					<td style="border-bottom: 1px solid #666; background-color:white; width:100px; text-align:right">$ $netAmount</td>
+					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">$ $netAmount</td>
 
 				</tr>
 				
 				<tr>
 
-					<td style="color:#333; background-color:white; width:340px; text-align:center"></td>
+					<td style="background-color:white; width:55%; text-align:left; padding: 10px;"></td>
 
-					<td style="border-bottom: 1px solid #666; background-color:white; width:100px; text-align:right">Tax ($answerPurchase[tax_percent]%):</td>
+					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">Tax ($answerPurchase[tax_percent]%):</td>
 
-					<td style="border-bottom: 1px solid #666; background-color:white; width:100px; text-align:right">$ $taxAmount</td>
-
-				</tr>
-
-				<tr>
-				
-					<td style="color:#333; background-color:white; width:340px; text-align:center"></td>
-
-					<td style="border-bottom: 1px solid #666; background-color:white; width:100px; text-align:right">Total:</td>
-
-					<td style="border-bottom: 1px solid #666; background-color:white; width:100px; text-align:right">$ $answerPurchase[total_amount]</td>
+					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">$ $taxAmount</td>
 
 				</tr>
 
 				<tr>
 				
-					<td style="color:#333; background-color:white; width:340px; text-align:center"></td>
+					<td style="background-color:white; width:55%; text-align:left; padding: 10px;"></td>
 
-					<td style="background-color:white; width:100px; text-align:right">Payment Status:</td>
+					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 15px; width:22.5%; text-align:right; font-size: 14px; font-weight: bold;">TOTAL:</td>
 
-					<td style="background-color:white; width:100px; text-align:right">$answerPurchase[payment_status]</td>
-
-				</tr>
-
-				<tr>
-				
-					<td style="color:#333; background-color:white; width:340px; text-align:center"></td>
-
-					<td style="background-color:white; width:100px; text-align:right">Payment Method:</td>
-
-					<td style="background-color:white; width:100px; text-align:right">$answerPurchase[payment_method]</td>
+					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 15px; width:22.5%; text-align:right; font-size: 14px; font-weight: bold;">$ $answerPurchase[total_amount]</td>
 
 				</tr>
 
@@ -249,20 +218,69 @@ EOF;
 
 		$pdf->writeHTML($block6, false, false, false, false, '');
 
+		$block7 = <<<EOF
+
+			<table style="font-family: Arial, sans-serif; width:100%; margin-bottom: 20px;">
+
+				<tr>
+				
+					<td style="background-color:white; width:55%; text-align:left; padding: 10px;"></td>
+
+					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">Payment Status:</td>
+
+					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">$answerPurchase[payment_status]</td>
+
+				</tr>
+
+				<tr>
+				
+					<td style="background-color:white; width:55%; text-align:left; padding: 10px;"></td>
+
+					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">Payment Method:</td>
+
+					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">$answerPurchase[payment_method]</td>
+
+				</tr>
+
+			</table>
+
+EOF;
+
+		$pdf->writeHTML($block7, false, false, false, false, '');
+
+		$block8 = <<<EOF
+
+			<table style="font-family: Arial, sans-serif; width:100%; margin-top: 30px;">
+
+				<tr>
+				
+					<td style="background-color: #2c3e50; color: white; padding: 15px; text-align: center; font-size: 12px; font-style: italic;">
+						Thank you for your business!
+					</td>
+
+				</tr>
+
+			</table>
+
+EOF;
+
+		$pdf->writeHTML($block8, false, false, false, false, '');
+
 		if($answerPurchase["notes"]){
 
-			$block7 = <<<EOF
+			$block9 = <<<EOF
 
-				<table style="font-size:10px; padding:5px 10px;">
+				<table style="font-family: Arial, sans-serif; width:100%; margin-top: 20px;">
 					
 					<tr>
 					
-						<td style="border: 1px solid #666; background-color:white; width:540px">
+						<td style="border: 2px solid #34495e; background-color: #f8f9fa; padding: 15px; width:100%;">
 
-							<div style="font-size:8.5px; text-align:left; line-height:15px;">
+							<div style="font-size: 12px; color: #2c3e50; line-height: 20px;">
 								
-								<br>
-								Notes: $answerPurchase[notes]
+								<div style="font-weight: bold; font-size: 14px; margin-bottom: 10px; color: #2c3e50;">NOTES</div>
+								
+								<div style="font-style: italic;">$answerPurchase[notes]</div>
 
 							</div>
 
@@ -274,7 +292,7 @@ EOF;
 
 EOF;
 
-			$pdf->writeHTML($block7, false, false, false, false, '');
+			$pdf->writeHTML($block9, false, false, false, false, '');
 
 		}
 

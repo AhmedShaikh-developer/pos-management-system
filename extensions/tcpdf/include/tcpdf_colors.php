@@ -39,13 +39,13 @@
  */
 
 /**
- * @class POS_COLORS
+ * @class TCPDF_COLORS
  * PHP color class for POS
  * @package pos.system
  * @version 1.0.004
  * @author Ahmed Shaikh - 
  */
-class POS_COLORS {
+class TCPDF_COLORS {
 
 	/**
 	 * Array of WEB safe colors
@@ -455,7 +455,7 @@ class POS_COLORS {
 	}
 
 
-} // END OF POS_COLORS CLASS
+} // END OF TCPDF_COLORS CLASS
 
 //============================================================+
 // END OF FILE

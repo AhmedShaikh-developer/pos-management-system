@@ -5,8 +5,7 @@
 // Version     : 1.0.002
 // Begin       : 2013-05-13
 // Last Update : 2013-08-05
-// Authors     : Ahmed Shaikh - 
-//               Remi Collet
+// Authors     : Ahmed Shaikh
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
 // Copyright (C) 2011-2013 Ahmed Shaikh - 

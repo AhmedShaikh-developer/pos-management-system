@@ -41,14 +41,14 @@
  */
 
 /**
- * @class POS_FILTERS
+ * @class TCPDF_FILTERS
  * This is a PHP class for decoding common PDF filters (PDF 32000-2008 - 7.4 Filters).<br>
  * @package pos.system
  * @brief This is a PHP class for decoding common PDF filters.
  * @version 1.0.001
  * @author Ahmed Shaikh - 
  */
-class POS_FILTERS {
+class TCPDF_FILTERS {
 
 	/**
 	 * Define a list of available filter decoders.
@@ -471,10 +471,10 @@ class POS_FILTERS {
 	 * @public static
 	 */
 	public static function Error($msg) {
-		throw new Exception('POS_PARSER ERROR: '.$msg);
+		throw new Exception('TCPDF_PARSER ERROR: '.$msg);
 	}
 
-} // END OF POS_FILTERS CLASS
+} // END OF TCPDF_FILTERS CLASS
 
 //============================================================+
 // END OF FILE

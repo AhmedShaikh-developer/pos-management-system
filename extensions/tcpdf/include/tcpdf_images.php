@@ -42,14 +42,14 @@
  */
 
 /**
- * @class POS_IMAGES
+ * @class TCPDF_IMAGES
  * Static image methods used by the POS class.
  * @package pos.system
  * @brief PHP class for generating PDF documents without requiring external extensions.
  * @version 1.0.005
  * @author Ahmed Shaikh - 
  */
-class POS_IMAGES {
+class TCPDF_IMAGES {
 
 	/**
 	 * Array of hinheritable SVG properties.
@@ -78,7 +78,7 @@ class POS_IMAGES {
 		}
 		if (empty($type)) {
 			$fileinfo = pathinfo($imgfile);
-			if (isset($fileinfo['extension']) AND (!POS_STATIC::empty_string($fileinfo['extension']))) {
+			if (isset($fileinfo['extension']) AND (!TCPDF_STATIC::empty_string($fileinfo['extension']))) {
 				$type = strtolower(trim($fileinfo['extension']));
 			}
 		}
@@ -204,7 +204,7 @@ class POS_IMAGES {
 		$offset = 0;
 		while (($pos = strpos($data, "ICC_PROFILE\0", $offset)) !== false) {
 			// get ICC sequence length
-			$length = (POS_STATIC::_getUSHORT($data, ($pos - 2)) - 16);
+			$length = (TCPDF_STATIC::_getUSHORT($data, ($pos - 2)) - 16);
 			// marker sequence number
 			$msn = max(1, ord($data[($pos + 12)]));
 			// number of markers (total of APP2 used)
@@ -251,8 +251,8 @@ class POS_IMAGES {
 			//Incorrect PNG file
 			return false;
 		}
-		$w = POS_STATIC::_freadint($f);
-		$h = POS_STATIC::_freadint($f);
+		$w = TCPDF_STATIC::_freadint($f);
+		$h = TCPDF_STATIC::_freadint($f);
 		$bpc = ord(fread($f, 1));
 		$ct = ord(fread($f, 1));
 		if ($ct == 0) {
@@ -290,15 +290,15 @@ class POS_IMAGES {
 		$data = '';
 		$icc = false;
 		do {
-			$n = POS_STATIC::_freadint($f);
+			$n = TCPDF_STATIC::_freadint($f);
 			$type = fread($f, 4);
 			if ($type == 'PLTE') {
 				// read palette
-				$pal = POS_STATIC::rfread($f, $n);
+				$pal = TCPDF_STATIC::rfread($f, $n);
 				fread($f, 4);
 			} elseif ($type == 'tRNS') {
 				// read transparency info
-				$t = POS_STATIC::rfread($f, $n);
+				$t = TCPDF_STATIC::rfread($f, $n);
 				if ($ct == 0) { // DeviceGray
 					$trns = array(ord($t[1]));
 				} elseif ($ct == 2) { // DeviceRGB
@@ -307,14 +307,14 @@ class POS_IMAGES {
 					if ($n > 0) {
 						$trns = array();
 						for ($i = 0; $i < $n; ++ $i) {
-							$trns[] = ord($t{$i});
+							$trns[] = ord($t[$i]);
 						}
 					}
 				}
 				fread($f, 4);
 			} elseif ($type == 'IDAT') {
 				// read image data block
-				$data .= POS_STATIC::rfread($f, $n);
+				$data .= TCPDF_STATIC::rfread($f, $n);
 				fread($f, 4);
 			} elseif ($type == 'iCCP') {
 				// skip profile name
@@ -329,14 +329,14 @@ class POS_IMAGES {
 					return false;
 				}
 				// read ICC Color Profile
-				$icc = POS_STATIC::rfread($f, ($n - $len - 2));
+				$icc = TCPDF_STATIC::rfread($f, ($n - $len - 2));
 				// decompress profile
 				$icc = gzuncompress($icc);
 				fread($f, 4);
 			} elseif ($type == 'IEND') {
 				break;
 			} else {
-				POS_STATIC::rfread($f, $n + 4);
+				TCPDF_STATIC::rfread($f, $n + 4);
 			}
 		} while ($n);
 		if (($colspace == 'Indexed') AND (empty($pal))) {
@@ -348,7 +348,7 @@ class POS_IMAGES {
 		return array('w' => $w, 'h' => $h, 'ch' => $channels, 'icc' => $icc, 'cs' => $colspace, 'bpc' => $bpc, 'f' => 'FlateDecode', 'parms' => $parms, 'pal' => $pal, 'trns' => $trns, 'data' => $data);
 	}
 
-} // END OF POS_IMAGES CLASS
+} // END OF TCPDF_IMAGES CLASS
 
 //============================================================+
 // END OF FILE
