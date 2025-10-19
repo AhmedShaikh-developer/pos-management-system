@@ -138,6 +138,10 @@
             $_GET["route"] == 'sales' ||
             $_GET["route"] == 'create-sale' ||
             $_GET["route"] == 'edit-sale' ||
+            $_GET["route"] == 'vendors' ||
+            $_GET["route"] == 'purchases' ||
+            $_GET["route"] == 'create-purchase' ||
+            $_GET["route"] == 'edit-purchase' ||
             $_GET["route"] == 'reports' ||
             $_GET["route"] == 'logout'){
 
@@ -182,6 +186,8 @@
 <script src="views/js/products.js"></script>
 <script src="views/js/customers.js"></script>
 <script src="views/js/sales.js"></script>
+<script src="views/js/vendors.js"></script>
+<script src="views/js/purchases.js"></script>
 <script src="views/js/reports.js"></script>
 
 </body>

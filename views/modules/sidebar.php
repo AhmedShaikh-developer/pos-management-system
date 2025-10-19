@@ -138,6 +138,64 @@
 						</a>
 
 					</li>
+
+					<li class="treeview">
+
+						<a href="#">
+
+							<i class="fa fa-truck"></i>
+
+							<span>Purchases</span>
+
+							<span class="pull-right-container">
+
+								<i class="fa fa-angle-left pull-right"></i>
+
+							</span>
+
+						</a>
+
+						<ul class="treeview-menu">
+
+							<li>
+
+								<a href="vendors">
+
+									<i class="fa fa-circle"></i>
+
+									<span>Manage Vendors</span>
+
+								</a>
+
+							</li>
+
+							<li>
+
+								<a href="purchases">
+
+									<i class="fa fa-circle"></i>
+
+									<span>Manage Purchases</span>
+
+								</a>
+
+							</li>
+
+							<li>
+
+								<a href="create-purchase">
+
+									<i class="fa fa-circle"></i>
+
+									<span>Create Purchase</span>
+
+								</a>
+
+							</li>
+
+						</ul>
+
+					</li>
 					
 					
 					<li>
