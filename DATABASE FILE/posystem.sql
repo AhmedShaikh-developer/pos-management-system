@@ -180,6 +180,89 @@ INSERT INTO `users` (`id`, `name`, `user`, `password`, `profile`, `photo`, `stat
 (2, 'Jonathan Barbour', 'seller', '$2a$07$asxx54ahjppf45sd87a5au8uJqn2VoaOMw86zRUoDH6inuYomGLDq', 'Seller', 'views/img/users/jonathan/239.jpg', 1, '2022-12-10 12:39:15', '2022-12-10 17:39:15'),
 (3, 'Carmen McLeod', 'carmen', '$2a$07$asxx54ahjppf45sd87a5au8uJqn2VoaOMw86zRUoDH6inuYomGLDq', 'Special', 'views/img/users/carmen/215.jpg', 1, '2022-12-10 12:17:55', '2022-12-10 17:17:55');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vendors`
+--
+
+CREATE TABLE `vendors` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text COLLATE utf8_spanish_ci NOT NULL,
+  `phone` text COLLATE utf8_spanish_ci NOT NULL,
+  `address` text COLLATE utf8_spanish_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Dumping data for table `vendors`
+--
+
+INSERT INTO `vendors` (`id`, `name`, `phone`, `address`, `created_at`) VALUES
+(1, 'Shaikh and co', '(316) 396-6419', 'XYZ Place', '2025-01-19 15:25:00'),
+(2, 'Furniture Suppliers Ltd', '(555) 123-4567', '123 Business Street', '2025-01-19 15:30:00'),
+(3, 'Wood Craft Industries', '(555) 987-6543', '456 Industrial Avenue', '2025-01-19 15:35:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchase_slips`
+--
+
+CREATE TABLE `purchase_slips` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vendor_id` int(11) NOT NULL,
+  `total_amount` float NOT NULL,
+  `tax_percent` float NOT NULL,
+  `payment_status` enum('Paid','Unpaid') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'Unpaid',
+  `payment_method` text COLLATE utf8_spanish_ci NOT NULL,
+  `reference_no` text COLLATE utf8_spanish_ci NOT NULL,
+  `notes` text COLLATE utf8_spanish_ci,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `vendor_id` (`vendor_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Dumping data for table `purchase_slips`
+--
+
+INSERT INTO `purchase_slips` (`id`, `vendor_id`, `total_amount`, `tax_percent`, `payment_status`, `payment_method`, `reference_no`, `notes`, `created_at`) VALUES
+(1, 1, 4027.3, 15, 'Paid', 'Online', 'PUR-10001', 'Initial furniture stock purchase', '2025-01-19 15:25:00'),
+(2, 2, 1500, 10, 'Unpaid', 'Cash', 'PUR-10002', 'Office chairs and desks', '2025-01-19 15:30:00'),
+(3, 3, 2500, 12, 'Paid', 'Online', 'PUR-10003', 'Wooden tables and cabinets', '2025-01-19 15:35:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchase_items`
+--
+
+CREATE TABLE `purchase_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `purchase_slip_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `unit_price` float NOT NULL,
+  `subtotal` float NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `purchase_slip_id` (`purchase_slip_id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Dumping data for table `purchase_items`
+--
+
+INSERT INTO `purchase_items` (`id`, `purchase_slip_id`, `product_id`, `quantity`, `unit_price`, `subtotal`) VALUES
+(1, 1, 18, 1, 3452, 3452),
+(2, 1, 25, 1, 50, 50),
+(3, 2, 36, 2, 500, 1000),
+(4, 2, 44, 1, 500, 500),
+(5, 3, 61, 5, 300, 1500),
+(6, 3, 62, 2, 500, 1000);
+
 --
 -- Indexes for dumped tables
 --
@@ -215,6 +298,27 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `vendors`
+--
+ALTER TABLE `vendors`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `purchase_slips`
+--
+ALTER TABLE `purchase_slips`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `vendor_id` (`vendor_id`);
+
+--
+-- Indexes for table `purchase_items`
+--
+ALTER TABLE `purchase_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `purchase_slip_id` (`purchase_slip_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -243,6 +347,21 @@ ALTER TABLE `sales`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `vendors`
+--
+ALTER TABLE `vendors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `purchase_slips`
+--
+ALTER TABLE `purchase_slips`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `purchase_items`
+--
+ALTER TABLE `purchase_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
