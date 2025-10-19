@@ -77,11 +77,11 @@ $block1 = <<<EOF
 							</tr>
 						</table>
 
-					</td>
+		</td>
 
-				</tr>
+	</tr>
 
-			</table>
+</table>
 
 EOF;
 
@@ -104,7 +104,7 @@ $block2 = <<<EOF
 
 						</div>
 
-					</td>
+		</td>
 
 					<td style="border: 2px solid #34495e; background-color: #f8f9fa; padding: 15px; width:50%; vertical-align: top;">
 
@@ -117,11 +117,11 @@ $block2 = <<<EOF
 
 						</div>
 
-					</td>
+		</td>
 
-				</tr>
+	</tr>
 
-			</table>
+</table>
 
 EOF;
 
@@ -141,7 +141,7 @@ $block3 = <<<EOF
 					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 12px; width:22.5%; text-align:right; font-weight: bold; font-size: 12px;">Unit Price</td>
 					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 12px; width:22.5%; text-align:right; font-weight: bold; font-size: 12px;">Subtotal</td>
 
-				</tr>
+	</tr>
 
 			</table>
 
@@ -149,10 +149,18 @@ EOF;
 
 $pdf->writeHTML($block3, false, false, false, false, '');
 
+$grandTotalWithTax = 0; // Initialize total with tax included
+
 foreach ($products as $key => $item) {
 
-$unitValue = number_format($item["price"], 2);
-$totalPrice = number_format($item["totalPrice"], 2);
+// Calculate prices with tax included
+$taxRate = $answerSale["tax"] / $answerSale["netPrice"]; // Calculate tax rate from existing data
+$unitPriceWithTax = $item["price"] * (1 + $taxRate);
+$subtotalWithTax = $unitPriceWithTax * $item["quantity"];
+
+// Add to grand total
+$grandTotalWithTax += $subtotalWithTax;
+
 $rowColor = ($key % 2 == 0) ? '#ffffff' : '#f8f9fa';
 
 $block4 = <<<EOF
@@ -163,21 +171,21 @@ $block4 = <<<EOF
 						
 						<td style="border: 1px solid #bdc3c7; background-color: $rowColor; padding: 10px; width:40%; text-align:left; font-size: 11px; color: #2c3e50;">
 							$item[description]
-						</td>
+		</td>
 
 						<td style="border: 1px solid #bdc3c7; background-color: $rowColor; padding: 10px; width:15%; text-align:center; font-size: 11px; color: #2c3e50;">
 							$item[quantity]
+		</td>
+
+						<td style="border: 1px solid #bdc3c7; background-color: $rowColor; padding: 10px; width:22.5%; text-align:right; font-size: 11px; color: #2c3e50; font-weight: bold;">
+							$ $unitPriceWithTax
 						</td>
 
 						<td style="border: 1px solid #bdc3c7; background-color: $rowColor; padding: 10px; width:22.5%; text-align:right; font-size: 11px; color: #2c3e50; font-weight: bold;">
-							$ $unitValue
-						</td>
+							$ $subtotalWithTax
+		</td>
 
-						<td style="border: 1px solid #bdc3c7; background-color: $rowColor; padding: 10px; width:22.5%; text-align:right; font-size: 11px; color: #2c3e50; font-weight: bold;">
-							$ $totalPrice
-						</td>
-
-					</tr>
+	</tr>
 
 				</table>
 
@@ -188,30 +196,9 @@ $pdf->writeHTML($block4, false, false, false, false, '');
 }
 
 // ---------------------------------------------------------
-$totalPriceAfterTax = $netPrice + $tax;
 $block5 = <<<EOF
 
 			<table style="font-family: Arial, sans-serif; width:100%; margin-top: 20px; margin-bottom: 20px;">
-
-				<tr>
-
-					<td style="background-color:white; width:55%; text-align:left; padding: 10px;"></td>
-
-					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">Net Total:</td>
-
-					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">$ $netPrice</td>
-
-				</tr>
-				
-				<tr>
-
-					<td style="background-color:white; width:55%; text-align:left; padding: 10px;"></td>
-
-					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">Tax:</td>
-
-					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">$ $tax</td>
-
-				</tr>
 
 				<tr>
 				
@@ -219,9 +206,9 @@ $block5 = <<<EOF
 
 					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 15px; width:22.5%; text-align:right; font-size: 14px; font-weight: bold;">TOTAL:</td>
 
-					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 15px; width:22.5%; text-align:right; font-size: 14px; font-weight: bold;">$ $totalPrice</td>
+					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 15px; width:22.5%; text-align:right; font-size: 14px; font-weight: bold;">$ $grandTotalWithTax</td>
 
-				</tr>
+	</tr>
 
 			</table>
 
@@ -236,12 +223,12 @@ $block6 = <<<EOF
 				<tr>
 				
 					<td style="background-color: #2c3e50; color: white; padding: 15px; text-align: center; font-size: 12px; font-style: italic;">
-						Thank you for your purchase!
-					</td>
+			Thank you for your purchase!
+		</td>
 
-				</tr>
+	</tr>
 
-			</table>
+</table>
 
 EOF;
 

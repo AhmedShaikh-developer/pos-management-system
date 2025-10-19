@@ -133,6 +133,8 @@ EOF;
 
 		$pdf->writeHTML($block4, false, false, false, false, '');
 
+		$grandTotalWithTax = 0; // Initialize total with tax included
+
 		foreach ($answerItems as $key => $item) {
 
 			$itemProduct = "id";
@@ -140,6 +142,14 @@ EOF;
 			$order = "id";
 
 			$answerProduct = ControllerProducts::ctrShowProducts($itemProduct, $valueProduct, $order);
+
+			// Calculate prices with tax included
+			$taxRate = $answerPurchase["tax_percent"] / 100;
+			$unitPriceWithTax = $item["unit_price"] * (1 + $taxRate);
+			$subtotalWithTax = $unitPriceWithTax * $item["quantity"];
+			
+			// Add to grand total
+			$grandTotalWithTax += $subtotalWithTax;
 
 			$rowColor = ($key % 2 == 0) ? '#ffffff' : '#f8f9fa';
 
@@ -158,11 +168,11 @@ EOF;
 						</td>
 
 						<td style="border: 1px solid #bdc3c7; background-color: $rowColor; padding: 10px; width:22.5%; text-align:right; font-size: 11px; color: #2c3e50; font-weight: bold;">
-							$ $item[unit_price]
+							$ $unitPriceWithTax
 						</td>
 
 						<td style="border: 1px solid #bdc3c7; background-color: $rowColor; padding: 10px; width:22.5%; text-align:right; font-size: 11px; color: #2c3e50; font-weight: bold;">
-							$ $item[subtotal]
+							$ $subtotalWithTax
 						</td>
 
 					</tr>
@@ -175,32 +185,9 @@ EOF;
 
 		}
 
-		$netAmount = $answerPurchase["total_amount"] / (1 + ($answerPurchase["tax_percent"] / 100));
-		$taxAmount = $answerPurchase["total_amount"] - $netAmount;
-
 		$block6 = <<<EOF
 
 			<table style="font-family: Arial, sans-serif; width:100%; margin-top: 20px; margin-bottom: 20px;">
-
-				<tr>
-
-					<td style="background-color:white; width:55%; text-align:left; padding: 10px;"></td>
-
-					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">Net Total:</td>
-
-					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">$ $netAmount</td>
-
-				</tr>
-				
-				<tr>
-
-					<td style="background-color:white; width:55%; text-align:left; padding: 10px;"></td>
-
-					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">Tax ($answerPurchase[tax_percent]%):</td>
-
-					<td style="border: 1px solid #bdc3c7; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-size: 12px; color: #2c3e50; font-weight: bold;">$ $taxAmount</td>
-
-				</tr>
 
 				<tr>
 				
@@ -208,7 +195,7 @@ EOF;
 
 					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 15px; width:22.5%; text-align:right; font-size: 14px; font-weight: bold;">TOTAL:</td>
 
-					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 15px; width:22.5%; text-align:right; font-size: 14px; font-weight: bold;">$ $answerPurchase[total_amount]</td>
+					<td style="border: 2px solid #34495e; background-color: #34495e; color: white; padding: 15px; width:22.5%; text-align:right; font-size: 14px; font-weight: bold;">$ $grandTotalWithTax</td>
 
 				</tr>
 
