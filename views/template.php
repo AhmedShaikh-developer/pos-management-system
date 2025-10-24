@@ -142,6 +142,8 @@
             $_GET["route"] == 'purchases' ||
             $_GET["route"] == 'create-purchase' ||
             $_GET["route"] == 'edit-purchase' ||
+            $_GET["route"] == 'returns' ||
+            $_GET["route"] == 'create-return' ||
             $_GET["route"] == 'reports' ||
             $_GET["route"] == 'logout'){
 
@@ -188,6 +190,7 @@
 <script src="views/js/sales.js?v=<?php echo time(); ?>"></script>
 <script src="views/js/vendors.js"></script>
 <script src="views/js/purchases.js"></script>
+<script src="views/js/returns.js"></script>
 <script src="views/js/reports.js"></script>
 
 </body>

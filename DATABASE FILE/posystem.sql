@@ -263,6 +263,29 @@ INSERT INTO `purchase_items` (`id`, `purchase_slip_id`, `product_id`, `quantity`
 (5, 3, 61, 5, 300, 1500),
 (6, 3, 62, 2, 500, 1000);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `returns`
+--
+
+CREATE TABLE `returns` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `return_code` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `sale_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity_returned` int(11) NOT NULL,
+  `return_type` enum('refund','exchange') COLLATE utf8_spanish_ci NOT NULL,
+  `reason` text COLLATE utf8_spanish_ci NOT NULL,
+  `refund_amount` float NOT NULL,
+  `handled_by` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `sale_id` (`sale_id`),
+  KEY `product_id` (`product_id`),
+  KEY `handled_by` (`handled_by`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -319,6 +342,15 @@ ALTER TABLE `purchase_items`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Indexes for table `returns`
+--
+ALTER TABLE `returns`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sale_id` (`sale_id`),
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `handled_by` (`handled_by`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -362,6 +394,11 @@ ALTER TABLE `purchase_slips`
 --
 ALTER TABLE `purchase_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `returns`
+--
+ALTER TABLE `returns`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

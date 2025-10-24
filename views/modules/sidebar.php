@@ -76,7 +76,7 @@
 				';
 			}
 
-			if($_SESSION["profile"] == "Administrator" || $_SESSION["profile"] == "Seller"){
+				if($_SESSION["profile"] == "Administrator" || $_SESSION["profile"] == "Seller"){
 
 			echo'
 
@@ -121,7 +121,25 @@
 
 						</a>
 
-					</li> </ul>';
+					</li>';
+
+					if($_SESSION["profile"] == "Administrator"){
+
+						echo '<li>
+
+							<a href="returns">
+
+								<i class="fa fa-circle"></i>
+
+								<span>Returns & Exchanges</span>
+
+							</a>
+
+						</li>';
+
+					}
+
+					echo '</ul>';
 
 				}
 
