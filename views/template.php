@@ -145,6 +145,7 @@
             $_GET["route"] == 'returns' ||
             $_GET["route"] == 'create-return' ||
             $_GET["route"] == 'reports' ||
+            $_GET["route"] == 'customer-balance-report' ||
             $_GET["route"] == 'logout'){
 
           include "modules/".$_GET["route"].".php";
@@ -192,6 +193,7 @@
 <script src="views/js/purchases.js"></script>
 <script src="views/js/returns.js"></script>
 <script src="views/js/reports.js"></script>
+<script src="views/js/customer-balance.js"></script>
 
 </body>
 </html>

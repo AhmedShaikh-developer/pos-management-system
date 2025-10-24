@@ -145,15 +145,49 @@
 
 				if($_SESSION["profile"] == "Administrator"){
 
-					echo '<li>
+					echo '<li class="treeview">
 
-						<a href="reports">
+						<a href="#">
 
 							<i class="fa fa-file"></i>
 
-							<span>Sales Report</span>
+							<span>Reports</span>
+
+							<span class="pull-right-container">
+
+								<i class="fa fa-angle-left pull-right"></i>
+
+							</span>
 
 						</a>
+
+						<ul class="treeview-menu">
+
+							<li>
+
+								<a href="reports">
+
+									<i class="fa fa-circle"></i>
+
+									<span>Sales Report</span>
+
+								</a>
+
+							</li>
+
+							<li>
+
+								<a href="customer-balance-report">
+
+									<i class="fa fa-circle"></i>
+
+									<span>Customer Balances</span>
+
+								</a>
+
+							</li>
+
+						</ul>
 
 					</li>
 
