@@ -103,6 +103,33 @@ class ModelSales{
 		$stmt = null;
 
 	}
+
+	/*=============================================
+	UPDATE PAYMENT STATUS ONLY
+	=============================================*/
+	
+	static public function mdlUpdatePaymentStatus($table, $data){
+
+		$stmt = Connection::connect()->prepare("UPDATE $table SET payment_status = :payment_status WHERE id = :id");
+
+		$stmt->bindParam(":id", $data["id"], PDO::PARAM_INT);
+		$stmt->bindParam(":payment_status", $data["payment_status"], PDO::PARAM_STR);
+
+		if($stmt->execute()){
+
+			return "ok";
+
+		}else{
+
+			return "error";
+		
+		}
+
+		$stmt->close();
+		$stmt = null;
+
+	}
+
 	/*=============================================
 	DELETE SALE
 	=============================================*/

@@ -95,7 +95,8 @@ class ControllerSales{
 						   "tax"=>$_POST["newTaxPrice"],
 						   "netPrice"=>$_POST["newNetPrice"],
 						   "totalPrice"=>$_POST["saleTotal"],
-						   "paymentMethod"=>$_POST["listPaymentMethod"]);
+						   "paymentMethod"=>$_POST["listPaymentMethod"],
+						   "payment_status"=>"Paid");
 
 			$answer = ModelSales::mdlAddSale($table, $data);
 
@@ -266,7 +267,8 @@ class ControllerSales{
 						   "tax"=>$_POST["newTaxPrice"],
 						   "netPrice"=>$_POST["newNetPrice"],
 						   "totalPrice"=>$_POST["saleTotal"],
-						   "paymentMethod"=>$_POST["listPaymentMethod"]);
+						   "paymentMethod"=>$_POST["listPaymentMethod"],
+						   "payment_status"=>"Paid");
 
 
 			$answer = ModelSales::mdleditSale($table, $data);

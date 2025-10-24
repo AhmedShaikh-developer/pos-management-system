@@ -309,6 +309,23 @@ CREATE TABLE `returns` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
+-- Table structure for table `partial_payments`
+--
+
+CREATE TABLE `partial_payments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sale_id` int(11) NOT NULL,
+  `amount_paid` float NOT NULL,
+  `payment_method` enum('cash','online','card','cheque') COLLATE utf8_spanish_ci NOT NULL,
+  `reference_no` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `paid_by` int(11) NOT NULL,
+  `paid_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `sale_id` (`sale_id`),
+  KEY `paid_by` (`paid_by`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
 -- Indexes for dumped tables
 --
 
@@ -382,6 +399,14 @@ ALTER TABLE `returns`
   ADD KEY `handled_by` (`handled_by`);
 
 --
+-- Indexes for table `partial_payments`
+--
+ALTER TABLE `partial_payments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sale_id` (`sale_id`),
+  ADD KEY `paid_by` (`paid_by`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -434,6 +459,11 @@ ALTER TABLE `payment_audit`
 -- AUTO_INCREMENT for table `returns`
 --
 ALTER TABLE `returns`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+--
+-- AUTO_INCREMENT for table `partial_payments`
+--
+ALTER TABLE `partial_payments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

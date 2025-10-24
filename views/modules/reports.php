@@ -118,6 +118,16 @@ if($_SESSION["profile"] == "Special" || $_SESSION["profile"] == "Seller"){
             ?>
 
          </div>
+
+         <div class="col-xs-12">
+           
+            <?php
+
+            include "reports/payment-status-report.php";
+
+            ?>
+
+         </div>
           
         </div>
 
