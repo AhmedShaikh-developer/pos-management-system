@@ -187,6 +187,18 @@
 
 							</li>
 
+							<li>
+
+								<a href="payment-audit-report">
+
+									<i class="fa fa-circle"></i>
+
+									<span>Payment Audit Trail</span>
+
+								</a>
+
+							</li>
+
 						</ul>
 
 					</li>

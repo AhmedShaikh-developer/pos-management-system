@@ -81,6 +81,7 @@ if($xml){
              <th>Customer</th>
              <th>Seller</th>
              <th>Payment Method</th>
+             <th>Payment Status</th>
              <th>Net Cost</th>
              <th>Total Cost</th>
              <th>Date</th>
@@ -129,9 +130,19 @@ if($xml){
 
                   echo '<td>'.$userAnswer["name"].'</td>
 
-                  <td>'.$value["paymentMethod"].'</td>
+                  <td>'.$value["paymentMethod"].'</td>';
 
-                  <td>$ '.number_format($value["netPrice"],2).'</td>
+                  $paymentStatus = isset($value["payment_status"]) ? $value["payment_status"] : "Paid";
+
+                  if($paymentStatus == "Paid"){
+                    echo '<td><span class="label label-success">Paid</span></td>';
+                  }elseif($paymentStatus == "Partial"){
+                    echo '<td><span class="label label-warning">Partial</span></td>';
+                  }else{
+                    echo '<td><span class="label label-danger">Unpaid</span></td>';
+                  }
+
+                  echo '<td>$ '.number_format($value["netPrice"],2).'</td>
 
                   <td>$ '.number_format($value["totalPrice"],2).'</td>
 
@@ -153,7 +164,9 @@ if($xml){
 
                        if($_SESSION["profile"] == "Administrator"){
                         
-                         echo '<button class="btn btn-primary btnEditSale" idSale="'.$value["id"].'"><i class="fa fa-pencil"></i></button>
+                         echo '<button class="btn btn-info btnViewAuditLog" saleId="'.$value["id"].'" data-toggle="modal" data-target="#modalAuditLog"><i class="fa fa-history"></i></button>
+
+                          <button class="btn btn-primary btnEditSale" idSale="'.$value["id"].'"><i class="fa fa-pencil"></i></button>
 
                           <button class="btn btn-danger btnDeleteSale" idSale="'.$value["id"].'"><i class="fa fa-trash"></i></button>';
                        }
@@ -183,5 +196,94 @@ if($xml){
     
     </div>
   </section>
+
+</div>
+
+<!--=====================================
+MODAL VIEW AUDIT LOG
+======================================-->
+
+<div id="modalAuditLog" class="modal fade" role="dialog">
+  
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+
+      <div class="modal-header" style="background:#3C8DBC; color:white">
+
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        <h4 class="modal-title">Payment Audit Log</h4>
+
+      </div>
+
+      <div class="modal-body">
+
+        <div class="box-body">
+
+          <div id="auditLogContent">
+            
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Date/Time</th>
+                  <th>Old Status</th>
+                  <th>New Status</th>
+                  <th>Changed By</th>
+                  <th>Remarks</th>
+                </tr>
+              </thead>
+              <tbody id="auditLogTableBody">
+                
+              </tbody>
+            </table>
+
+          </div>
+
+          <hr>
+
+          <form role="form" method="POST">
+
+            <input type="hidden" name="saleId" id="modalSaleId">
+
+            <div class="form-group">
+              <label>Update Payment Status:</label>
+              <select class="form-control" name="newPaymentStatus" id="newPaymentStatus" required>
+                <option value="">-Select Status-</option>
+                <option value="Paid">Paid</option>
+                <option value="Partial">Partial</option>
+                <option value="Unpaid">Unpaid</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Remarks (Optional):</label>
+              <textarea class="form-control" name="paymentRemarks" id="paymentRemarks" rows="2" placeholder="Enter any remarks"></textarea>
+            </div>
+
+            <button type="submit" name="updatePaymentStatus" class="btn btn-success">Update Status</button>
+
+          </form>
+
+          <?php
+
+            $updateStatus = new ControllerPaymentAudit();
+            $updateStatus -> ctrUpdatePaymentStatus();
+
+          ?>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>

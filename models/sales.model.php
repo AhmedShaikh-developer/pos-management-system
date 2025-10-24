@@ -41,7 +41,9 @@ class ModelSales{
 	=============================================*/
 	static public function mdlAddSale($table, $data){
 
-		$stmt = Connection::connect()->prepare("INSERT INTO $table(code, idCustomer, idSeller, products, tax, netPrice, totalPrice, paymentMethod) VALUES (:code, :idCustomer, :idSeller, :products, :tax, :netPrice, :totalPrice, :paymentMethod)");
+		$paymentStatus = isset($data["payment_status"]) ? $data["payment_status"] : "Paid";
+
+		$stmt = Connection::connect()->prepare("INSERT INTO $table(code, idCustomer, idSeller, products, tax, netPrice, totalPrice, paymentMethod, payment_status) VALUES (:code, :idCustomer, :idSeller, :products, :tax, :netPrice, :totalPrice, :paymentMethod, :payment_status)");
 
 		$stmt->bindParam(":code", $data["code"], PDO::PARAM_INT);
 		$stmt->bindParam(":idCustomer", $data["idCustomer"], PDO::PARAM_INT);
@@ -51,6 +53,7 @@ class ModelSales{
 		$stmt->bindParam(":netPrice", $data["netPrice"], PDO::PARAM_STR);
 		$stmt->bindParam(":totalPrice", $data["totalPrice"], PDO::PARAM_STR);
 		$stmt->bindParam(":paymentMethod", $data["paymentMethod"], PDO::PARAM_STR);
+		$stmt->bindParam(":payment_status", $paymentStatus, PDO::PARAM_STR);
 
 		if($stmt->execute()){
 
@@ -72,7 +75,9 @@ class ModelSales{
 	
 	static public function mdlEditSale($table, $data){
 
-		$stmt = Connection::connect()->prepare("UPDATE $table SET  idCustomer = :idCustomer, idSeller = :idSeller, products = :products, tax = :tax, netPrice = :netPrice, totalPrice= :totalPrice, paymentMethod = :paymentMethod WHERE code = :code");
+		$paymentStatus = isset($data["payment_status"]) ? $data["payment_status"] : "Paid";
+
+		$stmt = Connection::connect()->prepare("UPDATE $table SET  idCustomer = :idCustomer, idSeller = :idSeller, products = :products, tax = :tax, netPrice = :netPrice, totalPrice= :totalPrice, paymentMethod = :paymentMethod, payment_status = :payment_status WHERE code = :code");
 
 		$stmt->bindParam(":code", $data["code"], PDO::PARAM_INT);
 		$stmt->bindParam(":idCustomer", $data["idCustomer"], PDO::PARAM_INT);
@@ -82,6 +87,7 @@ class ModelSales{
 		$stmt->bindParam(":netPrice", $data["netPrice"], PDO::PARAM_STR);
 		$stmt->bindParam(":totalPrice", $data["totalPrice"], PDO::PARAM_STR);
 		$stmt->bindParam(":paymentMethod", $data["paymentMethod"], PDO::PARAM_STR);
+		$stmt->bindParam(":payment_status", $paymentStatus, PDO::PARAM_STR);
 
 		if($stmt->execute()){
 
