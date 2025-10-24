@@ -326,6 +326,23 @@ CREATE TABLE `partial_payments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
+-- Table structure for table `customer_notes`
+--
+
+CREATE TABLE `customer_notes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) NOT NULL,
+  `note_text` text COLLATE utf8_spanish_ci NOT NULL,
+  `note_type` enum('info','warning','reminder') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'info',
+  `created_by` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `customer_id` (`customer_id`),
+  KEY `created_by` (`created_by`),
+  KEY `note_type` (`note_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
 -- Indexes for dumped tables
 --
 
@@ -464,6 +481,11 @@ ALTER TABLE `returns`
 -- AUTO_INCREMENT for table `partial_payments`
 --
 ALTER TABLE `partial_payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+--
+-- AUTO_INCREMENT for table `customer_notes`
+--
+ALTER TABLE `customer_notes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
