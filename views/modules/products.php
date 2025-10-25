@@ -480,6 +480,134 @@ EDIT PRODUCT
 
 </div>
 
+<!--=====================================
+MODAL PRODUCT IMAGE LIGHTBOX
+======================================-->
+
+<div id="productImageModal" class="modal fade" role="dialog" tabindex="-1">
+  
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+
+      <div class="modal-header" style="background:#3C8DBC; color:white; border:none;">
+
+        <button type="button" class="close" data-dismiss="modal" style="color:white; opacity:1;">&times;</button>
+
+        <h4 class="modal-title" id="productModalTitle">Product Details</h4>
+
+      </div>
+
+      <div class="modal-body" style="padding:0; background:#000;">
+
+        <div class="row" style="margin:0;">
+
+          <!-- Image Section -->
+          <div class="col-md-7" style="padding:20px; background:#000; text-align:center;">
+            
+            <img id="productModalImage" src="" alt="Product Image" class="img-responsive" style="max-height:500px; margin:0 auto; transition: transform 0.3s ease;">
+
+          </div>
+
+          <!-- Details Section -->
+          <div class="col-md-5" style="padding:20px; background:#fff;">
+
+            <h4 style="margin-top:0; color:#3C8DBC;">Product Information</h4>
+
+            <table class="table table-bordered">
+              <tr>
+                <td><strong>Product Code:</strong></td>
+                <td id="modalProductCode"></td>
+              </tr>
+              <tr>
+                <td><strong>Description:</strong></td>
+                <td id="modalProductDescription"></td>
+              </tr>
+              <tr>
+                <td><strong>Category:</strong></td>
+                <td id="modalProductCategory"></td>
+              </tr>
+              <tr>
+                <td><strong>Stock:</strong></td>
+                <td id="modalProductStock"></td>
+              </tr>
+              <tr>
+                <td><strong>Buying Price:</strong></td>
+                <td id="modalProductBuying"></td>
+              </tr>
+              <tr>
+                <td><strong>Selling Price:</strong></td>
+                <td id="modalProductSelling"></td>
+              </tr>
+            </table>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+/* Lightbox Modal Styles */
+#productImageModal .modal-dialog {
+  margin: 30px auto;
+}
+
+#productImageModal .modal-content {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#productImageModal .modal-body {
+  padding: 0;
+}
+
+/* Image Zoom Effect on Hover */
+#productModalImage:hover {
+  transform: scale(1.05);
+  cursor: zoom-in;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #productImageModal .col-md-7,
+  #productImageModal .col-md-5 {
+    width: 100%;
+  }
+  
+  #productModalImage {
+    max-height: 300px;
+  }
+}
+
+/* Click outside to close effect */
+#productImageModal .modal-dialog {
+  pointer-events: none;
+}
+
+#productImageModal .modal-content {
+  pointer-events: auto;
+}
+
+/* Smooth fade-in animation */
+#productImageModal.fade .modal-dialog {
+  transform: scale(0.9);
+  opacity: 0;
+  transition: all 0.3s ease-out;
+}
+
+#productImageModal.fade.in .modal-dialog {
+  transform: scale(1);
+  opacity: 1;
+}
+</style>
+
 <?php
 
   $deleteProduct = new controllerProducts();

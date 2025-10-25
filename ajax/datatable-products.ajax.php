@@ -34,20 +34,22 @@ class productsTable{
 				for($i=0; $i < count($products); $i++){
 
 
-					/*=============================================
-					We bring the image
-					=============================================*/
-					
-					$image = "<img src='".$products[$i]["image"]."' width='40px'>";
+				/*=============================================
+				We bring the category
+				=============================================*/
+				
+				$item = "id";
+			  	$value = $products[$i]["idCategory"];
 
-					/*=============================================
-					We bring the category
-					=============================================*/
-					
-					$item = "id";
-				  	$value = $products[$i]["idCategory"];
+			  	$categories = ControllerCategories::ctrShowCategories($item, $value);
 
-				  	$categories = ControllerCategories::ctrShowCategories($item, $value);
+				/*=============================================
+				We bring the image
+				=============================================*/
+				
+				$categoryName = $categories["Category"] ?? "N/A";
+				
+				$image = "<img src='".$products[$i]["image"]."' width='40px' class='product-img-clickable' style='cursor:pointer;' data-image='".addslashes($products[$i]["image"])."' data-code='".addslashes($products[$i]["code"])."' data-description='".addslashes($products[$i]["description"])."' data-category='".addslashes($categoryName)."' data-stock='".$products[$i]["stock"]."' data-buying='".$products[$i]["buyingPrice"]."' data-selling='".$products[$i]["sellingPrice"]."'>";
 
 					/*=============================================
 					Stock
@@ -77,18 +79,18 @@ class productsTable{
 		  				$buttons =  "<div class='btn-group'><button class='btn btn-primary btnEditProduct' idProduct='".$products[$i]["id"]."' data-toggle='modal' data-target='#modalEditProduct'><i class='fa fa-pencil'></i></button><button class='btn btn-danger btnDeleteProduct' idProduct='".$products[$i]["id"]."' code='".$products[$i]["code"]."' image='".$products[$i]["image"]."'><i class='fa fa-trash'></i></button></div>";
 		  			}
 
-					$jsonData .='[
-						"'.($i+1).'",
-						"'.$image.'",
-						"'.$products[$i]["code"].'",
-						"'.$products[$i]["description"].'",
-						"'.$categories["Category"].'",
-						"'.$stock.'",
-						"$ '.$products[$i]["buyingPrice"].'",
-						"$ '.$products[$i]["sellingPrice"].'",
-						"'.$products[$i]["date"].'",
-						"'.$buttons.'"
-					],';
+				$jsonData .='[
+					"'.($i+1).'",
+					"'.$image.'",
+					"'.addslashes($products[$i]["code"]).'",
+					"'.addslashes($products[$i]["description"]).'",
+					"'.addslashes($categoryName).'",
+					"'.$stock.'",
+					"$ '.$products[$i]["buyingPrice"].'",
+					"$ '.$products[$i]["sellingPrice"].'",
+					"'.$products[$i]["date"].'",
+					"'.$buttons.'"
+				],'; 
 				}
 
 				$jsonData = substr($jsonData, 0, -1);

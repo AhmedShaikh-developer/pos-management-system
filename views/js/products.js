@@ -266,3 +266,94 @@ $(".productsTable tbody").on("click", "button.btnDeleteProduct", function(){
       }
     })
 })
+
+/*=============================================
+PRODUCT IMAGE LIGHTBOX
+=============================================*/
+
+// Handle click on product images in the table
+$(document).on('click', '.product-img-clickable', function(e){
+
+	e.preventDefault();
+	e.stopPropagation();
+
+	console.log("Product image clicked!"); // Debug
+
+	var imageSrc = $(this).attr('data-image');
+	var productCode = $(this).attr('data-code');
+	var productDescription = $(this).attr('data-description');
+	var productCategory = $(this).attr('data-category');
+	var productStock = $(this).attr('data-stock');
+	var productBuying = $(this).attr('data-buying');
+	var productSelling = $(this).attr('data-selling');
+
+	console.log("Image src:", imageSrc); // Debug
+	console.log("Description:", productDescription); // Debug
+
+	// Set modal title
+	$('#productModalTitle').text(productDescription);
+
+	// Set image source
+	$('#productModalImage').attr('src', imageSrc);
+
+	// Populate product details
+	$('#modalProductCode').text(productCode);
+	$('#modalProductDescription').text(productDescription);
+	$('#modalProductCategory').text(productCategory);
+	$('#modalProductStock').text(productStock);
+	$('#modalProductBuying').text('$ ' + productBuying);
+	$('#modalProductSelling').text('$ ' + productSelling);
+
+	// Show the modal
+	$('#productImageModal').modal('show');
+
+});
+
+// Alternative: Also handle click on table cells containing images
+$('.productsTable').on('click', 'img.product-img-clickable', function(e){
+
+	e.preventDefault();
+	e.stopPropagation();
+
+	console.log("Alternative handler triggered"); // Debug
+
+	var imageSrc = $(this).attr('data-image');
+	var productCode = $(this).attr('data-code');
+	var productDescription = $(this).attr('data-description');
+	var productCategory = $(this).attr('data-category');
+	var productStock = $(this).attr('data-stock');
+	var productBuying = $(this).attr('data-buying');
+	var productSelling = $(this).attr('data-selling');
+
+	// Set modal title
+	$('#productModalTitle').text(productDescription);
+
+	// Set image source
+	$('#productModalImage').attr('src', imageSrc);
+
+	// Populate product details
+	$('#modalProductCode').text(productCode);
+	$('#modalProductDescription').text(productDescription);
+	$('#modalProductCategory').text(productCategory);
+	$('#modalProductStock').text(productStock);
+	$('#modalProductBuying').text('$ ' + productBuying);
+	$('#modalProductSelling').text('$ ' + productSelling);
+
+	// Show the modal
+	$('#productImageModal').modal('show');
+
+});
+
+// Close modal when clicking outside the modal content
+$('#productImageModal').on('click', function(e){
+	if(e.target === this){
+		$(this).modal('hide');
+	}
+});
+
+// Optional: Add keyboard shortcut to close (ESC key)
+$(document).on('keyup', function(e){
+	if(e.key === "Escape" || e.keyCode === 27){
+		$('#productImageModal').modal('hide');
+	}
+});

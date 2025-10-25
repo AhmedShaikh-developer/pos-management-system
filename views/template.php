@@ -187,7 +187,7 @@
 <script src="views/js/template.js"></script>
 <script src="views/js/users.js"></script>
 <script src="views/js/categories.js"></script>
-<script src="views/js/products.js"></script>
+<script src="views/js/products.js?v=<?php echo time(); ?>"></script>
 <script src="views/js/customers.js"></script>
 <script src="views/js/sales.js?v=<?php echo time(); ?>"></script>
 <script src="views/js/vendors.js"></script>
