@@ -73,7 +73,7 @@ class PurchasesModel{
 
 	static public function mdlEditPurchaseSlip($table, $data){
 
-		$stmt = Connection::connect()->prepare("UPDATE $table SET vendor_id = :vendor_id, total_amount = :total_amount, tax_percent = :tax_percent, payment_status = :payment_status, payment_method = :payment_method, notes = :notes WHERE reference_no = :reference_no");
+		$stmt = Connection::connect()->prepare("UPDATE $table SET vendor_id = :vendor_id, total_amount = :total_amount, tax_percent = :tax_percent, payment_status = :payment_status, payment_method = :payment_method, notes = :notes WHERE id = :id");
 
 		$stmt->bindParam(":vendor_id", $data["vendor_id"], PDO::PARAM_INT);
 		$stmt->bindParam(":total_amount", $data["total_amount"], PDO::PARAM_STR);
@@ -81,7 +81,7 @@ class PurchasesModel{
 		$stmt->bindParam(":payment_status", $data["payment_status"], PDO::PARAM_STR);
 		$stmt->bindParam(":payment_method", $data["payment_method"], PDO::PARAM_STR);
 		$stmt->bindParam(":notes", $data["notes"], PDO::PARAM_STR);
-		$stmt->bindParam(":reference_no", $data["reference_no"], PDO::PARAM_STR);
+		$stmt->bindParam(":id", $data["id"], PDO::PARAM_INT);
 
 		if($stmt->execute()){
 

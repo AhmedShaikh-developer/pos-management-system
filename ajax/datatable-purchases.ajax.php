@@ -6,6 +6,9 @@ require_once "../models/purchases.model.php";
 require_once "../controllers/vendors.controller.php";
 require_once "../models/vendors.model.php";
 
+require_once "../controllers/partial-payments.controller.php";
+require_once "../models/partial-payments.model.php";
+
 class PurchasesTable{
 
 	/*=============================================
@@ -38,29 +41,45 @@ class PurchasesTable{
 
 					$vendor = ControllerVendors::ctrShowVendors($itemVendor, $valueVendor);
 
-					if($purchases[$i]["payment_status"] == "Paid"){
+			if($purchases[$i]["payment_status"] == "Paid"){
 
-						$status = "<button class='btn btn-success btn-xs'>Paid</button>";
+				$status = "<button class='btn btn-success btn-xs'>Paid</button>";
+				$remainingPayment = "0.00";
 
-					}else{
+			}elseif($purchases[$i]["payment_status"] == "Partial"){
 
-						$status = "<button class='btn btn-danger btn-xs'>Unpaid</button>";
-
-					}
-
-					$buttons =  "<div class='btn-group'><a class='btn btn-warning btnPrintPurchase' href='extensions/tcpdf/pdf/purchase-slip.php?ref=".$purchases[$i]["reference_no"]."' target='_blank'><i class='fa fa-print'></i></a><button class='btn btn-primary btnEditPurchase' idPurchase='".$purchases[$i]["id"]."'><i class='fa fa-pencil'></i></button><button class='btn btn-danger btnDeletePurchase' idPurchase='".$purchases[$i]["id"]."'><i class='fa fa-trash'></i></button></div>";
-
-					$jsonData .='[
-						"'.($i+1).'",
-						"'.$purchases[$i]["reference_no"].'",
-						"'.$vendor["name"].'",
-						"'.number_format($purchases[$i]["total_amount"],2).'",
-						"'.$status.'",
-						"'.$purchases[$i]["payment_method"].'",
-						"'.$purchases[$i]["created_at"].'",
-						"'.$buttons.'"
-					],';
+				$status = "<button class='btn btn-warning btn-xs'>Partial</button>";
+				
+				// Get partial payment details
+				$partialPayment = PartialPaymentsController::ctrShowPurchasePartialPayment($purchases[$i]["id"]);
+				
+				if($partialPayment){
+					$remainingPayment = number_format($partialPayment["balance_remaining"], 2);
+				}else{
+					$remainingPayment = number_format($purchases[$i]["total_amount"], 2);
 				}
+
+			}else{
+
+				$status = "<button class='btn btn-danger btn-xs'>Unpaid</button>";
+				$remainingPayment = number_format($purchases[$i]["total_amount"], 2);
+
+			}
+
+			$buttons =  "<div class='btn-group'><a class='btn btn-warning btnPrintPurchase' href='extensions/tcpdf/pdf/purchase-slip.php?ref=".$purchases[$i]["reference_no"]."' target='_blank'><i class='fa fa-print'></i></a><button class='btn btn-primary btnEditPurchase' idPurchase='".$purchases[$i]["id"]."'><i class='fa fa-pencil'></i></button><button class='btn btn-danger btnDeletePurchase' idPurchase='".$purchases[$i]["id"]."'><i class='fa fa-trash'></i></button></div>";
+
+				$jsonData .='[
+					"'.($i+1).'",
+					"'.$purchases[$i]["reference_no"].'",
+					"'.$vendor["name"].'",
+					"'.number_format($purchases[$i]["total_amount"],2).'",
+					"'.$status.'",
+					"'.$remainingPayment.'",
+					"'.$purchases[$i]["payment_method"].'",
+					"'.$purchases[$i]["created_at"].'",
+					"'.$buttons.'"
+				],';
+			}
 
 				$jsonData = substr($jsonData, 0, -1);
 				$jsonData .= '] 

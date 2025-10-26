@@ -71,6 +71,7 @@ if($_SESSION["profile"] == "Special"){
              <th>Seller</th>
              <th>Payment Method</th>
              <th>Payment Status</th>
+             <th>Remaining Payment</th>
              <th>Net Cost</th>
              <th>Total Cost</th>
              <th>Date</th>
@@ -125,13 +126,27 @@ if($_SESSION["profile"] == "Special"){
 
                   if($paymentStatus == "Paid"){
                     echo '<td><span class="label label-success">Paid</span></td>';
+                    $remainingPayment = 0;
                   }elseif($paymentStatus == "Partial"){
                     echo '<td><span class="label label-warning">Partial</span></td>';
+                    
+                    // Get partial payment details
+                    $partialPayment = PartialPaymentsController::ctrShowSalePartialPayment($value["id"]);
+                    
+                    if($partialPayment){
+                      $remainingPayment = $partialPayment["balance_remaining"];
+                    }else{
+                      $remainingPayment = $value["totalPrice"];
+                    }
+                    
                   }else{
                     echo '<td><span class="label label-danger">Unpaid</span></td>';
+                    $remainingPayment = $value["totalPrice"];
                   }
 
-                  echo '<td>'.number_format($value["netPrice"],2).'</td>
+                  echo '<td>'.number_format($remainingPayment,2).'</td>
+
+                  <td>'.number_format($value["netPrice"],2).'</td>
 
                   <td>'.number_format($value["totalPrice"],2).'</td>
 
@@ -156,11 +171,6 @@ if($_SESSION["profile"] == "Special"){
                           <button class="btn btn-primary btnEditSale" idSale="'.$value["id"].'"><i class="fa fa-pencil"></i></button>
 
                           <button class="btn btn-danger btnDeleteSale" idSale="'.$value["id"].'"><i class="fa fa-trash"></i></button>';
-                       }
-
-                       // Show Record Payment button for unpaid or partial payments
-                       if($paymentStatus == "Unpaid" || $paymentStatus == "Partial"){
-                         echo '<button class="btn btn-success btnRecordPayment" saleId="'.$value["id"].'" data-toggle="modal" data-target="#modalRecordPayment"><i class="fa fa-money"></i></button>';
                        }
 
                    echo '</div>  
@@ -261,91 +271,6 @@ MODAL VIEW AUDIT LOG
 
             $updateStatus = new ControllerPaymentAudit();
             $updateStatus -> ctrUpdatePaymentStatus();
-
-          ?>
-
-        </div>
-
-      </div>
-
-      <div class="modal-footer">
-
-        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-<!--=====================================
-MODAL RECORD PAYMENT
-======================================-->
-
-<div id="modalRecordPayment" class="modal fade" role="dialog">
-  
-  <div class="modal-dialog">
-
-    <div class="modal-content">
-
-      <div class="modal-header" style="background:#00A65A; color:white">
-
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-        <h4 class="modal-title">Record Payment</h4>
-
-      </div>
-
-      <div class="modal-body">
-
-        <div class="box-body">
-
-          <div id="paymentSummary" class="alert alert-info">
-            <h4>Payment Summary</h4>
-            <p><strong>Total Amount:</strong> <span id="totalAmount">0.00</span></p>
-            <p><strong>Amount Paid:</strong> <span id="amountPaid">0.00</span></p>
-            <p><strong>Remaining Balance:</strong> <span id="remainingBalance">0.00</span></p>
-          </div>
-
-          <hr>
-
-          <form role="form" method="POST">
-
-            <input type="hidden" name="saleId" id="paymentSaleId">
-
-            <div class="form-group">
-              <label>Payment Amount:</label>
-              <div class="input-group">
-                <input type="number" class="form-control" name="amountPaid" id="amountPaidInput" step="0.01" min="0.01" required>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label>Payment Method:</label>
-              <select class="form-control" name="paymentMethod" id="paymentMethod" required>
-                <option value="">-Select Method-</option>
-                <option value="cash">Cash</option>
-                <option value="online">Online Transfer</option>
-                <option value="card">Card Payment</option>
-                <option value="cheque">Cheque</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label>Reference Number (Optional):</label>
-              <input type="text" class="form-control" name="referenceNo" id="referenceNo" placeholder="Enter reference number">
-            </div>
-
-            <button type="submit" name="addPartialPayment" class="btn btn-success">Record Payment</button>
-
-          </form>
-
-          <?php
-
-            $addPayment = new ControllerPartialPayments();
-            $addPayment -> ctrAddPartialPayment();
 
           ?>
 

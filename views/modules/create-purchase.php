@@ -228,6 +228,7 @@ if($_SESSION["profile"] != "Administrator"){
                               <option value="">-Select Status-</option>
                               <option value="Paid">Paid</option>
                               <option value="Unpaid">Unpaid</option>
+                              <option value="Partial">Partial</option>
 
                           </select>
 
@@ -251,6 +252,54 @@ if($_SESSION["profile"] != "Administrator"){
 
                         </div>
 
+                      </div>
+
+                    </div>
+
+                    <br>
+
+                    <!--=====================================
+                      PARTIAL PAYMENT DETAILS
+                      ======================================-->
+
+                    <div id="partialPaymentSection" style="display:none;">
+                      
+                      <div class="box box-info">
+                        <div class="box-header with-border">
+                          <h3 class="box-title">Partial Payment Details</h3>
+                        </div>
+                        <div class="box-body">
+                          
+                          <div class="form-group">
+                            <label>Amount Paid:</label>
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                              <input type="number" class="form-control" name="partialAmountPaid" id="partialAmountPaid" placeholder="0.00" step="0.01" min="0">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label>Remaining Balance:</label>
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-calculator"></i></span>
+                              <input type="number" class="form-control" name="partialBalanceRemaining" id="partialBalanceRemaining" placeholder="0.00" readonly>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label>Payment Reference (Optional):</label>
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+                              <input type="text" class="form-control" name="partialPaymentReference" id="partialPaymentReference" placeholder="Enter reference number">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label>Notes (Optional):</label>
+                            <textarea class="form-control" name="partialPaymentNotes" id="partialPaymentNotes" rows="2" placeholder="Enter any notes"></textarea>
+                          </div>
+
+                        </div>
                       </div>
 
                     </div>

@@ -2,42 +2,22 @@
 
 require_once "connection.php";
 
-class ModelPartialPayments{
+class PartialPaymentsModel{
 
 	/*=============================================
-	SHOW PARTIAL PAYMENTS
+	ADD PARTIAL PAYMENT FOR SALE
 	=============================================*/
 
-	static public function mdlShowPartialPayments($item, $value){
+	static public function mdlAddSalePartialPayment($table, $data){
 
-		$table = "partial_payments";
-
-		$stmt = Connection::connect()->prepare("SELECT pp.*, u.name as paid_by_name FROM $table pp LEFT JOIN users u ON pp.paid_by = u.id WHERE pp.$item = :$item ORDER BY pp.paid_at DESC");
-
-		$stmt -> bindParam(":".$item, $value, PDO::PARAM_STR);
-
-		$stmt -> execute();
-
-		return $stmt -> fetchAll();
-
-		$stmt -> close();
-
-		$stmt = null;
-
-	}
-
-	/*=============================================
-	ADD PARTIAL PAYMENT
-	=============================================*/
-
-	static public function mdlAddPartialPayment($table, $data){
-
-		$stmt = Connection::connect()->prepare("INSERT INTO $table(sale_id, amount_paid, payment_method, reference_no, paid_by) VALUES (:sale_id, :amount_paid, :payment_method, :reference_no, :paid_by)");
+		$stmt = Connection::connect()->prepare("INSERT INTO $table(sale_id, amount_paid, balance_remaining, payment_method, reference_no, notes, paid_by) VALUES (:sale_id, :amount_paid, :balance_remaining, :payment_method, :reference_no, :notes, :paid_by)");
 
 		$stmt->bindParam(":sale_id", $data["sale_id"], PDO::PARAM_INT);
 		$stmt->bindParam(":amount_paid", $data["amount_paid"], PDO::PARAM_STR);
+		$stmt->bindParam(":balance_remaining", $data["balance_remaining"], PDO::PARAM_STR);
 		$stmt->bindParam(":payment_method", $data["payment_method"], PDO::PARAM_STR);
 		$stmt->bindParam(":reference_no", $data["reference_no"], PDO::PARAM_STR);
+		$stmt->bindParam(":notes", $data["notes"], PDO::PARAM_STR);
 		$stmt->bindParam(":paid_by", $data["paid_by"], PDO::PARAM_INT);
 
 		if($stmt->execute()){
@@ -56,14 +36,145 @@ class ModelPartialPayments{
 	}
 
 	/*=============================================
-	DELETE PARTIAL PAYMENT
+	ADD PARTIAL PAYMENT FOR PURCHASE
 	=============================================*/
 
-	static public function mdlDeletePartialPayment($table, $data){
+	static public function mdlAddPurchasePartialPayment($table, $data){
 
-		$stmt = Connection::connect()->prepare("DELETE FROM $table WHERE id = :id");
+		$stmt = Connection::connect()->prepare("INSERT INTO $table(purchase_slip_id, amount_paid, balance_remaining, payment_method, reference_no, notes, paid_by) VALUES (:purchase_slip_id, :amount_paid, :balance_remaining, :payment_method, :reference_no, :notes, :paid_by)");
 
-		$stmt -> bindParam(":id", $data, PDO::PARAM_INT);
+		$stmt->bindParam(":purchase_slip_id", $data["purchase_slip_id"], PDO::PARAM_INT);
+		$stmt->bindParam(":amount_paid", $data["amount_paid"], PDO::PARAM_STR);
+		$stmt->bindParam(":balance_remaining", $data["balance_remaining"], PDO::PARAM_STR);
+		$stmt->bindParam(":payment_method", $data["payment_method"], PDO::PARAM_STR);
+		$stmt->bindParam(":reference_no", $data["reference_no"], PDO::PARAM_STR);
+		$stmt->bindParam(":notes", $data["notes"], PDO::PARAM_STR);
+		$stmt->bindParam(":paid_by", $data["paid_by"], PDO::PARAM_INT);
+
+		if($stmt->execute()){
+
+			return "ok";
+
+		}else{
+
+			return "error";
+
+		}
+
+		$stmt->close();
+		$stmt = null;
+
+	}
+
+	/*=============================================
+	SHOW PARTIAL PAYMENT BY SALE ID
+	=============================================*/
+
+	static public function mdlShowSalePartialPayment($table, $sale_id){
+
+		$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE sale_id = :sale_id");
+
+		$stmt -> bindParam(":sale_id", $sale_id, PDO::PARAM_INT);
+
+		$stmt -> execute();
+
+		return $stmt -> fetch();
+
+		$stmt -> close();
+
+		$stmt = null;
+
+	}
+
+	/*=============================================
+	SHOW PARTIAL PAYMENT BY PURCHASE ID
+	=============================================*/
+
+	static public function mdlShowPurchasePartialPayment($table, $purchase_slip_id){
+
+		$stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE purchase_slip_id = :purchase_slip_id");
+
+		$stmt -> bindParam(":purchase_slip_id", $purchase_slip_id, PDO::PARAM_INT);
+
+		$stmt -> execute();
+
+		return $stmt -> fetch();
+
+		$stmt -> close();
+
+		$stmt = null;
+
+	}
+
+	/*=============================================
+	UPDATE SALE PARTIAL PAYMENT
+	=============================================*/
+
+	static public function mdlUpdateSalePartialPayment($table, $data){
+
+		$stmt = Connection::connect()->prepare("UPDATE $table SET amount_paid = :amount_paid, balance_remaining = :balance_remaining, payment_method = :payment_method, reference_no = :reference_no, notes = :notes WHERE sale_id = :sale_id");
+
+		$stmt->bindParam(":amount_paid", $data["amount_paid"], PDO::PARAM_STR);
+		$stmt->bindParam(":balance_remaining", $data["balance_remaining"], PDO::PARAM_STR);
+		$stmt->bindParam(":payment_method", $data["payment_method"], PDO::PARAM_STR);
+		$stmt->bindParam(":reference_no", $data["reference_no"], PDO::PARAM_STR);
+		$stmt->bindParam(":notes", $data["notes"], PDO::PARAM_STR);
+		$stmt->bindParam(":sale_id", $data["sale_id"], PDO::PARAM_INT);
+
+		if($stmt->execute()){
+
+			return "ok";
+
+		}else{
+
+			return "error";
+
+		}
+
+		$stmt->close();
+		$stmt = null;
+
+	}
+
+	/*=============================================
+	UPDATE PURCHASE PARTIAL PAYMENT
+	=============================================*/
+
+	static public function mdlUpdatePurchasePartialPayment($table, $data){
+
+		$stmt = Connection::connect()->prepare("UPDATE $table SET amount_paid = :amount_paid, balance_remaining = :balance_remaining, payment_method = :payment_method, reference_no = :reference_no, notes = :notes WHERE purchase_slip_id = :purchase_slip_id");
+
+		$stmt->bindParam(":amount_paid", $data["amount_paid"], PDO::PARAM_STR);
+		$stmt->bindParam(":balance_remaining", $data["balance_remaining"], PDO::PARAM_STR);
+		$stmt->bindParam(":payment_method", $data["payment_method"], PDO::PARAM_STR);
+		$stmt->bindParam(":reference_no", $data["reference_no"], PDO::PARAM_STR);
+		$stmt->bindParam(":notes", $data["notes"], PDO::PARAM_STR);
+		$stmt->bindParam(":purchase_slip_id", $data["purchase_slip_id"], PDO::PARAM_INT);
+
+		if($stmt->execute()){
+
+			return "ok";
+
+		}else{
+
+			return "error";
+
+		}
+
+		$stmt->close();
+		$stmt = null;
+
+	}
+
+	/*=============================================
+	DELETE SALE PARTIAL PAYMENT
+	=============================================*/
+
+	static public function mdlDeleteSalePartialPayment($table, $sale_id){
+
+		$stmt = Connection::connect()->prepare("DELETE FROM $table WHERE sale_id = :sale_id");
+
+		$stmt -> bindParam(":sale_id", $sale_id, PDO::PARAM_INT);
 
 		if($stmt -> execute()){
 
@@ -82,40 +193,24 @@ class ModelPartialPayments{
 	}
 
 	/*=============================================
-	GET TOTAL PAID AMOUNT FOR SALE
+	DELETE PURCHASE PARTIAL PAYMENT
 	=============================================*/
 
-	static public function mdlGetTotalPaidAmount($saleId){
+	static public function mdlDeletePurchasePartialPayment($table, $purchase_slip_id){
 
-		$stmt = Connection::connect()->prepare("SELECT SUM(amount_paid) as total_paid FROM partial_payments WHERE sale_id = :sale_id");
+		$stmt = Connection::connect()->prepare("DELETE FROM $table WHERE purchase_slip_id = :purchase_slip_id");
 
-		$stmt -> bindParam(":sale_id", $saleId, PDO::PARAM_INT);
+		$stmt -> bindParam(":purchase_slip_id", $purchase_slip_id, PDO::PARAM_INT);
 
-		$stmt -> execute();
+		if($stmt -> execute()){
 
-		$result = $stmt -> fetch();
+			return "ok";
 
-		return $result ? $result["total_paid"] : 0;
+		}else{
 
-		$stmt -> close();
+			return "error";
 
-		$stmt = null;
-
-	}
-
-	/*=============================================
-	GET PAYMENT HISTORY FOR SALE
-	=============================================*/
-
-	static public function mdlGetPaymentHistory($saleId){
-
-		$stmt = Connection::connect()->prepare("SELECT pp.*, u.name as paid_by_name FROM partial_payments pp LEFT JOIN users u ON pp.paid_by = u.id WHERE pp.sale_id = :sale_id ORDER BY pp.paid_at DESC");
-
-		$stmt -> bindParam(":sale_id", $saleId, PDO::PARAM_INT);
-
-		$stmt -> execute();
-
-		return $stmt -> fetchAll();
+		}
 
 		$stmt -> close();
 
@@ -124,3 +219,4 @@ class ModelPartialPayments{
 	}
 
 }
+

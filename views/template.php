@@ -196,7 +196,7 @@
 <script src="views/js/reports.js"></script>
 <script src="views/js/customer-balance.js"></script>
 <script src="views/js/payment-audit.js"></script>
-<script src="views/js/partial-payments.js?v=<?php echo time(); ?>"></script>
+<script src="views/js/partial-payments.js"></script>
 <script src="views/js/customer-notes.js"></script>
 
 </body>

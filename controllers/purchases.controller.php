@@ -71,30 +71,45 @@ class ControllerPurchases{
 									   "unit_price"=>$value["price"],
 									   "subtotal"=>$value["totalPrice"]);
 
-					PurchasesModel::mdlAddPurchaseItem($tableItems, $dataItem);
-
-				}
-
-				echo'<script>
-
-				localStorage.removeItem("range");
-
-				swal({
-					  type: "success",
-					  title: "The purchase slip has been successfully added",
-					  showConfirmButton: true,
-					  confirmButtonText: "Close"
-					  }).then((result) => {
-								if (result.value) {
-
-								window.location = "purchases";
-
-								}
-							})
-
-				</script>';
+			PurchasesModel::mdlAddPurchaseItem($tableItems, $dataItem);
 
 			}
+
+			// Save partial payment details if status is Partial
+			if($_POST["paymentStatus"] == "Partial" && isset($_POST["partialAmountPaid"]) && $_POST["partialAmountPaid"] > 0){
+
+				$partialData = array("purchase_slip_id" => $purchaseSlip["id"],
+									 "amount_paid" => $_POST["partialAmountPaid"],
+									 "balance_remaining" => $_POST["partialBalanceRemaining"],
+									 "payment_method" => $_POST["paymentMethod"],
+									 "reference_no" => isset($_POST["partialPaymentReference"]) ? $_POST["partialPaymentReference"] : "",
+									 "notes" => isset($_POST["partialPaymentNotes"]) ? $_POST["partialPaymentNotes"] : "",
+									 "paid_by" => $_SESSION["id"]);
+
+				PartialPaymentsController::ctrAddPurchasePartialPayment($partialData);
+
+			}
+
+			echo'<script>
+
+			localStorage.removeItem("range");
+
+			swal({
+				  type: "success",
+				  title: "The purchase slip has been successfully added",
+				  showConfirmButton: true,
+				  confirmButtonText: "Close"
+				  }).then((result) => {
+							if (result.value) {
+
+							window.location = "purchases";
+
+							}
+						})
+
+			</script>';
+
+		}
 
 		}
 
@@ -110,8 +125,8 @@ class ControllerPurchases{
 
 			$table = "purchase_slips";
 
-			$item = "reference_no";
-			$value = $_POST["editPurchaseSlip"];
+			$item = "id";
+			$value = $_POST["purchaseId"];
 
 			$getPurchaseSlip = PurchasesModel::mdlShowPurchaseSlips($table, $item, $value);
 
@@ -180,38 +195,68 @@ class ControllerPurchases{
 
 			}
 
-			$data = array("vendor_id"=>$_POST["selectVendor"],
-						   "total_amount"=>$_POST["purchaseTotal"],
-						   "tax_percent"=>$_POST["newTaxPurchase"],
-						   "payment_status"=>$_POST["paymentStatus"],
-						   "payment_method"=>$_POST["paymentMethod"],
-						   "reference_no"=>$_POST["editPurchaseSlip"],
-						   "notes"=>$_POST["purchaseNotes"]);
+		$data = array("id"=>$getPurchaseSlip["id"],
+					   "vendor_id"=>$_POST["selectVendor"],
+					   "total_amount"=>$_POST["purchaseTotal"],
+					   "tax_percent"=>$_POST["newTaxPurchase"],
+					   "payment_status"=>$_POST["paymentStatus"],
+					   "payment_method"=>$_POST["paymentMethod"],
+					   "reference_no"=>$_POST["editPurchaseSlip"],
+					   "notes"=>$_POST["purchaseNotes"]);
 
-			$answer = PurchasesModel::mdlEditPurchaseSlip($table, $data);
+		$answer = PurchasesModel::mdlEditPurchaseSlip($table, $data);
 
-			if($answer == "ok"){
+		if($answer == "ok"){
 
-				echo'<script>
+			// Handle partial payment details
+			$paymentStatus = $_POST["paymentStatus"];
 
-				localStorage.removeItem("range");
+			if($paymentStatus == "Partial" && isset($_POST["partialAmountPaid"]) && $_POST["partialAmountPaid"] > 0){
 
-				swal({
-					  type: "success",
-					  title: "The purchase slip has been edited correctly",
-					  showConfirmButton: true,
-					  confirmButtonText: "Close"
-					  }).then((result) => {
-								if (result.value) {
+				// Check if partial payment already exists for this purchase
+				$existingPartialPayment = PartialPaymentsController::ctrShowPurchasePartialPayment($getPurchaseSlip["id"]);
 
-								window.location = "purchases";
+				$partialData = array("purchase_slip_id" => $getPurchaseSlip["id"],
+									 "amount_paid" => $_POST["partialAmountPaid"],
+									 "balance_remaining" => $_POST["partialBalanceRemaining"],
+									 "payment_method" => $_POST["paymentMethod"],
+									 "reference_no" => isset($_POST["partialPaymentReference"]) ? $_POST["partialPaymentReference"] : "",
+									 "notes" => isset($_POST["partialPaymentNotes"]) ? $_POST["partialPaymentNotes"] : "",
+									 "paid_by" => $_SESSION["id"]);
 
-								}
-							})
+				if($existingPartialPayment){
+					// Update existing partial payment
+					PartialPaymentsController::ctrUpdatePurchasePartialPayment($partialData);
+				}else{
+					// Add new partial payment
+					PartialPaymentsController::ctrAddPurchasePartialPayment($partialData);
+				}
 
-				</script>';
-
+			}elseif($paymentStatus != "Partial"){
+				// If status changed from Partial to Paid/Unpaid, delete partial payment record
+				PartialPaymentsController::ctrDeletePurchasePartialPayment($getPurchaseSlip["id"]);
 			}
+
+			echo'<script>
+
+			localStorage.removeItem("range");
+
+			swal({
+				  type: "success",
+				  title: "The purchase slip has been edited correctly",
+				  showConfirmButton: true,
+				  confirmButtonText: "Close"
+				  }).then((result) => {
+							if (result.value) {
+
+							window.location = "purchases";
+
+							}
+						})
+
+			</script>';
+
+		}
 
 		}
 

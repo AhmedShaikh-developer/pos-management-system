@@ -86,6 +86,8 @@
                         
                         <span class="input-group-addon"><i class="fa fa-key"></i></span>
 
+                        <input type="hidden" name="saleId" value="<?php echo $sale["id"]; ?>">
+
                         <input type="text" class="form-control" id="newSale" name="editSale" value="<?php echo $sale["code"]; ?>" readonly>
 
                       </div>
@@ -288,6 +290,78 @@
                       <div class="paymentMethodBoxes"></div>
 
                       <input type="hidden" name="listPaymentMethod" id="listPaymentMethod" required>
+
+                    </div>
+
+                    <br>
+
+                    <!--=====================================
+                      PAYMENT STATUS
+                      ======================================-->
+
+                    <?php
+                      // Get current payment status
+                      $currentPaymentStatus = isset($sale["payment_status"]) ? $sale["payment_status"] : "Paid";
+                      
+                      // Get existing partial payment if exists
+                      $partialPayment = PartialPaymentsController::ctrShowSalePartialPayment($sale["id"]);
+                    ?>
+
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-info-circle"></i></span>
+                        <select class="form-control" name="paymentStatus" id="paymentStatus" required>
+                          <option value="">-Select Payment Status-</option>
+                          <option value="Paid" <?php if($currentPaymentStatus == "Paid") echo "selected"; ?>>Paid</option>
+                          <option value="Unpaid" <?php if($currentPaymentStatus == "Unpaid") echo "selected"; ?>>Unpaid</option>
+                          <option value="Partial" <?php if($currentPaymentStatus == "Partial") echo "selected"; ?>>Partial</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <!--=====================================
+                      PARTIAL PAYMENT DETAILS
+                      ======================================-->
+
+                    <div id="partialPaymentSection" style="<?php echo ($currentPaymentStatus == 'Partial') ? '' : 'display:none;'; ?>">
+                      
+                      <div class="box box-info">
+                        <div class="box-header with-border">
+                          <h3 class="box-title">Partial Payment Details</h3>
+                        </div>
+                        <div class="box-body">
+                          
+                          <div class="form-group">
+                            <label>Amount Paid:</label>
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                              <input type="number" class="form-control" name="partialAmountPaid" id="partialAmountPaid" placeholder="0.00" step="0.01" min="0" value="<?php echo $partialPayment ? $partialPayment['amount_paid'] : ''; ?>">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label>Remaining Balance:</label>
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-calculator"></i></span>
+                              <input type="number" class="form-control" name="partialBalanceRemaining" id="partialBalanceRemaining" placeholder="0.00" readonly value="<?php echo $partialPayment ? $partialPayment['balance_remaining'] : ''; ?>">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label>Payment Reference (Optional):</label>
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+                              <input type="text" class="form-control" name="partialPaymentReference" id="partialPaymentReference" placeholder="Enter reference number" value="<?php echo $partialPayment ? $partialPayment['reference_no'] : ''; ?>">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label>Notes (Optional):</label>
+                            <textarea class="form-control" name="partialPaymentNotes" id="partialPaymentNotes" rows="2" placeholder="Enter any notes"><?php echo $partialPayment ? $partialPayment['notes'] : ''; ?></textarea>
+                          </div>
+
+                        </div>
+                      </div>
 
                     </div>
 

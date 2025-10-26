@@ -216,7 +216,7 @@ CREATE TABLE `purchase_slips` (
   `vendor_id` int(11) NOT NULL,
   `total_amount` float NOT NULL,
   `tax_percent` float NOT NULL,
-  `payment_status` enum('Paid','Unpaid') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'Unpaid',
+  `payment_status` enum('Paid','Unpaid','Partial') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'Unpaid',
   `payment_method` text COLLATE utf8_spanish_ci NOT NULL,
   `reference_no` text COLLATE utf8_spanish_ci NOT NULL,
   `notes` text COLLATE utf8_spanish_ci,
@@ -309,21 +309,34 @@ CREATE TABLE `returns` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Table structure for table `partial_payments`
+-- Table structure for table `partial_payments` (for Sales)
+-- Note: This table already exists. Run ALTER commands to add missing columns if needed.
+-- ALTER TABLE `partial_payments` ADD COLUMN `balance_remaining` float NOT NULL DEFAULT 0 AFTER `amount_paid`;
+-- ALTER TABLE `partial_payments` ADD COLUMN `notes` text COLLATE utf8_spanish_ci AFTER `reference_no`;
 --
 
-CREATE TABLE `partial_payments` (
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchase_partial_payments` (for Purchases)
+--
+
+CREATE TABLE `purchase_partial_payments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sale_id` int(11) NOT NULL,
+  `purchase_slip_id` int(11) NOT NULL,
   `amount_paid` float NOT NULL,
-  `payment_method` enum('cash','online','card','cheque') COLLATE utf8_spanish_ci NOT NULL,
+  `balance_remaining` float NOT NULL,
+  `payment_method` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `reference_no` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `notes` text COLLATE utf8_spanish_ci,
   `paid_by` int(11) NOT NULL,
   `paid_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `sale_id` (`sale_id`),
+  KEY `purchase_slip_id` (`purchase_slip_id`),
   KEY `paid_by` (`paid_by`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `customer_notes`

@@ -77,9 +77,9 @@ class ModelSales{
 
 		$paymentStatus = isset($data["payment_status"]) ? $data["payment_status"] : "Paid";
 
-		$stmt = Connection::connect()->prepare("UPDATE $table SET  idCustomer = :idCustomer, idSeller = :idSeller, products = :products, tax = :tax, netPrice = :netPrice, totalPrice= :totalPrice, paymentMethod = :paymentMethod, payment_status = :payment_status WHERE code = :code");
+		$stmt = Connection::connect()->prepare("UPDATE $table SET  idCustomer = :idCustomer, idSeller = :idSeller, products = :products, tax = :tax, netPrice = :netPrice, totalPrice= :totalPrice, paymentMethod = :paymentMethod, payment_status = :payment_status WHERE id = :id");
 
-		$stmt->bindParam(":code", $data["code"], PDO::PARAM_INT);
+		$stmt->bindParam(":id", $data["id"], PDO::PARAM_INT);
 		$stmt->bindParam(":idCustomer", $data["idCustomer"], PDO::PARAM_INT);
 		$stmt->bindParam(":idSeller", $data["idSeller"], PDO::PARAM_INT);
 		$stmt->bindParam(":products", $data["products"], PDO::PARAM_STR);
@@ -88,32 +88,6 @@ class ModelSales{
 		$stmt->bindParam(":totalPrice", $data["totalPrice"], PDO::PARAM_STR);
 		$stmt->bindParam(":paymentMethod", $data["paymentMethod"], PDO::PARAM_STR);
 		$stmt->bindParam(":payment_status", $paymentStatus, PDO::PARAM_STR);
-
-		if($stmt->execute()){
-
-			return "ok";
-
-		}else{
-
-			return "error";
-		
-		}
-
-		$stmt->close();
-		$stmt = null;
-
-	}
-
-	/*=============================================
-	UPDATE PAYMENT STATUS ONLY
-	=============================================*/
-	
-	static public function mdlUpdatePaymentStatus($table, $data){
-
-		$stmt = Connection::connect()->prepare("UPDATE $table SET payment_status = :payment_status WHERE id = :id");
-
-		$stmt->bindParam(":id", $data["id"], PDO::PARAM_INT);
-		$stmt->bindParam(":payment_status", $data["payment_status"], PDO::PARAM_STR);
 
 		if($stmt->execute()){
 

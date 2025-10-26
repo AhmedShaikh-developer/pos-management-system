@@ -60,6 +60,7 @@ if($_SESSION["profile"] != "Administrator"){
              <th>Vendor</th>
              <th>Total Amount</th>
              <th>Payment Status</th>
+             <th>Remaining Payment</th>
              <th>Payment Method</th>
              <th>Date</th>
              <th>Actions</th>

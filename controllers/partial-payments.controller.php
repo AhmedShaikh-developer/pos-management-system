@@ -1,249 +1,118 @@
 <?php
 
-require_once "models/partial-payments.model.php";
-require_once "models/sales.model.php";
-require_once "models/payment-audit.model.php";
-
-class ControllerPartialPayments{
+class PartialPaymentsController{
 
 	/*=============================================
-	SHOW PARTIAL PAYMENTS
+	ADD SALE PARTIAL PAYMENT
 	=============================================*/
 
-	static public function ctrShowPartialPayments($item, $value){
+	static public function ctrAddSalePartialPayment($data){
 
 		$table = "partial_payments";
 
-		$answer = ModelPartialPayments::mdlShowPartialPayments($item, $value);
+		$answer = PartialPaymentsModel::mdlAddSalePartialPayment($table, $data);
 
 		return $answer;
 
 	}
 
 	/*=============================================
-	ADD PARTIAL PAYMENT
+	ADD PURCHASE PARTIAL PAYMENT
 	=============================================*/
 
-	static public function ctrAddPartialPayment(){
+	static public function ctrAddPurchasePartialPayment($data){
 
-		if(isset($_POST["saleId"])){
+		$table = "purchase_partial_payments";
 
-			if(preg_match('/^[0-9]+$/', $_POST["saleId"]) &&
-			   preg_match('/^[0-9.]+$/', $_POST["amountPaid"]) &&
-			   preg_match('/^[a-zA-Z0-9\s]+$/', $_POST["paymentMethod"]) &&
-			   preg_match('/^[a-zA-Z0-9\s\-]*$/', $_POST["referenceNo"])){
+		$answer = PartialPaymentsModel::mdlAddPurchasePartialPayment($table, $data);
 
-				$table = "partial_payments";
-
-				$data = array("sale_id" => $_POST["saleId"],
-							 "amount_paid" => $_POST["amountPaid"],
-							 "payment_method" => $_POST["paymentMethod"],
-							 "reference_no" => $_POST["referenceNo"],
-							 "paid_by" => $_SESSION["id"]);
-
-				$answer = ModelPartialPayments::mdlAddPartialPayment($table, $data);
-
-				if($answer == "ok"){
-
-					// Get current sale details
-					$sale = ModelSales::mdlShowSales("sales", "id", $_POST["saleId"]);
-					
-					if($sale){
-						$totalPaid = ModelPartialPayments::mdlGetTotalPaidAmount($_POST["saleId"]);
-						$remainingBalance = $sale["totalPrice"] - $totalPaid;
-						
-						// Determine new payment status
-						$newStatus = "Partial";
-						$statusMessage = "Payment status updated to Partial.";
-						
-						if($remainingBalance <= 0){
-							$newStatus = "Paid";
-							$statusMessage = "Payment status updated to Paid. Sale is now fully paid!";
-						} elseif($totalPaid > 0) {
-							$statusMessage = "Payment status updated to Partial. Remaining balance: " . number_format($remainingBalance, 2);
-						}
-						
-					// Update sale payment status
-					$updateData = array("id" => $_POST["saleId"],
-									  "payment_status" => $newStatus);
-					
-					$updateResult = ModelSales::mdlUpdatePaymentStatus("sales", $updateData);
-					
-					// Log payment status change if status actually changed
-					if($sale["payment_status"] != $newStatus){
-						$auditData = array("sale_id" => $_POST["saleId"],
-										 "customer_id" => $sale["idCustomer"],
-										 "old_status" => $sale["payment_status"],
-										 "new_status" => $newStatus,
-										 "changed_by" => $_SESSION["id"],
-										 "remarks" => "Partial payment recorded: $" . $_POST["amountPaid"] . ". " . $statusMessage);
-						
-						PaymentAuditModel::mdlAddPaymentAudit("payment_audit", $auditData);
-					}
-				}
-
-					echo'<script>
-
-						swal({
-							  type: "success",
-							  title: "Payment Recorded!",
-						html: "Payment of ' . $_POST["amountPaid"] . ' has been successfully recorded.<br><br>' . $statusMessage . '",
-							  showConfirmButton: true,
-							  confirmButtonText: "Close"
-
-						}).then(function(result){
-
-								if(result.value){
-								
-									window.location = "sales";
-								
-								}
-
-						});
-
-					</script>';
-
-				}else{
-
-					echo'<script>
-
-						swal({
-							  type: "error",
-							  title: "Error!",
-							  text: "Failed to record payment. Please try again.",
-							  showConfirmButton: true,
-							  confirmButtonText: "Close"
-
-						}).then(function(result){
-
-								if(result.value){
-								
-									window.location = "sales";
-								
-								}
-
-						});
-
-					</script>';
-
-				}
-
-			}else{
-
-				echo'<script>
-
-					swal({
-						  type: "error",
-						  title: "Invalid Data!",
-						  text: "Please check the entered data.",
-						  showConfirmButton: true,
-						  confirmButtonText: "Close"
-
-					}).then(function(result){
-
-							if(result.value){
-							
-								window.location = "sales";
-							
-							}
-
-					});
-
-				</script>';
-
-			}
-
-		}
+		return $answer;
 
 	}
 
 	/*=============================================
-	DELETE PARTIAL PAYMENT
+	SHOW SALE PARTIAL PAYMENT
 	=============================================*/
 
-	static public function ctrDeletePartialPayment(){
+	static public function ctrShowSalePartialPayment($sale_id){
 
-		if(isset($_GET["idPayment"])){
+		$table = "partial_payments";
 
-			$table ="partial_payments";
-			$data = $_GET["idPayment"];
+		$answer = PartialPaymentsModel::mdlShowSalePartialPayment($table, $sale_id);
 
-			$answer = ModelPartialPayments::mdlDeletePartialPayment($table, $data);
-
-			if($answer == "ok"){
-
-				echo'<script>
-
-				swal({
-					  type: "success",
-					  title: "Payment Deleted!",
-					  text: "The payment has been successfully deleted.",
-					  showConfirmButton: true,
-					  confirmButtonText: "Close"
-
-				}).then(function(result){
-
-						if(result.value){
-						
-							window.location = "sales";
-						
-						}
-
-				});
-
-			</script>';
-
-			}else{
-
-				echo'<script>
-
-				swal({
-					  type: "error",
-					  title: "Error!",
-					  text: "Failed to delete payment. Please try again.",
-					  showConfirmButton: true,
-					  confirmButtonText: "Close"
-
-				}).then(function(result){
-
-						if(result.value){
-						
-							window.location = "sales";
-						
-						}
-
-				});
-
-			</script>';
-
-			}
-
-		}
+		return $answer;
 
 	}
 
 	/*=============================================
-	GET PAYMENT SUMMARY FOR SALE
+	SHOW PURCHASE PARTIAL PAYMENT
 	=============================================*/
 
-	static public function ctrGetPaymentSummary($saleId){
+	static public function ctrShowPurchasePartialPayment($purchase_slip_id){
 
-		$sale = ModelSales::mdlShowSales("sales", "id", $saleId);
-		
-		if($sale){
-			$totalPaid = ModelPartialPayments::mdlGetTotalPaidAmount($saleId);
-			$remainingBalance = $sale["totalPrice"] - $totalPaid;
-			
-			return array(
-				"total_price" => $sale["totalPrice"],
-				"total_paid" => $totalPaid,
-				"remaining_balance" => $remainingBalance,
-				"payment_status" => $sale["payment_status"]
-			);
-		}
-		
-		return null;
+		$table = "purchase_partial_payments";
+
+		$answer = PartialPaymentsModel::mdlShowPurchasePartialPayment($table, $purchase_slip_id);
+
+		return $answer;
+
+	}
+
+	/*=============================================
+	UPDATE SALE PARTIAL PAYMENT
+	=============================================*/
+
+	static public function ctrUpdateSalePartialPayment($data){
+
+		$table = "partial_payments";
+
+		$answer = PartialPaymentsModel::mdlUpdateSalePartialPayment($table, $data);
+
+		return $answer;
+
+	}
+
+	/*=============================================
+	UPDATE PURCHASE PARTIAL PAYMENT
+	=============================================*/
+
+	static public function ctrUpdatePurchasePartialPayment($data){
+
+		$table = "purchase_partial_payments";
+
+		$answer = PartialPaymentsModel::mdlUpdatePurchasePartialPayment($table, $data);
+
+		return $answer;
+
+	}
+
+	/*=============================================
+	DELETE SALE PARTIAL PAYMENT
+	=============================================*/
+
+	static public function ctrDeleteSalePartialPayment($sale_id){
+
+		$table = "partial_payments";
+
+		$answer = PartialPaymentsModel::mdlDeleteSalePartialPayment($table, $sale_id);
+
+		return $answer;
+
+	}
+
+	/*=============================================
+	DELETE PURCHASE PARTIAL PAYMENT
+	=============================================*/
+
+	static public function ctrDeletePurchasePartialPayment($purchase_slip_id){
+
+		$table = "purchase_partial_payments";
+
+		$answer = PartialPaymentsModel::mdlDeletePurchasePartialPayment($table, $purchase_slip_id);
+
+		return $answer;
 
 	}
 
 }
+

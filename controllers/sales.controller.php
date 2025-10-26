@@ -82,46 +82,71 @@ class ControllerSales{
 			$value1b = $date.' '.$hour;
 
 			$dateCustomer = ModelCustomers::mdlUpdateCustomer($tableCustomers, $item1b, $value1b, $valueCustomer);
-			/*=============================================
-			SAVE THE SALE
-			=============================================*/	
+		/*=============================================
+		SAVE THE SALE
+		=============================================*/	
 
-			$table = "sales";
+		$table = "sales";
 
-			$data = array("idSeller"=>$_POST["idSeller"],
-						   "idCustomer"=>$_POST["selectCustomer"],
-						   "code"=>$_POST["newSale"],
-						   "products"=>$_POST["productsList"],
-						   "tax"=>$_POST["newTaxPrice"],
-						   "netPrice"=>$_POST["newNetPrice"],
-						   "totalPrice"=>$_POST["saleTotal"],
-						   "paymentMethod"=>$_POST["listPaymentMethod"],
-						   "payment_status"=>"Paid");
+		// Get payment status from form
+		$paymentStatus = isset($_POST["paymentStatus"]) ? $_POST["paymentStatus"] : "Paid";
 
-			$answer = ModelSales::mdlAddSale($table, $data);
+		$data = array("idSeller"=>$_POST["idSeller"],
+					   "idCustomer"=>$_POST["selectCustomer"],
+					   "code"=>$_POST["newSale"],
+					   "products"=>$_POST["productsList"],
+					   "tax"=>$_POST["newTaxPrice"],
+					   "netPrice"=>$_POST["newNetPrice"],
+					   "totalPrice"=>$_POST["saleTotal"],
+					   "paymentMethod"=>$_POST["listPaymentMethod"],
+					   "payment_status"=>$paymentStatus);
 
-			if($answer == "ok"){
+		$answer = ModelSales::mdlAddSale($table, $data);
 
-				echo'<script>
+		if($answer == "ok"){
 
-				localStorage.removeItem("range");
+			// Save partial payment details if status is Partial
+			if($paymentStatus == "Partial" && isset($_POST["partialAmountPaid"]) && $_POST["partialAmountPaid"] > 0){
 
-				swal({
-					  type: "success",
-					  title: "The sale has been succesfully added",
-					  showConfirmButton: true,
-					  confirmButtonText: "Close"
-					  }).then((result) => {
-								if (result.value) {
+				// Get the sale ID that was just created
+				$item = "code";
+				$value = $_POST["newSale"];
+				$getSale = ModelSales::mdlShowSales($table, $item, $value);
 
-								window.location = "sales";
+				if($getSale){
+					$partialData = array("sale_id" => $getSale["id"],
+										 "amount_paid" => $_POST["partialAmountPaid"],
+										 "balance_remaining" => $_POST["partialBalanceRemaining"],
+										 "payment_method" => $_POST["listPaymentMethod"],
+										 "reference_no" => isset($_POST["partialPaymentReference"]) ? $_POST["partialPaymentReference"] : "",
+										 "notes" => isset($_POST["partialPaymentNotes"]) ? $_POST["partialPaymentNotes"] : "",
+										 "paid_by" => $_SESSION["id"]);
 
-								}
-							})
-
-				</script>';
+					PartialPaymentsController::ctrAddSalePartialPayment($partialData);
+				}
 
 			}
+
+			echo'<script>
+
+			localStorage.removeItem("range");
+
+			swal({
+				  type: "success",
+				  title: "The sale has been succesfully added",
+				  showConfirmButton: true,
+				  confirmButtonText: "Close"
+				  }).then((result) => {
+							if (result.value) {
+
+							window.location = "sales";
+
+							}
+						})
+
+			</script>';
+
+		}
 
 		}
 
@@ -139,8 +164,8 @@ class ControllerSales{
 			=============================================*/
 			$table = "sales";
 
-			$item = "code";
-			$value = $_POST["editSale"];
+			$item = "id";
+			$value = $_POST["saleId"];
 
 			$getSale = ModelSales::mdlShowSales($table, $item, $value);
 
@@ -256,45 +281,76 @@ class ControllerSales{
 				$dateCustomer_2 = ModelCustomers::mdlUpdateCustomer($tableCustomers_2, $item1b_2, $value1b_2, $value_2);
 
 			}
-			/*=============================================
-			SAVE PURCHASE CHANGES
-			=============================================*/	
+		/*=============================================
+		SAVE PURCHASE CHANGES
+		=============================================*/	
 
-			$data = array("idSeller"=>$_POST["idSeller"],
-						   "idCustomer"=>$_POST["selectCustomer"],
-						   "code"=>$_POST["editSale"],
-						   "products"=>$productsList,
-						   "tax"=>$_POST["newTaxPrice"],
-						   "netPrice"=>$_POST["newNetPrice"],
-						   "totalPrice"=>$_POST["saleTotal"],
-						   "paymentMethod"=>$_POST["listPaymentMethod"],
-						   "payment_status"=>"Paid");
+		// Get payment status from form
+		$paymentStatus = isset($_POST["paymentStatus"]) ? $_POST["paymentStatus"] : "Paid";
+
+		$data = array("id"=>$getSale["id"],
+					   "idSeller"=>$_POST["idSeller"],
+					   "idCustomer"=>$_POST["selectCustomer"],
+					   "code"=>$_POST["editSale"],
+					   "products"=>$productsList,
+					   "tax"=>$_POST["newTaxPrice"],
+					   "netPrice"=>$_POST["newNetPrice"],
+					   "totalPrice"=>$_POST["saleTotal"],
+					   "paymentMethod"=>$_POST["listPaymentMethod"],
+					   "payment_status"=>$paymentStatus);
 
 
-			$answer = ModelSales::mdleditSale($table, $data);
+		$answer = ModelSales::mdlEditSale($table, $data);
 
-			if($answer == "ok"){
+		if($answer == "ok"){
 
-				echo'<script>
+			// Handle partial payment details
+			if($paymentStatus == "Partial" && isset($_POST["partialAmountPaid"]) && $_POST["partialAmountPaid"] > 0){
 
-				localStorage.removeItem("range");
+				// Check if partial payment already exists for this sale
+				$existingPartialPayment = PartialPaymentsController::ctrShowSalePartialPayment($getSale["id"]);
 
-				swal({
-					  type: "success",
-					  title: "The sale has been edited correctly",
-					  showConfirmButton: true,
-					  confirmButtonText: "Close"
-					  }).then((result) => {
-								if (result.value) {
+				$partialData = array("sale_id" => $getSale["id"],
+									 "amount_paid" => $_POST["partialAmountPaid"],
+									 "balance_remaining" => $_POST["partialBalanceRemaining"],
+									 "payment_method" => $_POST["listPaymentMethod"],
+									 "reference_no" => isset($_POST["partialPaymentReference"]) ? $_POST["partialPaymentReference"] : "",
+									 "notes" => isset($_POST["partialPaymentNotes"]) ? $_POST["partialPaymentNotes"] : "",
+									 "paid_by" => $_SESSION["id"]);
 
-								window.location = "sales";
+				if($existingPartialPayment){
+					// Update existing partial payment
+					PartialPaymentsController::ctrUpdateSalePartialPayment($partialData);
+				}else{
+					// Add new partial payment
+					PartialPaymentsController::ctrAddSalePartialPayment($partialData);
+				}
 
-								}
-							})
-
-				</script>';
-
+			}elseif($paymentStatus != "Partial"){
+				// If status changed from Partial to Paid/Unpaid, delete partial payment record
+				PartialPaymentsController::ctrDeleteSalePartialPayment($getSale["id"]);
 			}
+
+			echo'<script>
+
+			localStorage.removeItem("range");
+
+			swal({
+				  type: "success",
+				  title: "The sale has been edited correctly",
+				  showConfirmButton: true,
+				  confirmButtonText: "Close"
+				  }).then((result) => {
+							if (result.value) {
+
+							window.location = "sales";
+
+							}
+						})
+
+			</script>';
+
+		}
 
 		}
 

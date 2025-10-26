@@ -34,10 +34,15 @@ foreach ($answer as $key => $value) {
         $totalPaidAmount += $value["totalPrice"];
     }elseif($paymentStatus == "Partial"){
         $partialSales += $value["totalPrice"];
-        // Get partial payment amount
-        $partialPaid = ModelPartialPayments::mdlGetTotalPaidAmount($value["id"]);
-        $totalPaidAmount += $partialPaid;
-        $totalUnpaidAmount += ($value["totalPrice"] - $partialPaid);
+        // For partial payments, get the actual amount paid from partial_payments table
+        $partialPayment = PartialPaymentsController::ctrShowSalePartialPayment($value["id"]);
+        if($partialPayment){
+            $totalPaidAmount += $partialPayment["amount_paid"];
+            $totalUnpaidAmount += $partialPayment["balance_remaining"];
+        }else{
+            // If no partial payment record found, count as unpaid
+            $totalUnpaidAmount += $value["totalPrice"];
+        }
     }else{
         $unpaidSales += $value["totalPrice"];
         $totalUnpaidAmount += $value["totalPrice"];
@@ -73,21 +78,21 @@ PAYMENT STATUS REPORT
 						<span class="info-box-number"><?php echo number_format($paidSales, 2); ?></span>
 					</div>
 				</div>
-			</div>
+		</div>
 
-			<div class="col-md-3 col-sm-6 col-xs-12">
-				<div class="info-box">
-					<span class="info-box-icon bg-yellow"><i class="fa fa-clock-o"></i></span>
-					<div class="info-box-content">
-						<span class="info-box-text">Partial Payments</span>
-						<span class="info-box-number"><?php echo number_format($partialSales, 2); ?></span>
-					</div>
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<div class="info-box">
+				<span class="info-box-icon bg-yellow"><i class="fa fa-clock-o"></i></span>
+				<div class="info-box-content">
+					<span class="info-box-text">Partial Payments</span>
+					<span class="info-box-number"><?php echo number_format($partialSales, 2); ?></span>
 				</div>
 			</div>
+		</div>
 
-			<div class="col-md-3 col-sm-6 col-xs-12">
-				<div class="info-box">
-					<span class="info-box-icon bg-red"><i class="fa fa-exclamation"></i></span>
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<div class="info-box">
+				<span class="info-box-icon bg-red"><i class="fa fa-exclamation"></i></span>
 					<div class="info-box-content">
 						<span class="info-box-text">Unpaid</span>
 						<span class="info-box-number"><?php echo number_format($unpaidSales, 2); ?></span>
