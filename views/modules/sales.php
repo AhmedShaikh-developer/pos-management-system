@@ -12,17 +12,6 @@ if($_SESSION["profile"] == "Special"){
 
 }
 
-
-$xml = ControllerSales::ctrDownloadXML();
-
-if($xml){
-
-  rename($_GET["xml"].".xml", "xml/".$_GET["xml"].".xml");
-
-  echo '<a class="btn btn-block btn-success openXML" file="xml/'.$_GET["xml"].'.xml" href="sales">The XML file has been created succesfully<span class="fa fa-times pull-right"></span></a>';
-
-}
-
 ?>
 <div class="content-wrapper">
 
@@ -142,9 +131,9 @@ if($xml){
                     echo '<td><span class="label label-danger">Unpaid</span></td>';
                   }
 
-                  echo '<td>$ '.number_format($value["netPrice"],2).'</td>
+                  echo '<td>'.number_format($value["netPrice"],2).'</td>
 
-                  <td>$ '.number_format($value["totalPrice"],2).'</td>
+                  <td>'.number_format($value["totalPrice"],2).'</td>
 
                   <td>'.$value["saledate"].'</td>
 
@@ -154,8 +143,6 @@ if($xml){
                         
                       <div class="btn-group">
 
-                      <a class="btn btn-success" href="index.php?route=sales&xml='.$value["code"].'">xml</a>
-                        
                       <button class="btn btn-warning btnPrintBill" saleCode="'.$value["code"].'">
 
                         <i class="fa fa-print"></i>
@@ -317,9 +304,9 @@ MODAL RECORD PAYMENT
 
           <div id="paymentSummary" class="alert alert-info">
             <h4>Payment Summary</h4>
-            <p><strong>Total Amount:</strong> $<span id="totalAmount">0.00</span></p>
-            <p><strong>Amount Paid:</strong> $<span id="amountPaid">0.00</span></p>
-            <p><strong>Remaining Balance:</strong> $<span id="remainingBalance">0.00</span></p>
+            <p><strong>Total Amount:</strong> <span id="totalAmount">0.00</span></p>
+            <p><strong>Amount Paid:</strong> <span id="amountPaid">0.00</span></p>
+            <p><strong>Remaining Balance:</strong> <span id="remainingBalance">0.00</span></p>
           </div>
 
           <hr>
@@ -331,7 +318,6 @@ MODAL RECORD PAYMENT
             <div class="form-group">
               <label>Payment Amount:</label>
               <div class="input-group">
-                <span class="input-group-addon">$</span>
                 <input type="number" class="form-control" name="amountPaid" id="amountPaidInput" step="0.01" min="0.01" required>
               </div>
             </div>

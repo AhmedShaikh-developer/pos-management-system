@@ -73,7 +73,7 @@ class ReturnsTable{
 						"'.$sale["code"].'",
 						"'.$product["description"].'",
 						"'.$returns[$i]["quantity_returned"].'",
-						"$ '.number_format($returns[$i]["refund_amount"],2).'",
+						"'.number_format($returns[$i]["refund_amount"],2).'",
 						"'.$type.'",
 						"'.$returns[$i]["reason"].'",
 						"'.$user["name"].'",

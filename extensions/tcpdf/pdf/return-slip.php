@@ -183,13 +183,13 @@ $block4 = <<<EOF
 
 			<td style="border: 2px solid #34495e; background-color:#ffffff; padding: 10px; width:22.5%; text-align:right; font-size: 11px;">
 			
-				$ $product[sellingPrice]
+				$product[sellingPrice]
 			
 			</td>
 
 			<td style="border: 2px solid #34495e; background-color:#ffffff; padding: 10px; width:22.5%; text-align:right; font-size: 11px;">
 			
-				$ $refundAmount
+				$refundAmount
 			
 			</td>
 
@@ -218,10 +218,10 @@ $block5 = <<<EOF
 				
 			</td>
 
-			<td style="border: 2px solid #34495e; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-weight: bold; font-size: 13px; color: #2c3e50;">
-				
-				$ $refundAmount
-				
+		<td style="border: 2px solid #34495e; background-color: #f8f9fa; padding: 12px; width:22.5%; text-align:right; font-weight: bold; font-size: 13px; color: #2c3e50;">
+			
+				$refundAmount
+			
 			</td>
 
 		</tr>

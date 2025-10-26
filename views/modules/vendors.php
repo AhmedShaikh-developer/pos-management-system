@@ -90,7 +90,7 @@ if($_SESSION["profile"] != "Administrator"){
 
                       <td>'.$value["address"].'</td>
 
-                      <td>$ '.number_format($balanceAmount, 2).'</td>
+                      <td>'.number_format($balanceAmount, 2).'</td>
 
                       <td>'.$value["created_at"].'</td>
 

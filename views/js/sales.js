@@ -845,15 +845,3 @@ $(".daterangepicker.opensleft .ranges li").on("click", function(){
 
 })
 
-/*=============================================
-OPEN XML FILE IN A NEW TAB
-=============================================*/
-
-$(".openXML").click(function(){
-
-	var file = $(this).attr("file");
-	window.open(file, "_blank");
-
-
-})
-

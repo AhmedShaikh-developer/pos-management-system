@@ -162,9 +162,9 @@ if($_SESSION["profile"] != "Administrator"){
                       <td>'.($key+1).'</td>
                       <td><a href="customers">'.$customer["name"].'</a></td>
                       <td>'.$customer["phone"].'</td>
-                      <td>$ '.number_format($totalPurchases, 2).'</td>
-                      <td>$ '.number_format($totalPaid, 2).'</td>
-                      <td>$ '.number_format($unpaidBalance, 2).'</td>
+                      <td>'.number_format($totalPurchases, 2).'</td>
+                      <td>'.number_format($totalPaid, 2).'</td>
+                      <td>'.number_format($unpaidBalance, 2).'</td>
                       <td>'.$lastTransaction.'</td>
                       <td>'.$statusBadge.'</td>
                     </tr>';

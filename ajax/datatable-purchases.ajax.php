@@ -54,7 +54,7 @@ class PurchasesTable{
 						"'.($i+1).'",
 						"'.$purchases[$i]["reference_no"].'",
 						"'.$vendor["name"].'",
-						"$ '.number_format($purchases[$i]["total_amount"],2).'",
+						"'.number_format($purchases[$i]["total_amount"],2).'",
 						"'.$status.'",
 						"'.$purchases[$i]["payment_method"].'",
 						"'.$purchases[$i]["created_at"].'",

@@ -75,9 +75,9 @@ if(isset($_GET["report"])){
 		echo utf8_decode("<tr>
 					<td style='border:1px solid #eee;'>".$customer["name"]."</td>
 					<td style='border:1px solid #eee;'>".$customer["phone"]."</td>
-					<td style='border:1px solid #eee;'>$ ".number_format($totalPurchases,2)."</td>
-					<td style='border:1px solid #eee;'>$ ".number_format($totalPaid,2)."</td>
-					<td style='border:1px solid #eee;'>$ ".number_format($unpaidBalance,2)."</td>
+				<td style='border:1px solid #eee;'>".number_format($totalPurchases,2)."</td>
+				<td style='border:1px solid #eee;'>".number_format($totalPaid,2)."</td>
+				<td style='border:1px solid #eee;'>".number_format($unpaidBalance,2)."</td>
 					<td style='border:1px solid #eee;'>".$lastTransaction."</td>
 					<td style='border:1px solid #eee;'>".$status."</td>
 					</tr>");

@@ -301,8 +301,8 @@ $(document).on('click', '.product-img-clickable', function(e){
 	$('#modalProductDescription').text(productDescription);
 	$('#modalProductCategory').text(productCategory);
 	$('#modalProductStock').text(productStock);
-	$('#modalProductBuying').text('$ ' + productBuying);
-	$('#modalProductSelling').text('$ ' + productSelling);
+	$('#modalProductBuying').text(productBuying);
+	$('#modalProductSelling').text(productSelling);
 
 	// Show the modal
 	$('#productImageModal').modal('show');
@@ -336,8 +336,8 @@ $('.productsTable').on('click', 'img.product-img-clickable', function(e){
 	$('#modalProductDescription').text(productDescription);
 	$('#modalProductCategory').text(productCategory);
 	$('#modalProductStock').text(productStock);
-	$('#modalProductBuying').text('$ ' + productBuying);
-	$('#modalProductSelling').text('$ ' + productSelling);
+	$('#modalProductBuying').text(productBuying);
+	$('#modalProductSelling').text(productSelling);
 
 	// Show the modal
 	$('#productImageModal').modal('show');

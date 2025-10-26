@@ -60,7 +60,7 @@ class ControllerPartialPayments{
 							$newStatus = "Paid";
 							$statusMessage = "Payment status updated to Paid. Sale is now fully paid!";
 						} elseif($totalPaid > 0) {
-							$statusMessage = "Payment status updated to Partial. Remaining balance: $" . number_format($remainingBalance, 2);
+							$statusMessage = "Payment status updated to Partial. Remaining balance: " . number_format($remainingBalance, 2);
 						}
 						
 					// Update sale payment status
@@ -87,7 +87,7 @@ class ControllerPartialPayments{
 						swal({
 							  type: "success",
 							  title: "Payment Recorded!",
-							  html: "Payment of $' . $_POST["amountPaid"] . ' has been successfully recorded.<br><br>' . $statusMessage . '",
+						html: "Payment of ' . $_POST["amountPaid"] . ' has been successfully recorded.<br><br>' . $statusMessage . '",
 							  showConfirmButton: true,
 							  confirmButtonText: "Close"
 

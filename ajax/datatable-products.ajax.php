@@ -86,8 +86,8 @@ class productsTable{
 					"'.addslashes($products[$i]["description"]).'",
 					"'.addslashes($categoryName).'",
 					"'.$stock.'",
-					"$ '.$products[$i]["buyingPrice"].'",
-					"$ '.$products[$i]["sellingPrice"].'",
+				"'.$products[$i]["buyingPrice"].'",
+				"'.$products[$i]["sellingPrice"].'",
 					"'.$products[$i]["date"].'",
 					"'.$buttons.'"
 				],'; 

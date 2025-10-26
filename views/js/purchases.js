@@ -468,11 +468,11 @@ $("#selectVendor").change(function(){
       
       	if(answer && answer["balance"]){
 
-      		$("#vendorBalance").html("Unpaid Balance: $" + Number(answer["balance"]).toFixed(2));
+      		$("#vendorBalance").html("Unpaid Balance: " + Number(answer["balance"]).toFixed(2));
 
       	}else{
 
-      		$("#vendorBalance").html("Unpaid Balance: $0.00");
+      		$("#vendorBalance").html("Unpaid Balance: 0.00");
 
       	}
 	  }
