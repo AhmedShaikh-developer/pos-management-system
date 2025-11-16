@@ -41,6 +41,25 @@ class ControllerVendors{
 
 					</script>';
 
+				}else{
+
+					echo'<script>
+
+					swal({
+						  type: "error",
+						  title: "Error saving vendor. Please check if there are duplicate constraints in the database.",
+						  showConfirmButton: true,
+						  confirmButtonText: "Close"
+						  }).then(function(result){
+							if (result.value) {
+
+							window.location = "vendors";
+
+							}
+						})
+
+			  	</script>';
+
 				}
 
 			}else{

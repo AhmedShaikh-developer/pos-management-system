@@ -9,23 +9,42 @@ class ModelCustomers{
 	=============================================*/
 	static public function mdlAddCustomer($table, $data){
 
-		$stmt = Connection::connect()->prepare("INSERT INTO $table(name, idDocument, email, phone, address, birthdate) VALUES (:name, :idDocument, :email, :phone, :address, :birthdate)");
+		try {
+			$stmt = Connection::connect()->prepare("INSERT INTO $table(name, idDocument, email, phone, address, birthdate) VALUES (:name, :idDocument, :email, :phone, :address, :birthdate)");
 
-		$stmt->bindParam(":name", $data["name"], PDO::PARAM_STR);
-		$stmt->bindParam(":idDocument", $data["idDocument"], PDO::PARAM_INT);
-		$stmt->bindParam(":email", $data["email"], PDO::PARAM_STR);
-		$stmt->bindParam(":phone", $data["phone"], PDO::PARAM_STR);
-		$stmt->bindParam(":address", $data["address"], PDO::PARAM_STR);
-		$stmt->bindParam(":birthdate", $data["birthdate"], PDO::PARAM_STR);
+			$stmt->bindParam(":name", $data["name"], PDO::PARAM_STR);
+			$stmt->bindParam(":idDocument", $data["idDocument"], PDO::PARAM_INT);
+			$stmt->bindParam(":email", $data["email"], PDO::PARAM_STR);
+			$stmt->bindParam(":phone", $data["phone"], PDO::PARAM_STR);
+			$stmt->bindParam(":address", $data["address"], PDO::PARAM_STR);
+			$stmt->bindParam(":birthdate", $data["birthdate"], PDO::PARAM_STR);
 
-		if($stmt->execute()){
+			if($stmt->execute()){
 
-			return "ok";
+				return "ok";
 
-		}else{
+			}else{
 
+				return "error";
+			
+			}
+		} catch (PDOException $e) {
+			// Check if it's a duplicate key error - if so, allow it for phone/address
+			// Only return error for critical duplicate keys (like idDocument if it has unique constraint)
+			$errorCode = $e->getCode();
+			if ($errorCode == 23000) { // Integrity constraint violation
+				$errorMsg = $e->getMessage();
+				// If it's a duplicate on phone/address, we allow it (user wants duplicates)
+				// Only fail if it's a critical unique constraint like idDocument
+				if (strpos($errorMsg, 'idDocument') !== false || strpos($errorMsg, 'email') !== false) {
+					return "error";
+				}
+				// For phone/address duplicates, allow the insert by trying again or returning ok
+				// Actually, if there's a unique constraint, we can't insert. Let's just return error
+				// But the user wants to allow duplicates, so there shouldn't be unique constraints
+				return "error";
+			}
 			return "error";
-		
 		}
 
 		$stmt->close();

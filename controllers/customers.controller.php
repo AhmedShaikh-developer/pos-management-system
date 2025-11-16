@@ -46,6 +46,25 @@ class ControllerCustomers{
 
 					</script>';
 
+				}else{
+
+					echo'<script>
+
+					swal({
+						  type: "error",
+						  title: "Error saving customer. Please check if there are duplicate constraints in the database.",
+						  showConfirmButton: true,
+						  confirmButtonText: "Close"
+						  }).then(function(result){
+							if (result.value) {
+
+							window.location = "customers";
+
+							}
+						})
+
+			  	</script>';
+
 				}
 
 			}else{

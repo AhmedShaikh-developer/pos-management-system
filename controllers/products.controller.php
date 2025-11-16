@@ -23,7 +23,7 @@ class controllerProducts{
 
 		if(isset($_POST["newDescription"])){
 
-			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["newDescription"]) &&
+			if(!empty(trim($_POST["newDescription"])) &&
 			   preg_match('/^[0-9]+$/', $_POST["newStock"]) &&	
 			   preg_match('/^[0-9.]+$/', $_POST["newBuyingPrice"]) &&
 			   preg_match('/^[0-9.]+$/', $_POST["newSellingPrice"])){
@@ -127,6 +127,25 @@ class controllerProducts{
 
 						</script>';
 
+				}else{
+
+					echo'<script>
+
+						swal({
+							  type: "error",
+							  title: "Error saving product. Product code might already exist or there may be a database constraint issue.",
+							  showConfirmButton: true,
+							  confirmButtonText: "Close"
+							  }).then(function(result){
+								if (result.value) {
+
+								window.location = "products";
+
+								}
+							})
+
+				  	</script>';
+
 				}
 
 
@@ -161,7 +180,7 @@ class controllerProducts{
 
 		if(isset($_POST["editDescription"])){
 
-			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editDescription"]) &&
+			if(!empty(trim($_POST["editDescription"])) &&
 			   preg_match('/^[0-9]+$/', $_POST["editStock"]) &&	
 			   preg_match('/^[0-9.]+$/', $_POST["editBuyingPrice"]) &&
 			   preg_match('/^[0-9.]+$/', $_POST["editSellingPrice"])){

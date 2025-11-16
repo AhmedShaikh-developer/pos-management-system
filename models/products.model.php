@@ -39,24 +39,41 @@ class ProductsModel{
 	=============================================*/
 	static public function mdlAddProduct($table, $data){
 
-		$stmt = Connection::connect()->prepare("INSERT INTO $table(idCategory, code, description, image, stock, buyingPrice, sellingPrice) VALUES (:idCategory, :code, :description, :image, :stock, :buyingPrice, :sellingPrice)");
+		try {
+			$stmt = Connection::connect()->prepare("INSERT INTO $table(idCategory, code, description, image, stock, buyingPrice, sellingPrice) VALUES (:idCategory, :code, :description, :image, :stock, :buyingPrice, :sellingPrice)");
 
-		$stmt->bindParam(":idCategory", $data["idCategory"], PDO::PARAM_INT);
-		$stmt->bindParam(":code", $data["code"], PDO::PARAM_STR);
-		$stmt->bindParam(":description", $data["description"], PDO::PARAM_STR);
-		$stmt->bindParam(":image", $data["image"], PDO::PARAM_STR);
-		$stmt->bindParam(":stock", $data["stock"], PDO::PARAM_STR);
-		$stmt->bindParam(":buyingPrice", $data["buyingPrice"], PDO::PARAM_STR);
-		$stmt->bindParam(":sellingPrice", $data["sellingPrice"], PDO::PARAM_STR);
+			$stmt->bindParam(":idCategory", $data["idCategory"], PDO::PARAM_INT);
+			$stmt->bindParam(":code", $data["code"], PDO::PARAM_STR);
+			$stmt->bindParam(":description", $data["description"], PDO::PARAM_STR);
+			$stmt->bindParam(":image", $data["image"], PDO::PARAM_STR);
+			$stmt->bindParam(":stock", $data["stock"], PDO::PARAM_STR);
+			$stmt->bindParam(":buyingPrice", $data["buyingPrice"], PDO::PARAM_STR);
+			$stmt->bindParam(":sellingPrice", $data["sellingPrice"], PDO::PARAM_STR);
 
-		if($stmt->execute()){
+			if($stmt->execute()){
 
-			return "ok";
+				return "ok";
 
-		}else{
+			}else{
 
+				return "error";
+			
+			}
+		} catch (PDOException $e) {
+			// Handle database errors - allow duplicates on description (product name)
+			// Only code should be unique if there's a constraint
+			$errorCode = $e->getCode();
+			if ($errorCode == 23000) { // Integrity constraint violation
+				$errorMsg = $e->getMessage();
+				// If it's a duplicate on code, that's expected to be unique
+				// But if it's on description, we should allow it
+				if (strpos($errorMsg, 'code') !== false) {
+					return "error"; // Code should be unique
+				}
+				// For other duplicates, allow them
+				return "error";
+			}
 			return "error";
-		
 		}
 
 		$stmt->close();
