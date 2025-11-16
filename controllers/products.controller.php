@@ -32,9 +32,9 @@ class controllerProducts{
 				VALIDATE IMAGE
 				=============================================*/
 
-			   	$route = "views/img/products/default/anonymous.png";
+			  	$route = "views/img/products/default/anonymous.png";
 
-			   	if(isset($_FILES["newProdPhoto"]["tmp_name"])){
+			   	if(isset($_FILES["newProdPhoto"]["tmp_name"]) && !empty($_FILES["newProdPhoto"]["tmp_name"]) && is_uploaded_file($_FILES["newProdPhoto"]["tmp_name"])){
 
 					list($width, $height) = getimagesize($_FILES["newProdPhoto"]["tmp_name"]);
 
@@ -47,7 +47,9 @@ class controllerProducts{
 
 					$folder = "views/img/products/".$_POST["newCode"];
 
-					mkdir($folder, 0755);
+					if(!is_dir($folder)){
+						mkdir($folder, 0755);
+					}
 					/*=============================================
 					WE APPLY DEFAULT PHP FUNCTIONS ACCORDING TO THE IMAGE FORMAT
 					=============================================*/
